@@ -7,10 +7,9 @@ export const navLinks = [
 ];
 
 export const socialLinks = [
-  { label: "My Cozy Corner", href: "/articles" },
-  { label: "Explore the Toolkit", href: "/projects" },
-  { label: "Join the Quiet Circle", href: "/#quiet-circle" },
-  { label: "Send a Note", href: "/contact" },
+  { label: "Instagram", href: "https://instagram.com/dkjonah" },
+  { label: "X / Twitter", href: "https://x.com/dkjonah" },
+  { label: "Facebook", href: "https://facebook.com/dkjonah" },
 ];
 
 export const legalLinks = [

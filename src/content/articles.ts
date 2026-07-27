@@ -5,7 +5,9 @@ export type Article = {
   readTime: string;
   image: string;
   excerpt: string;
-  body: string[];
+  body: string | string[];
+  categories?: { name: string; slug: string }[];
+  tags?: { name: string; slug: string }[];
 };
 
 export const articles: Article[] = [

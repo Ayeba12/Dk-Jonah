@@ -1,17 +1,17 @@
 # AGENTS.md
 
 ## Project Overview
-- **Project:** [Name] — [one sentence describing what it does]
-- **Target user:** [e.g. developers, small businesses, lawyers]
-- **My skill level:** [beginner / intermediate / expert]
-- **Stack:** [e.g. Next.js, Supabase, Tailwind — or "see package files"]
+- **Project:** DK Jonah — A lifestyle and personal voice brand built around chronic illness, neurodiversity, faith, softness, and honest belonging.
+- **Target user:** People navigating invisible illness, neurodivergence, emotional sensitivity, exhaustion, grief, or pressure to perform.
+- **My skill level:** Expert
+- **Stack:** Next.js 16, React 19, Tailwind CSS v4, Headless WordPress (WPGraphQL + ACF)
 
 ## Commands
-- **Install:** [e.g. `npm install`, `pip install -r requirements.txt`]
-- **Dev:** [e.g. `npm run dev`, `python manage.py runserver`]
-- **Build:** [e.g. `npm run build`]
-- **Test:** [e.g. `npm test`, `pytest`]
-- **Lint:** [e.g. `npm run lint`, `ruff check .`]
+- **Install:** `npm install`
+- **Dev:** `npm run dev`
+- **Build:** `npm run build`
+- **Test:** `npm test`
+- **Lint:** `npm run lint`
 
 ## Do
 - Read existing code before modifying anything

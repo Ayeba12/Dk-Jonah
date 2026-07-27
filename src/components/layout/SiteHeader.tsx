@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { navLinks } from "@/content/navigation";
+import { ArrowButton } from "@/components/ui/ArrowButton";
 
 export const SiteHeader = () => {
   const pathname = usePathname();
@@ -13,32 +15,36 @@ export const SiteHeader = () => {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
-      <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between rounded-2xl border border-white/20 bg-[#201a16]/88 px-4 text-white shadow-2xl shadow-black/10 backdrop-blur-xl md:px-6">
+      <nav className="mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between rounded-2xl border border-white/20 bg-[#201a16]/88 px-4 text-white shadow-2xl shadow-black/10 backdrop-blur-xl md:px-12">
         <Link
           aria-label="DK Jonah home"
-          className="font-display text-lg font-bold tracking-normal"
+          className="relative h-9 w-20 flex items-center shrink-0"
           href="/"
           onClick={closeMenu}
         >
-          DK JONAH
+          <Image
+            alt="DK Jonah logo"
+            className="object-contain object-left brightness-0 invert"
+            fill
+            priority
+            src="/assets/avenzor/images/website-logo.png"
+          />
         </Link>
-        <nav className="hidden items-center gap-12 md:flex">
-          {navLinks.map((link) => {
-            const active = pathname === link.href;
+        {navLinks.map((link) => {
+          const active = pathname === link.href;
 
-            return (
-              <Link
-                className={`text-sm transition-colors hover:text-[#ead9ad] ${
-                  active ? "text-[#ead9ad]" : "text-white/82"
-                }`}
-                href={link.href}
-                key={link.href}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
+          return (
+            <Link
+              className={`hidden text-sm transition-colors hover:text-[#ead9ad] md:block shrink-0 ${
+                active ? "text-[#ead9ad]" : "text-white/82"
+              }`}
+              href={link.href}
+              key={link.href}
+            >
+              {link.label}
+            </Link>
+          );
+        })}
         <button
           aria-expanded={isOpen}
           aria-label="Toggle menu"
@@ -51,7 +57,7 @@ export const SiteHeader = () => {
             <span className="h-px bg-white" />
           </span>
         </button>
-      </div>
+      </nav>
       {isOpen ? (
         <div className="mx-auto mt-3 w-[calc(100%-8px)] max-w-[1440px] rounded-2xl border border-[#ded2c1] bg-[#fffaf2] p-4 shadow-2xl md:hidden">
           <nav className="flex flex-col">
@@ -66,6 +72,11 @@ export const SiteHeader = () => {
               </Link>
             ))}
           </nav>
+          <div className="mt-4 border-t border-[#ded2c1] pt-4">
+            <ArrowButton href="/#quiet-circle" onClick={closeMenu} variant="dark">
+              Join the Quiet Circle
+            </ArrowButton>
+          </div>
         </div>
       ) : null}
     </header>

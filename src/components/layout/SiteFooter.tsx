@@ -1,12 +1,13 @@
 import Link from "next/link";
+import Image from "next/image";
 import { NewsletterForm } from "@/components/forms/NewsletterForm";
 import { legalLinks, navLinks, socialLinks } from "@/content/navigation";
 import { profile } from "@/content/portfolio";
 
 export const SiteFooter = () => (
-  <footer className="bg-[#201a16] text-white">
+  <footer className="relative bg-[#201a16] text-white overflow-hidden">
     <section
-      className="container-shell grid gap-8 border-b border-white/10 py-16 md:grid-cols-[0.8fr_1.2fr] md:py-24"
+      className="relative z-10 container-shell grid gap-8 border-b border-white/10 py-16 md:grid-cols-[0.8fr_1.2fr] md:py-24"
       id="quiet-circle"
     >
       <div>
@@ -24,7 +25,7 @@ export const SiteFooter = () => (
         <NewsletterForm />
       </div>
     </section>
-    <section className="container-shell grid gap-12 py-12 md:grid-cols-[1.2fr_0.6fr_0.6fr]">
+    <section className="relative z-10 container-shell grid gap-12 py-12 md:grid-cols-[1.2fr_0.6fr_0.6fr]">
       <div>
         <p className="mb-5 text-sm text-white/45">[Contact]</p>
         <a
@@ -38,12 +39,18 @@ export const SiteFooter = () => (
       <FooterColumn label="[Menu]" links={navLinks} />
       <FooterColumn label="[Social Media]" links={socialLinks} />
     </section>
-    <section className="container-shell flex flex-col gap-8 border-t border-white/10 py-8 md:flex-row md:items-end md:justify-between">
+    <section className="relative z-10 container-shell flex flex-col gap-8 border-t border-white/10 py-8 md:flex-row md:items-end md:justify-between">
       <div>
-        <p className="font-display text-5xl font-bold leading-none text-[#ead9ad] md:text-8xl">
-          DK JONAH
-        </p>
-        <p className="mt-3 text-sm text-white/45">© 2026 DK Jonah</p>
+        <div className="relative h-12 w-28 md:h-16 md:w-36 mb-4">
+          <Image
+            alt="DK Jonah logo"
+            className="object-contain object-left brightness-0 invert"
+            fill
+            sizes="(min-width: 768px) 15vw, 30vw"
+            src="/assets/avenzor/images/website-logo.png"
+          />
+        </div>
+        <p className="text-sm text-white/45">© 2026 DK Jonah</p>
       </div>
       <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-white/55">
         {legalLinks.map((link) => (
@@ -53,6 +60,11 @@ export const SiteFooter = () => (
         ))}
       </div>
     </section>
+    <div className="pointer-events-none select-none absolute bottom-0 right-0 w-full overflow-hidden text-right leading-none z-0">
+      <span className="font-display font-bold text-[24vw] tracking-tighter text-white/[0.03] uppercase inline-block whitespace-nowrap pr-[8vw] translate-y-[5%]">
+        DK JONAH
+      </span>
+    </div>
   </footer>
 );
 

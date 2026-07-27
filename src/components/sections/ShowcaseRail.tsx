@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ArrowButton } from "@/components/ui/ArrowButton";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 const quietMoments = [
   {
@@ -66,77 +67,102 @@ export const ShowcaseRail = () => {
   return (
     <section className="overflow-hidden bg-[#201a16] py-20 text-white md:py-24 xl:py-28">
       <div className="container-shell">
-        <div className="mb-12 grid gap-6 lg:grid-cols-[0.8fr_1fr] lg:items-end">
-          <div>
-            <p className="mb-4 text-sm font-medium text-[#e4c982]">
-              [Quiet Moments]
-            </p>
-            <h2 className="font-display text-4xl font-semibold leading-[0.98] md:text-5xl lg:text-6xl">
-              Small pauses for the parts of life that need tenderness
-            </h2>
-          </div>
-          <div className="max-w-2xl text-base leading-7 text-white/62 md:text-lg lg:justify-self-end lg:text-right">
-            <p>
-              These scenes shape the DK Jonah world: warm light, honest pages,
-              tea, rest, faith, and softness that does not have to explain
-              itself.
-            </p>
-            <p className="mt-4 text-white/45">
-              They are not escapes from real life. They are invitations to
-              return to it with more language, care, and belonging.
-            </p>
-          </div>
-        </div>
-        <div className="grid gap-x-5 gap-y-10 md:grid-cols-2 xl:grid-cols-4">
-          {quietMoments.map((moment) => (
-            <article className="group" key={moment.src}>
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] border border-white/10 bg-white/5">
-                <Image
-                  alt={moment.alt}
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  fill
-                  loading="eager"
-                  sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
-                  src={moment.src}
-                />
-              </div>
-              <div className="mt-5 flex items-center justify-between gap-4">
-                <h3 className="font-display text-2xl font-medium leading-tight">
-                  {moment.title}
-                </h3>
-                <button
-                  aria-haspopup="dialog"
-                  aria-label={`Read description for ${moment.title}`}
-                  className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[#ead9ad]/35 text-lg leading-none text-[#ead9ad] transition-colors duration-200 hover:bg-[#ead9ad] hover:text-[#201a16] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ead9ad]"
-                  onClick={() => setActiveMoment(moment)}
-                  type="button"
-                >
-                  <span aria-hidden="true">+</span>
-                </button>
-              </div>
-            </article>
-          ))}
-        </div>
-        <div className="mt-10 grid gap-6 border-y border-white/10 py-7 md:grid-cols-4">
-          {quietRhythm.map((item, index) => (
-            <div className="flex items-center gap-4 text-white/72" key={item}>
-              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-[#ead9ad]/30 text-xs text-[#ead9ad]">
-                0{index + 1}
-              </span>
-              <span className="text-sm leading-6 md:text-base">{item}</span>
+        <ScrollReveal>
+          <div className="mb-12 grid gap-6 lg:grid-cols-[0.8fr_1fr] lg:items-end">
+            <div>
+              <p className="mb-4 text-sm font-medium text-[#ead9ad]">
+                [Quiet Moments]
+              </p>
+              <h2 className="font-display text-4xl font-semibold leading-[0.98] md:text-5xl lg:text-6xl">
+                Small pauses for the parts of life that need tenderness
+              </h2>
             </div>
+            <div className="max-w-2xl text-base leading-7 text-white/62 md:text-lg lg:justify-self-end lg:text-right">
+              <p>
+                These scenes shape the DK Jonah world: warm light, honest pages,
+                tea, rest, faith, and softness that does not have to explain
+                itself.
+              </p>
+              <p className="mt-4 text-white/45">
+                They are not escapes from real life. They are invitations to
+                return to it with more language, care, and belonging.
+              </p>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        <div className="grid gap-x-5 gap-y-10 md:grid-cols-2 xl:grid-cols-4">
+          {quietMoments.map((moment, index) => (
+            <ScrollReveal delay={index * 0.1} key={moment.src}>
+              <article className="group">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-white/10 bg-white/5">
+                  <Image
+                    alt={moment.alt}
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    fill
+                    loading="eager"
+                    sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
+                    src={moment.src}
+                  />
+                </div>
+                <div className="mt-4 flex items-center justify-between gap-3">
+                  <h3 className="font-display text-base font-medium leading-none">
+                    {moment.title}
+                  </h3>
+                  <button
+                    aria-haspopup="dialog"
+                    aria-label={`Read description for ${moment.title}`}
+                    className="flex items-center gap-1 rounded-full border border-[#ead9ad]/30 px-3 py-1 text-xs font-medium text-[#ead9ad] transition-colors duration-200 hover:bg-[#ead9ad] hover:text-[#201a16] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ead9ad]"
+                    onClick={() => setActiveMoment(moment)}
+                    type="button"
+                  >
+                    <span>Open</span>
+                    <svg
+                      className="h-3 w-3 transform transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M7 17L17 7M17 7H7M17 7V17"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2.5"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </article>
+            </ScrollReveal>
           ))}
         </div>
-        <div className="mt-8 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-          <p className="max-w-2xl text-lg leading-8 text-white/62">
-            Quiet does not ask you to disappear. It gives you language for
-            coming back to yourself, your people, and the gentle presence of
-            God.
-          </p>
-          <ArrowButton href="/#quiet-circle" variant="light">
-            Join the Quiet Circle
-          </ArrowButton>
-        </div>
+
+        <ScrollReveal>
+          <div className="mt-10 grid gap-6 border-y border-white/10 py-7 md:grid-cols-4">
+            {quietRhythm.map((item, index) => (
+              <div className="flex items-center gap-4 text-white/72" key={item}>
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-[#ead9ad]/30 text-xs text-[#ead9ad]">
+                  0{index + 1}
+                </span>
+                <span className="text-sm leading-6 md:text-base">{item}</span>
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.2}>
+          <div className="mt-8 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+            <p className="max-w-2xl text-lg leading-8 text-white/62">
+              Quiet does not ask you to disappear. It gives you language for
+              coming back to yourself, your people, and the gentle presence of
+              God.
+            </p>
+            <ArrowButton href="/#quiet-circle" variant="light">
+              Join the Quiet Circle
+            </ArrowButton>
+          </div>
+        </ScrollReveal>
       </div>
 
       {activeMoment ? (
@@ -148,7 +174,7 @@ export const ShowcaseRail = () => {
           role="dialog"
         >
           <div
-            className="w-full max-w-lg rounded-[28px] border border-[#d6bd7b]/35 bg-[#f6efe4] p-6 text-[#201a16] shadow-2xl md:p-8"
+            className="w-full max-w-lg rounded-[28px] border border-[#ead9ad]/35 bg-[#f6efe4] p-6 text-[#201a16] shadow-2xl md:p-8"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="mb-5 flex items-center justify-between gap-4">

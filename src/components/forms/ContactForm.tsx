@@ -15,12 +15,13 @@ const initialForm = {
 export const ContactForm = () => {
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const updateField = (field: keyof typeof initialForm, value: string | boolean) => {
     setForm((current) => ({ ...current, [field]: value }));
   };
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!form.name || !form.email || !form.message) {
@@ -38,8 +39,51 @@ export const ContactForm = () => {
       return;
     }
 
-    setStatus("Your note has been received. DK Jonah will reply when possible.");
-    setForm(initialForm);
+    setIsSubmitting(true);
+    setStatus("Sending note...");
+
+    try {
+      const formId = process.env.NEXT_PUBLIC_WORDPRESS_CONTACT_FORM_ID;
+      const apiUrl = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+
+      if (formId && apiUrl) {
+        // Strip /graphql to get standard site root
+        const siteRoot = apiUrl.replace(/\/graphql\/?$/, "");
+        const endpoint = `${siteRoot}/wp-json/contact-form-7/v1/contact-forms/${formId}/feedback`;
+
+        const bodyFormData = new FormData();
+        bodyFormData.append("your-name", form.name);
+        bodyFormData.append("your-email", form.email);
+        bodyFormData.append("your-phone", form.phone);
+        bodyFormData.append("your-subject", form.subject);
+        bodyFormData.append("your-message", form.message);
+
+        const response = await fetch(endpoint, {
+          method: "POST",
+          body: bodyFormData,
+        });
+
+        const resData = await response.json();
+        if (response.ok && resData.status === "mail_sent") {
+          setStatus("Your note has been received. DK Jonah will reply when possible.");
+          setForm(initialForm);
+        } else {
+          setStatus(resData.message || "Failed to send message. Please try again.");
+        }
+      } else {
+        // Mock fallback delay for offline/local mode
+        setTimeout(() => {
+          setStatus("Your note has been received. DK Jonah will reply when possible.");
+          setForm(initialForm);
+          setIsSubmitting(false);
+        }, 1000);
+        return;
+      }
+    } catch (e) {
+      console.error(e);
+      setStatus("Connection error sending note. Please try again later.");
+    }
+    setIsSubmitting(false);
   };
 
   return (
@@ -96,8 +140,8 @@ export const ContactForm = () => {
         />
         <span>I agree with the terms and understand this is not medical advice.</span>
       </label>
-      <ArrowButton className="mt-2" type="submit">
-        Send Note
+      <ArrowButton className="mt-2" disabled={isSubmitting} type="submit">
+        {isSubmitting ? "Sending..." : "Send Note"}
       </ArrowButton>
       {status ? <p className="text-sm text-[#7a7065]">{status}</p> : null}
     </form>
