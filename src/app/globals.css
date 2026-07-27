@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Avenzor Inter";
+  src: url("/assets/avenzor/fonts/inter/vQyevYAyHtARFwPqUzQGpnDs.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avenzor Inter";
+  src: url("/assets/avenzor/fonts/inter/d3tHnaQIAeqiE5hGcRw4mmgWYU.woff2")
+    format("woff2");
+  font-weight: 500 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avenzor Space Grotesk";
+  src: url("/assets/avenzor/fonts/space-grotesk/V2SN6OQGC3Z2CCFHLOEJRJKQXUTOKEBX.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avenzor Space Grotesk";
+  src: url("/assets/avenzor/fonts/space-grotesk/OB3CIWMGQGGYEGXRXPOVBXWAH4INE6T4.woff2")
+    format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avenzor Space Grotesk";
+  src: url("/assets/avenzor/fonts/space-grotesk/COAKOVM7H37QQIPEFBZNVR5EL4GEPLQU.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --background: #f8f2e8;
+  --foreground: #111111;
+  --muted: #7a7065;
+  --subtle: #9a8f83;
+  --line: #ded2c1;
+  --wash: #fffaf2;
+  --accent: #b68a3a;
+  --accent-soft: #ead9ad;
+}
+
+@theme inline {
+  --color-background: #f8f2e8;
+  --color-foreground: #111111;
+  --font-sans: "Avenzor Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Avenzor Inter", ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Avenzor Inter", ui-sans-serif, system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--accent);
+  color: #111111;
+}
+
+.font-display {
+  font-family: "Avenzor Space Grotesk", "Avenzor Inter", ui-sans-serif,
+    system-ui, sans-serif;
+}
+
+.grain {
+  background-image: radial-gradient(
+      circle at 20% 20%,
+      rgba(255, 255, 255, 0.16),
+      transparent 18%
+    ),
+    linear-gradient(135deg, rgba(234, 217, 173, 0.1), transparent 40%),
+    linear-gradient(#201a16, #201a16);
+}
+
+.container-shell {
+  width: min(100% - 32px, 1440px);
+  margin-inline: auto;
+}
+
+.section-padding {
+  padding-block: clamp(72px, 9vw, 144px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
