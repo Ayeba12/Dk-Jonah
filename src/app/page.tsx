@@ -8,7 +8,6 @@ import { WhatPeopleSaySection } from "@/components/sections/WhatPeopleSaySection
 import { ReflectionsSection } from "@/components/sections/ReflectionsSection";
 import { SpeakingSection } from "@/components/sections/SpeakingSection";
 import { CloseSection } from "@/components/sections/CloseSection";
-import { StackedSections } from "@/components/ui/StackedSections";
 import { homeSEO } from "@/content/home";
 
 export const metadata: Metadata = {
@@ -31,8 +30,8 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <StackedSections>
-      {/* 1. Hero */}
+    <>
+      {/* 1. Hero: its film stays pinned while the page scrolls over it */}
       <HomeHero />
 
       {/* 2. Recognition & 3. Why this space exists */}
@@ -58,6 +57,6 @@ export default function Home() {
 
       {/* 10. Close */}
       <CloseSection />
-    </StackedSections>
+    </>
   );
 }

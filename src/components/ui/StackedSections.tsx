@@ -15,8 +15,7 @@ type StackedSectionsProps = {
  * next one slides over it, like sheets laid on a desk. Short sections hold at
  * the top of the viewport; tall ones scroll through first, then hold at their
  * end so nothing becomes unreachable. The section underneath settles back
- * (a slight scale) and dims as it is covered. The first panel (the hero) keeps
- * its fixed background, so it only dims.
+ * (a slight scale) and dims as it is covered.
  */
 export const StackedSections = ({ children }: StackedSectionsProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -77,15 +76,10 @@ export const StackedSections = ({ children }: StackedSectionsProps) => {
       {panels.map((panel, index) => (
         <div
           className="stack-panel sticky"
-          data-scale={index === 0 ? "false" : undefined}
           key={index}
         >
           <div
-            className={`stack-inner relative origin-top ${
-              index === 0
-                ? ""
-                : "overflow-hidden rounded-t-[28px] shadow-[0_-24px_60px_rgba(0,0,0,0.22)]"
-            }`}
+            className="stack-inner relative origin-top overflow-hidden rounded-t-[28px] shadow-[0_-24px_60px_rgba(0,0,0,0.22)]"
           >
             {panel}
             <span
