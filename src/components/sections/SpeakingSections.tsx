@@ -160,41 +160,53 @@ export const TopicsSection = () => (
   </section>
 );
 
-// Section 5 · What I can do for your event. Cards with a sketch beneath, as the reference's approach cards.
+// Section 5 · What I can do for your event. The reference's approach cards: a full-height
+// picture with the text in a box floating over it, each card stepping down a little.
+const stagger = ["", "lg:mt-4", "lg:mt-8", "lg:mt-12", "lg:mt-16"];
+
 export const FormatsSection = () => (
   <section className="section-padding bg-ivory" id="formats">
     <div className="container-shell">
-      <ScrollReveal>
-        <h2 className="max-w-3xl font-display text-3xl font-bold uppercase leading-[1.02] text-balance sm:text-4xl lg:text-[3.5rem]">
-          {formatsContent.headline}
-        </h2>
-      </ScrollReveal>
-      <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+        <ScrollReveal>
+          <h2 className="max-w-3xl font-display text-3xl font-bold uppercase leading-[1.02] text-balance sm:text-4xl lg:text-[3.5rem]">
+            {formatsContent.headline}
+          </h2>
+        </ScrollReveal>
+        <ScrollReveal delay={0.1}>
+          <p className="max-w-xs text-base leading-relaxed text-black/65 lg:text-right">
+            {formatsContent.line}
+          </p>
+        </ScrollReveal>
+      </div>
+
+      <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-start">
         {formatsContent.formats.map((format, index) => (
-          <ScrollReveal delay={index * 0.05} key={format.title}>
-            <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-dove-tint">
-              <div className="p-6">
-                <p className="font-display text-lg font-semibold leading-snug">{format.title}</p>
+          <ScrollReveal className={stagger[index] ?? ""} delay={index * 0.05} key={format.title}>
+            <div
+              className={`relative aspect-[3/4] overflow-hidden rounded-2xl bg-dove-tint ${
+                index === formatsContent.formats.length - 1 ? "ring-2 ring-black" : ""
+              }`}
+            >
+              <Image
+                alt=""
+                className="object-cover"
+                fill
+                sizes="(min-width: 1024px) 20vw, (min-width: 640px) 50vw, 100vw"
+                src={format.image}
+              />
+              <div className="absolute inset-x-3 top-3 rounded-xl bg-ivory p-5 shadow-[0_12px_30px_rgba(0,0,0,0.12)]">
+                <p className="font-display text-lg font-semibold uppercase leading-tight">
+                  {format.title}
+                </p>
                 {format.detail ? (
-                  <p className="mt-2 text-sm leading-relaxed text-black/65">{format.detail}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-black/65">{format.detail}</p>
                 ) : null}
-              </div>
-              <div className="relative mt-auto aspect-square">
-                <Image
-                  alt=""
-                  className="object-cover"
-                  fill
-                  sizes="(min-width: 1024px) 20vw, (min-width: 640px) 50vw, 100vw"
-                  src={format.image}
-                />
               </div>
             </div>
           </ScrollReveal>
         ))}
       </div>
-      <ScrollReveal>
-        <p className="mt-10 text-base text-black/70">{formatsContent.line}</p>
-      </ScrollReveal>
     </div>
   </section>
 );
