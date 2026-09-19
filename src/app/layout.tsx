@@ -1,72 +1,58 @@
 import type { Metadata } from "next";
-import { Lora } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { CookieBanner } from "@/components/ui/CookieBanner";
 import "./globals.css";
 
-const lora = Lora({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-lora",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://dkjonah.com"),
   title: {
-    default: "DK Jonah | Soft Reflections For Invisible Realities",
+    default: "DK Jonah | Language and Structure for Invisible Realities",
     template: "%s | DK Jonah",
   },
   description:
-    "DK Jonah is a quiet lifestyle and reflection space for chronic illness, neurodiversity, faith, softness, and belonging.",
+    "DK Jonah turns lived experience and complex ideas into language and structure people can use. Chronic illness, neurodiversity, faith and pace.",
   keywords: [
-    "chronic illness lifestyle",
-    "neurodivergent writing",
-    "soft faith reflections",
-    "quiet lifestyle blog",
-    "energy capacity planning",
-    "gentle productivity resources",
     "DK Jonah",
+    "lived experience speaker",
+    "chronic illness writer",
+    "neurodivergent writing",
+    "faith reflections",
+    "hidden captivity",
+    "Routine Ready",
+    "Quiet Focus",
   ],
   alternates: {
     canonical: "./",
   },
   openGraph: {
-    title: "DK Jonah | Soft Reflections For Invisible Realities",
+    title: "DK Jonah | Language and Structure for Invisible Realities",
     description:
-      "DK Jonah is a quiet lifestyle and reflection space for chronic illness, neurodiversity, faith, softness, and belonging.",
+      "DK Jonah turns lived experience and complex ideas into language and structure people can use. Chronic illness, neurodiversity, faith and pace.",
     url: "https://dkjonah.com",
     siteName: "DK Jonah",
-    locale: "en_US",
+    locale: "en_GB",
     type: "website",
     images: [
       {
         url: "/assets/avenzor/images/website-logo.png",
         width: 1200,
         height: 630,
-        alt: "DK Jonah Logo",
+        alt: "DK Jonah",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "DK Jonah | Soft Reflections For Invisible Realities",
+    title: "DK Jonah | Language and Structure for Invisible Realities",
     description:
-      "DK Jonah is a quiet lifestyle and reflection space for chronic illness, neurodiversity, faith, softness, and belonging.",
+      "DK Jonah turns lived experience and complex ideas into language and structure people can use. Chronic illness, neurodiversity, faith and pace.",
     images: ["/assets/avenzor/images/website-logo.png"],
     creator: "@dkjonah",
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
   },
 };
 
@@ -76,10 +62,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`h-full antialiased ${lora.variable}`} suppressHydrationWarning>
-      <body className="min-h-full">
+    <html lang="en-GB">
+      <body className="antialiased">
         <SiteHeader />
-        <main>{children}</main>
+        {/* No overflow clipping here: it would break the sticky headings on About. */}
+        <main className="min-h-screen">{children}</main>
         <SiteFooter />
         <CookieBanner />
       </body>

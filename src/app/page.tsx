@@ -1,23 +1,63 @@
-import { AboutPreview } from "@/components/sections/AboutPreview";
-import { ArticlesPreview } from "@/components/sections/ArticlesPreview";
+import type { Metadata } from "next";
 import { HomeHero } from "@/components/sections/HomeHero";
-import { ProjectPreview } from "@/components/sections/ProjectPreview";
-import { RemixCta } from "@/components/sections/RemixCta";
-import { ServicesPricingFaq } from "@/components/sections/ServicesPricingFaq";
-import { ShowcaseRail } from "@/components/sections/ShowcaseRail";
-import { TrustAndTools } from "@/components/sections/TrustAndTools";
+import { RecognitionAndWhy } from "@/components/sections/RecognitionAndWhy";
+import { YourGuideSection } from "@/components/sections/YourGuideSection";
+import { QuietFocusSection } from "@/components/sections/QuietFocusSection";
+import { RoutineReadySection } from "@/components/sections/RoutineReadySection";
+import { WhatPeopleSaySection } from "@/components/sections/WhatPeopleSaySection";
+import { ReflectionsSection } from "@/components/sections/ReflectionsSection";
+import { SpeakingSection } from "@/components/sections/SpeakingSection";
+import { CloseSection } from "@/components/sections/CloseSection";
+import { StackedSections } from "@/components/ui/StackedSections";
+import { homeSEO } from "@/content/home";
+
+export const metadata: Metadata = {
+  title: homeSEO.title,
+  description: homeSEO.description,
+  keywords: homeSEO.keywords,
+  openGraph: {
+    title: homeSEO.title,
+    description: homeSEO.description,
+    url: "https://dkjonah.com",
+    siteName: "DK Jonah",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: homeSEO.title,
+    description: homeSEO.description,
+  },
+};
 
 export default function Home() {
   return (
-    <>
+    <StackedSections>
+      {/* 1. Hero */}
       <HomeHero />
-      <AboutPreview />
-      <ProjectPreview />
-      <ShowcaseRail />
-      <TrustAndTools />
-      <ServicesPricingFaq />
-      <ArticlesPreview />
-      <RemixCta />
-    </>
+
+      {/* 2. Recognition & 3. Why this space exists */}
+      <RecognitionAndWhy />
+
+      {/* 4. Your guide */}
+      <YourGuideSection />
+
+      {/* 5. Quiet Focus */}
+      <QuietFocusSection />
+
+      {/* 6. Routine Ready Toolkit */}
+      <RoutineReadySection />
+
+      {/* 7. What people say */}
+      <WhatPeopleSaySection />
+
+      {/* 8. Reflections */}
+      <ReflectionsSection />
+
+      {/* 9. Speaking */}
+      <SpeakingSection />
+
+      {/* 10. Close */}
+      <CloseSection />
+    </StackedSections>
   );
 }

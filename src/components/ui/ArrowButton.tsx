@@ -4,27 +4,44 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 type ArrowButtonProps = {
   children: ReactNode;
   href?: string;
-  variant?: "dark" | "light" | "accent";
+  /**
+   * dark: black pill, ivory text, gold arrow capsule (on ivory surfaces)
+   * light: outlined ivory pill for black surfaces, gold arrow capsule
+   * gold: solid gold pill, black text, black arrow capsule
+   * ivory: solid ivory pill, black text, gold arrow capsule (on black surfaces)
+   */
+  variant?: "dark" | "light" | "gold" | "ivory" | "accent";
   size?: "sm" | "md" | "lg";
   className?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const variantClass = {
-  dark: "border-[#201a16] bg-[#201a16] text-white",
-  light: "border-white/70 bg-white/10 text-white",
-  accent: "border-[#b68a3a] bg-[#b68a3a] text-[#111111]",
+  dark: "border-black bg-black text-ivory hover:bg-gold-shadow hover:border-gold-shadow",
+  light: "border-ivory/35 bg-ivory/10 text-ivory hover:bg-ivory/20",
+  gold: "border-gold bg-gold text-black hover:bg-champagne hover:border-champagne",
+  ivory: "border-ivory bg-ivory text-black hover:bg-champagne hover:border-champagne",
+  // Legacy alias used by pages not yet migrated.
+  accent: "border-gold bg-gold text-black hover:bg-champagne hover:border-champagne",
+};
+
+const capsuleClass = {
+  dark: "bg-gold text-black",
+  light: "bg-gold text-black",
+  gold: "bg-black text-ivory",
+  ivory: "bg-gold text-black",
+  accent: "bg-black text-ivory",
 };
 
 const sizeClass = {
-  sm: "h-9 pl-4 text-sm",
-  md: "h-12 pl-5 text-base",
-  lg: "h-16 pl-7 text-lg",
+  sm: "h-10 pl-4 text-sm gap-2.5",
+  md: "h-12 pl-5 text-[15px] gap-3",
+  lg: "h-14 pl-6 text-base gap-3.5",
 };
 
 const arrowSize = {
-  sm: "h-7 w-10",
-  md: "h-9 w-12",
-  lg: "h-12 w-16",
+  sm: "h-8 w-8",
+  md: "h-9 w-9",
+  lg: "h-11 w-11",
 };
 
 export const ArrowButton = ({
@@ -35,18 +52,19 @@ export const ArrowButton = ({
   className = "",
   ...buttonProps
 }: ArrowButtonProps) => {
-  const classes = `group inline-flex w-fit items-center gap-3 overflow-hidden rounded-2xl border pr-1 font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#b68a3a] ${variantClass[variant]} ${sizeClass[size]} ${className}`;
+  const classes = `group inline-flex w-fit items-center overflow-hidden rounded-full border pr-1.5 font-medium transition-colors duration-200 ${variantClass[variant]} ${sizeClass[size]} ${className}`;
+
   const content = (
     <>
       <span className="whitespace-nowrap">{children}</span>
       <span
-        className={`relative grid shrink-0 place-items-center overflow-hidden rounded-[inherit] bg-[#b68a3a] text-[#111111] ${arrowSize[size]}`}
         aria-hidden="true"
+        className={`relative grid shrink-0 place-items-center overflow-hidden rounded-full ${capsuleClass[variant]} ${arrowSize[size]}`}
       >
-        <span className="transition-transform duration-300 group-hover:translate-x-7">
+        <span className="transition-transform duration-300 ease-out group-hover:translate-x-8">
           <ArrowIcon />
         </span>
-        <span className="absolute -translate-x-7 transition-transform duration-300 group-hover:translate-x-0">
+        <span className="absolute -translate-x-8 transition-transform duration-300 ease-out group-hover:translate-x-0">
           <ArrowIcon />
         </span>
       </span>
@@ -55,7 +73,7 @@ export const ArrowButton = ({
 
   if (!href) {
     return (
-      <button className={classes} {...buttonProps}>
+      <button className={classes} type="button" {...buttonProps}>
         {content}
       </button>
     );

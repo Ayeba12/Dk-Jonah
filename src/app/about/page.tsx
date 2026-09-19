@@ -1,16 +1,30 @@
 import type { Metadata } from "next";
 import { AboutHero } from "@/components/sections/AboutHero";
-import { AboutStory } from "@/components/sections/AboutStory";
-import { AboutStats } from "@/components/sections/AboutStats";
-import { AboutThemes } from "@/components/sections/AboutThemes";
-import { AboutNarrative } from "@/components/sections/AboutNarrative";
+import { WhereMyWorkBeginsSection } from "@/components/sections/WhereMyWorkBeginsSection";
+import { MyStorySection } from "@/components/sections/MyStorySection";
+import { RolesAndHowIWorkSection } from "@/components/sections/RolesAndHowIWorkSection";
+import { BeliefsAndPromiseSection } from "@/components/sections/BeliefsAndPromiseSection";
+import { NoGraGraAndWhyStartSection } from "@/components/sections/NoGraGraAndWhyStartSection";
+import { aboutSEO } from "@/content/about";
 
 export const metadata: Metadata = {
-  title: "About DK Jonah | Soft Reflections & Rhythms",
-  description:
-    "Learn about DK Jonah, a quiet creative voice sharing reflections and gentle resources for chronic illness, neurodivergence, faith, and belonging.",
+  title: aboutSEO.title,
+  description: aboutSEO.description,
+  keywords: aboutSEO.keywords,
   alternates: {
     canonical: "/about",
+  },
+  openGraph: {
+    title: aboutSEO.title,
+    description: aboutSEO.description,
+    url: "https://dkjonah.com/about",
+    siteName: "DK Jonah",
+    type: "profile",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: aboutSEO.title,
+    description: aboutSEO.description,
   },
 };
 
@@ -21,13 +35,15 @@ export default function AboutPage() {
     "name": "DK Jonah",
     "url": "https://dkjonah.com/about",
     "image": "https://dkjonah.com/assets/avenzor/images/website-logo.png",
-    "description": "A creative lifestyle and reflection writer sharing gentle resources for navigating chronic illness, neurodivergence, faith, and soft belonging.",
-    "jobTitle": "Author & Creator",
+    "description":
+      "Nigerian writer, speaker and coach helping people set goals they can keep and build structure that fits their real life.",
+    "jobTitle": "Knowledge Architect, Speaker & Coach",
     "knowsAbout": [
       "Chronic Illness Advocacy",
-      "Neurodivergent Self-Care",
-      "Faith & Quiet Contemplation",
-      "Somatic Care Practices"
+      "Neurodiversity",
+      "Restorative Structure",
+      "Lived Experience Leadership",
+      "Faith Without Performance"
     ]
   };
 
@@ -37,11 +53,23 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      {/* 1. Hero */}
       <AboutHero />
-      <AboutNarrative />
-      <AboutStory />
-      <AboutThemes />
-      <AboutStats />
+
+      {/* 2. Where my work begins & 3. Why I do this work */}
+      <WhereMyWorkBeginsSection />
+
+      {/* 4. My story (#my-story) */}
+      <MyStorySection />
+
+      {/* 5. The roles I play & 6. How I work */}
+      <RolesAndHowIWorkSection />
+
+      {/* 7. What I believe & 8. My promise to you */}
+      <BeliefsAndPromiseSection />
+
+      {/* 9. NO GraGra & 10. Why start now */}
+      <NoGraGraAndWhyStartSection />
     </>
   );
 }

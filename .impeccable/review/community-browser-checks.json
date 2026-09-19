@@ -1,0 +1,352 @@
+[
+  {
+    "label": "traders-desktop",
+    "height": 1000,
+    "images": [
+      {
+        "alt": "AI-generated portrait of fictional persona Maya Chen",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Daniel Okafor",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Elena Rossi",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Maya Chen",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Daniel Okafor",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Elena Rossi",
+        "loaded": true
+      }
+    ],
+    "loop": "true",
+    "overflow": false,
+    "sectionTop": 144.2624969482422,
+    "theme": "dark",
+    "width": 1440
+  },
+  {
+    "label": "traders-desktop-grid",
+    "height": 1000,
+    "images": [
+      {
+        "alt": "AI-generated portrait of fictional persona Maya Chen",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Daniel Okafor",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Elena Rossi",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Maya Chen",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Daniel Okafor",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Elena Rossi",
+        "loaded": true
+      }
+    ],
+    "loop": "false",
+    "overflow": false,
+    "sectionTop": 144.2624969482422,
+    "theme": "dark",
+    "width": 1440
+  },
+  {
+    "label": "testimonials-desktop",
+    "height": 1000,
+    "images": [
+      {
+        "alt": "AI-generated portrait of fictional persona Alex Morgan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Leila Hassan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Sam Rivera",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Alex Morgan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Leila Hassan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Sam Rivera",
+        "loaded": true
+      }
+    ],
+    "loop": "true",
+    "overflow": false,
+    "sectionTop": 172.2624969482422,
+    "theme": "dark",
+    "width": 1440
+  },
+  {
+    "label": "traders-mobile",
+    "height": 844,
+    "images": [
+      {
+        "alt": "AI-generated portrait of fictional persona Maya Chen",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Daniel Okafor",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Elena Rossi",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Maya Chen",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Daniel Okafor",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Elena Rossi",
+        "loaded": true
+      }
+    ],
+    "loop": "true",
+    "overflow": false,
+    "sectionTop": -53.875,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "label": "testimonials-mobile",
+    "height": 844,
+    "images": [
+      {
+        "alt": "AI-generated portrait of fictional persona Alex Morgan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Leila Hassan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Sam Rivera",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Alex Morgan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Leila Hassan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Sam Rivera",
+        "loaded": true
+      }
+    ],
+    "loop": "true",
+    "overflow": false,
+    "sectionTop": 31.725000381469727,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "label": "traders-tablet-light",
+    "height": 1000,
+    "images": [
+      {
+        "alt": "AI-generated portrait of fictional persona Maya Chen",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Daniel Okafor",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Elena Rossi",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Maya Chen",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Daniel Okafor",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Elena Rossi",
+        "loaded": true
+      }
+    ],
+    "loop": "true",
+    "overflow": false,
+    "sectionTop": 31.725000381469727,
+    "theme": "light",
+    "width": 1024
+  },
+  {
+    "label": "testimonials-tablet-light",
+    "height": 1000,
+    "images": [
+      {
+        "alt": "AI-generated portrait of fictional persona Alex Morgan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Leila Hassan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Sam Rivera",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Alex Morgan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Leila Hassan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Sam Rivera",
+        "loaded": true
+      }
+    ],
+    "loop": "true",
+    "overflow": false,
+    "sectionTop": 223.7250061035156,
+    "theme": "light",
+    "width": 1024
+  },
+  {
+    "label": "traders-user-1280",
+    "height": 720,
+    "images": [
+      {
+        "alt": "AI-generated portrait of fictional persona Maya Chen",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Daniel Okafor",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Elena Rossi",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Maya Chen",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Daniel Okafor",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Elena Rossi",
+        "loaded": true
+      }
+    ],
+    "loop": "true",
+    "overflow": false,
+    "sectionTop": -332,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "label": "testimonials-user-1280",
+    "height": 720,
+    "images": [
+      {
+        "alt": "AI-generated portrait of fictional persona Alex Morgan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Leila Hassan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Sam Rivera",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Alex Morgan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Leila Hassan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Sam Rivera",
+        "loaded": true
+      }
+    ],
+    "loop": "true",
+    "overflow": false,
+    "sectionTop": -272,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "label": "testimonials-mobile-card",
+    "height": 844,
+    "images": [
+      {
+        "alt": "AI-generated portrait of fictional persona Alex Morgan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Leila Hassan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Sam Rivera",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Alex Morgan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Leila Hassan",
+        "loaded": true
+      },
+      {
+        "alt": "AI-generated portrait of fictional persona Sam Rivera",
+        "loaded": true
+      }
+    ],
+    "loop": "true",
+    "overflow": false,
+    "sectionTop": -504.2749938964844,
+    "theme": "dark",
+    "width": 390
+  }
+]

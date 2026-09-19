@@ -1,8 +1,8 @@
 export const profile = {
   name: "DK JONAH",
-  role: "Lifestyle voice - faith, softness & invisible realities",
+  role: "Knowledge Architect · Speaker · Coach · Writer · Advocate",
   email: "hello@dkjonah.com",
-  tagline: "A quiet place for the parts of you that still need language.",
+  tagline: "Lifestyle · Voice · Faith · Pace · Invisible realities",
 };
 
 export const philosophyItems = [

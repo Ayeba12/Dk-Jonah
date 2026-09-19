@@ -1,0 +1,44 @@
+[
+  {
+    "label": "services-desktop",
+    "width": 1440,
+    "height": 1000,
+    "theme": "dark",
+    "overflow": false,
+    "articles": 3
+  },
+  {
+    "label": "traders-actions-desktop",
+    "width": 1440,
+    "height": 1000,
+    "theme": "dark",
+    "overflow": false,
+    "primaryCopyActions": 3,
+    "destinationChecked": "/copy-trading"
+  },
+  {
+    "label": "services-mobile",
+    "width": 390,
+    "height": 844,
+    "theme": "dark",
+    "overflow": false,
+    "articles": 3
+  },
+  {
+    "label": "traders-action-mobile-static",
+    "width": 390,
+    "height": 844,
+    "theme": "dark",
+    "overflow": false,
+    "viewAllMode": true,
+    "firstCopyActionVisible": true
+  },
+  {
+    "label": "services-tablet-light",
+    "width": 1024,
+    "height": 900,
+    "theme": "light",
+    "overflow": false,
+    "layout": "two-column editorial split"
+  }
+]

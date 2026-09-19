@@ -1,0 +1,9 @@
+{
+  "url": "http://127.0.0.1:3100/",
+  "date": "2026-09-04",
+  "engine": "accesslint",
+  "engineVersion": "0.21.0",
+  "ruleCount": 94,
+  "violations": [],
+  "scope": "Automated live-DOM rule scan only; not a screen-reader, keyboard-only, legal or commercial review."
+}
