@@ -3,8 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { headerCta, myWorkLinks, navLinks } from "@/content/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { headerCta, myWorkLinks, myWorkMenu, navLinks } from "@/content/navigation";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 
 const topLevel = navLinks.filter(
@@ -15,29 +15,34 @@ export const SiteHeader = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [workOpen, setWorkOpen] = useState(false);
-  const workRef = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<number | null>(null);
 
-  const closeAll = () => {
+  const cancelClose = useCallback(() => {
+    if (closeTimer.current) {
+      window.clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  }, []);
+
+  // A short grace period so the pointer can cross from the trigger to the panel.
+  const scheduleClose = useCallback(() => {
+    cancelClose();
+    closeTimer.current = window.setTimeout(() => setWorkOpen(false), 160);
+  }, [cancelClose]);
+
+  const closeAll = useCallback(() => {
+    cancelClose();
     setIsOpen(false);
     setWorkOpen(false);
-  };
+  }, [cancelClose]);
 
   useEffect(() => {
-    const onClickOutside = (event: MouseEvent) => {
-      if (workRef.current && !workRef.current.contains(event.target as Node)) {
-        setWorkOpen(false);
-      }
-    };
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") closeAll();
     };
-    document.addEventListener("mousedown", onClickOutside);
     document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("mousedown", onClickOutside);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, []);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [closeAll]);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -48,7 +53,7 @@ export const SiteHeader = () => {
 
   const isActive = (href: string) =>
     pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
-  const workActive = myWorkLinks.some((link) => isActive(link.href));
+  const workActive = myWorkMenu.some((link) => isActive(link.href));
 
   const linkClass = (active: boolean) =>
     `relative text-[17px] font-medium transition-opacity hover:opacity-100 ${
@@ -82,58 +87,38 @@ export const SiteHeader = () => {
           </Link>
 
           <nav aria-label="Main" className="hidden flex-1 items-center justify-between pl-[8vw] lg:flex">
-            <Link className={linkClass(isActive("/about"))} href="/about">
+            <Link className={linkClass(isActive("/about"))} href="/about" onClick={closeAll}>
               About
             </Link>
 
-            <div className="relative" ref={workRef}>
-              <button
-                aria-expanded={workOpen}
-                aria-haspopup="menu"
-                className={`${linkClass(workActive)} inline-flex items-center gap-1.5`}
-                onClick={() => setWorkOpen((value) => !value)}
-                type="button"
+            <button
+              aria-controls="my-work-menu"
+              aria-expanded={workOpen}
+              aria-haspopup="true"
+              className={`${linkClass(workActive || workOpen)} inline-flex items-center gap-1.5`}
+              onClick={() => {
+                // Click always opens; Escape, a link, or moving away closes.
+                cancelClose();
+                setWorkOpen(true);
+              }}
+              onMouseEnter={() => {
+                cancelClose();
+                setWorkOpen(true);
+              }}
+              onMouseLeave={scheduleClose}
+              type="button"
+            >
+              My work
+              <svg
+                aria-hidden="true"
+                className={`h-3 w-3 transition-transform duration-200 ${workOpen ? "rotate-180" : ""}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                My work
-                <svg
-                  aria-hidden="true"
-                  className={`h-3 w-3 transition-transform duration-200 ${
-                    workOpen ? "rotate-180" : ""
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M6 9l6 6 6-6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                  />
-                </svg>
-              </button>
-
-              {workOpen ? (
-                <div
-                  className="absolute left-0 top-full mt-4 w-56 rounded-xl bg-black p-2 text-white"
-                  role="menu"
-                >
-                  {myWorkLinks.map((item) => (
-                    <Link
-                      className={`block rounded-lg px-3.5 py-2.5 text-[15px] transition-colors hover:bg-white/10 ${
-                        isActive(item.href) ? "bg-white/10" : ""
-                      }`}
-                      href={item.href}
-                      key={item.href}
-                      onClick={closeAll}
-                      role="menuitem"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              ) : null}
-            </div>
+                <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+              </svg>
+            </button>
 
             {topLevel
               .filter((link) => link.href !== "/about")
@@ -142,6 +127,7 @@ export const SiteHeader = () => {
                   className={linkClass(isActive(link.href))}
                   href={link.href}
                   key={link.href}
+                  onClick={closeAll}
                 >
                   {link.label}
                 </Link>
@@ -173,6 +159,88 @@ export const SiteHeader = () => {
           </div>
         </div>
       </header>
+
+      {/*
+        "My work" mega menu. It lives outside the blended header so its pictures and
+        gold keep their true colours: a black sheet under the nav, one card per page.
+      */}
+      <div
+        aria-hidden={!workOpen}
+        className={`fixed inset-x-0 top-20 z-40 hidden transition-all duration-300 ease-out md:top-24 lg:block ${
+          workOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
+        }`}
+        id="my-work-menu"
+        onMouseEnter={cancelClose}
+        onMouseLeave={scheduleClose}
+      >
+        <div className="container-shell">
+          <div className="on-black dotted rounded-2xl p-6 shadow-[0_30px_80px_rgba(0,0,0,0.35)] md:p-8">
+            <div className="flex items-center justify-between border-b border-ivory/15 pb-5">
+              <p className="eyebrow eyebrow-on-black">My work</p>
+              <Link
+                className="text-sm text-champagne underline decoration-champagne/50 underline-offset-4 transition-colors hover:text-ivory"
+                href="/speaking#enquiry"
+                onClick={closeAll}
+                tabIndex={workOpen ? 0 : -1}
+              >
+                Invite DK to speak
+              </Link>
+            </div>
+
+            <ul className="mt-6 grid grid-cols-4 gap-5">
+              {myWorkMenu.map((item) => {
+                const active = isActive(item.href);
+                return (
+                  <li key={item.href}>
+                    <Link
+                      className="group block"
+                      href={item.href}
+                      onClick={closeAll}
+                      tabIndex={workOpen ? 0 : -1}
+                    >
+                      <div
+                        className={`relative aspect-[4/3] overflow-hidden rounded-xl bg-ivory/10 ${
+                          active ? "ring-2 ring-gold" : ""
+                        }`}
+                      >
+                        <Image
+                          alt=""
+                          className="object-cover grayscale transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                          fill
+                          loading="eager"
+                          sizes="(min-width: 1024px) 20vw, 50vw"
+                          src={item.image}
+                          unoptimized
+                        />
+                        <span
+                          aria-hidden="true"
+                          className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
+                        />
+                        <span
+                          aria-hidden="true"
+                          className="absolute bottom-3 right-3 grid h-9 w-9 place-items-center rounded-full bg-gold text-black opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M5 12h14m0 0-5-5m5 5-5 5" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+                          </svg>
+                        </span>
+                      </div>
+                      <p
+                        className={`mt-4 font-display text-lg font-semibold leading-tight transition-colors group-hover:text-champagne ${
+                          active ? "text-champagne" : "text-ivory"
+                        }`}
+                      >
+                        {item.label}
+                      </p>
+                      <p className="mt-1.5 text-sm leading-snug text-ivory/65">{item.line}</p>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </div>
 
       {/* Mobile menu: a full black sheet, ivory type, outside the blend layer. */}
       <div

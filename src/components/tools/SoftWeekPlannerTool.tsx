@@ -48,11 +48,11 @@ export const SoftWeekPlannerTool = () => {
       dailyText += "\n";
     });
 
-    const text = `DK Jonah - Soft Week Plan\n` +
+    const text = `DK Jonah - PACE Week Plan\n` +
       `=========================\n` +
       `Capacity Mode: ${capacity.toUpperCase()} Capacity\n` +
-      `Primary Rest Anchor: ${rest || "None set"}\n` +
-      `Somatic Care Anchor: ${care || "None set"}\n\n` +
+      `Rest anchor: ${rest || "None set"}\n` +
+      `Body care anchor: ${care || "None set"}\n\n` +
       `Weekly Rhythm:${dailyText}`;
 
     navigator.clipboard.writeText(text);
@@ -61,10 +61,10 @@ export const SoftWeekPlannerTool = () => {
   };
 
   const weekdays = [
-    { day: "Monday", restClass: "bg-[#ead9ad]/40", activity: "Morning stretch & soft start" },
+    { day: "Monday", restClass: "bg-[#ead9ad]/40", activity: "Morning stretch" },
     { day: "Tuesday", restClass: "bg-[#f1e7d8]", activity: "Mid-day screen break" },
     { day: "Wednesday", restClass: "bg-[#ead9ad]/40", activity: "No meetings evening" },
-    { day: "Thursday", restClass: "bg-[#f1e7d8]", activity: "Gentle walk outdoors" },
+    { day: "Thursday", restClass: "bg-[#f1e7d8]", activity: "Walk outdoors" },
     { day: "Friday", restClass: "bg-[#ead9ad]/40", activity: "Quiet reading block" },
     { day: "Saturday", restClass: "bg-[#ead9ad]", activity: "Full rest & slow day" },
     { day: "Sunday", restClass: "bg-[#ead9ad]", activity: "Sacred stillness & faith check-in" },
@@ -102,12 +102,12 @@ export const SoftWeekPlannerTool = () => {
       `}} />
 
       <div className="mb-6 flex items-center justify-between border-b border-[#ded2c1] pb-4">
-        <h3 className="font-display text-2xl font-semibold text-[#201a16]">Soft Week Planner</h3>
+        <h3 className="font-display text-2xl font-semibold text-[#201a16]">PACE Week Planner</h3>
         <button
           onClick={handleReset}
           className="text-xs font-semibold text-[#b68a3a] hover:underline no-print"
         >
-          Reset Plan
+          Start again
         </button>
       </div>
 
@@ -145,7 +145,7 @@ export const SoftWeekPlannerTool = () => {
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="grid gap-2">
                 <label className="text-sm font-semibold text-[#3a332b]" htmlFor="rest-anchor">
-                  2. Primary Rest Anchor
+                  2. Your rest anchor
                 </label>
                 <input
                   id="rest-anchor"
@@ -159,7 +159,7 @@ export const SoftWeekPlannerTool = () => {
 
               <div className="grid gap-2">
                 <label className="text-sm font-semibold text-[#3a332b]" htmlFor="care-anchor">
-                  3. Somatic Care Anchor
+                  3. Your body care anchor
                 </label>
                 <input
                   id="care-anchor"
@@ -175,7 +175,7 @@ export const SoftWeekPlannerTool = () => {
             {/* Flexible Focus Tasks */}
             <div className="grid gap-3">
               <label className="text-sm font-semibold text-[#3a332b]">
-                4. Max 3 Flexible Focus Tasks (these can float)
+                4. Up to 3 focus tasks (these can move between days)
               </label>
               <input
                 type="text"
@@ -204,7 +204,7 @@ export const SoftWeekPlannerTool = () => {
               onClick={handleGenerate}
               className="mt-2 rounded-xl bg-[#201a16] py-3 text-center text-sm font-semibold text-white hover:bg-[#3a332b]"
             >
-              Generate Capacity-First Planner
+              Build my week
             </button>
           </motion.div>
         ) : (
@@ -285,7 +285,7 @@ export const SoftWeekPlannerTool = () => {
                   copied ? "bg-[#b68a3a]" : "bg-[#201a16] hover:bg-[#3a332b]"
                 }`}
               >
-                {copied ? "Copied!" : "Copy Plan"}
+                {copied ? "Copied" : "Copy my week"}
               </button>
               <button
                 onClick={() => window.print()}

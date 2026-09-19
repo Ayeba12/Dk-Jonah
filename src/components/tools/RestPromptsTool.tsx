@@ -72,14 +72,14 @@ export const RestPromptsTool = () => {
   return (
     <div className="mx-auto max-w-2xl rounded-3xl border border-[#ded2c1] bg-[#f8f2e8] p-6 shadow-sm md:p-8">
       <div className="mb-6 flex items-center justify-between border-b border-[#ded2c1] pb-4">
-        <h3 className="font-display text-2xl font-semibold text-[#201a16]">Rest Journal & Somatic Pacer</h3>
+        <h3 className="font-display text-2xl font-semibold text-[#201a16]">Rest Without Guilt Prompts</h3>
         <span className="text-xs text-[#7a7065]">distraction-free reflection</span>
       </div>
 
       <div className="grid gap-6">
-        {/* Somatic Breathing Pacer */}
+        {/* Breathing pacer */}
         <div className="flex flex-col items-center justify-center rounded-2xl bg-[#fffaf2] p-6 border border-[#ded2c1]/60">
-          <span className="text-xs text-[#7a7065] uppercase tracking-wider mb-3">Somatic Grounding Pacer</span>
+          <span className="text-xs text-[#7a7065] uppercase tracking-wider mb-3">Breathing pacer</span>
           
           <div className="relative flex h-28 w-28 items-center justify-center">
             {/* Breathing Bubble Outer */}
@@ -158,7 +158,7 @@ export const RestPromptsTool = () => {
               copied ? "bg-[#b68a3a]" : "bg-[#201a16] hover:bg-[#3a332b]"
             }`}
           >
-            {copied ? "Copied Entry!" : "Copy Journal Entry"}
+            {copied ? "Copied" : "Copy my entry"}
           </button>
         </div>
       </div>

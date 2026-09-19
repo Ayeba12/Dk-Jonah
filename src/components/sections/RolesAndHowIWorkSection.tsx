@@ -1,7 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { howIWorkContent, rolesIPlayContent } from "@/content/about";
+
+const stagger = ["", "lg:mt-4", "lg:mt-8"];
 
 export const RolesAndHowIWorkSection = () => (
   <section className="section-padding bg-ivory" id="roles">
@@ -12,16 +15,29 @@ export const RolesAndHowIWorkSection = () => (
           {rolesIPlayContent.headline}
         </h2>
       </ScrollReveal>
-      <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Picture cards with the text in a box floating over them, each column stepping down a little */}
+      <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:items-start">
         {rolesIPlayContent.roles.map((role, index) => (
-          <li key={role.title}>
-            <ScrollReveal delay={index * 0.05}>
-              <div className="flex h-full flex-col rounded-2xl bg-dove-tint p-7 md:p-8">
-                <span className="text-sm text-black/50">0{index + 1}</span>
-                <h3 className="mt-8 font-display text-xl font-semibold leading-tight md:text-2xl">
-                  {role.title}
-                </h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-black/70">{role.desc}</p>
+          <li className={stagger[index % stagger.length]} key={role.title}>
+            <ScrollReveal delay={(index % 3) * 0.05}>
+              <div
+                className={`relative aspect-[3/4] overflow-hidden rounded-2xl bg-dove-tint ${
+                  index === rolesIPlayContent.roles.length - 1 ? "ring-2 ring-black" : ""
+                }`}
+              >
+                <Image
+                  alt=""
+                  className="scale-[1.12] object-cover"
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  src={role.image}
+                />
+                <div className="absolute inset-x-3 top-3 rounded-xl bg-ivory p-5 shadow-[0_12px_30px_rgba(0,0,0,0.12)] md:p-6">
+                  <p className="font-display text-lg font-semibold uppercase leading-tight md:text-xl">
+                    {role.title}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-black/70">{role.desc}</p>
+                </div>
               </div>
             </ScrollReveal>
           </li>

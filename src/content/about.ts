@@ -60,30 +60,37 @@ export const myStoryContent = {
 
 export const rolesIPlayContent = {
   headline: "The roles are different. The work is connected.",
+  // Each role card carries a sketch that fits the role.
   roles: [
     {
       title: "Knowledge architect",
       desc: "I turn what people know and have lived through into clear structures they can understand and use.",
+      image: "/assets/avenzor/images/role-architect.webp",
     },
     {
       title: "Speaker and facilitator",
       desc: "I help a room go from \"that is me\" to having words for it, and from words to a next step they own.",
+      image: "/assets/avenzor/images/speaking-talk.webp",
     },
     {
       title: "Coach",
       desc: "I help people set goals they can keep and make decisions that fit the life they really have.",
+      image: "/assets/avenzor/images/role-coach.webp",
     },
     {
       title: "Writer and broadcaster",
       desc: "Two books, years on Reconcilers Radio, and letters that give words to what people carry.",
+      image: "/assets/avenzor/images/speaking-studio.webp",
     },
     {
       title: "Advocate",
       desc: "I bring lived experience into decisions about chronic illness, mental health, autism and belonging.",
+      image: "/assets/avenzor/images/advocacy-voice.webp",
     },
     {
       title: "Faith-rooted builder",
       desc: "I help Christian people and organisations steward what they have been given to carry and share.",
+      image: "/assets/avenzor/images/advocacy-hero.webp",
     },
   ],
 };

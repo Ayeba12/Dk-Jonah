@@ -31,10 +31,10 @@ export const EnergyCheckInTool = () => {
 
     if (battery < 30) {
       pace = "Restoration First (Slowing right down)";
-      practice = "Choose a 15-minute horizontal rest without screens, or simple somatic belly breathing.";
+      practice = "Choose a 15-minute horizontal rest without screens, or simple belly breathing.";
       limit = "Release the pressure to perform or finish tasks today. Your only job is preservation.";
     } else if (battery < 70) {
-      pace = "Gentle Flow (Moving with pauses)";
+      pace = "Light (moving with pauses)";
       practice = "Work on one simple task at a time for 25 minutes, then take a 10-minute quiet stretch.";
       limit = "Avoid double-booking your energy. Protect your rest windows between commitments.";
     } else {
@@ -45,7 +45,7 @@ export const EnergyCheckInTool = () => {
 
     let weatherNote = "";
     if (weather === "overcast") {
-      weatherNote = "Since your body feels heavy today, move physically at half-speed and keep your environment warm and soft.";
+      weatherNote = "Since your body feels heavy today, move physically at half-speed and keep your environment warm.";
     } else if (weather === "windy") {
       weatherNote = "With scattered energy, write down a quick brain dump on paper to clear your head, then close extra tabs.";
     } else if (weather === "foggy") {
@@ -59,19 +59,19 @@ export const EnergyCheckInTool = () => {
       practice,
       limit,
       weatherNote,
-      summary: `Energy Check-In: Battery at ${battery}%, feeling ${weatherOptions.find(o => o.id === weather)?.label}, mind feels ${mindOptions.find(o => o.id === mind)?.label}. Recommended rhythm: ${pace}.`
+      summary: `PACE Energy Check: Battery at ${battery}%, feeling ${weatherOptions.find(o => o.id === weather)?.label}, mind feels ${mindOptions.find(o => o.id === mind)?.label}. Recommended rhythm: ${pace}.`
     };
   };
 
   const recommendation = getRecommendation();
 
   const handleCopy = () => {
-    const text = `DK Jonah Energy Check-In Result:\n` +
+    const text = `DK Jonah PACE Energy Check:\n` +
       `- Current State: Battery ${battery}%, Weather: ${weatherOptions.find(o => o.id === weather)?.label}, Mind: ${mindOptions.find(o => o.id === mind)?.label}\n` +
       `- Recommended Pace: ${recommendation.pace}\n` +
-      `- Gentle Practice: ${recommendation.practice}\n` +
+      `- Try this: ${recommendation.practice}\n` +
       `- Daily Limit: ${recommendation.limit}\n` +
-      `- Somatic Note: ${recommendation.weatherNote}`;
+      `- About your energy: ${recommendation.weatherNote}`;
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -80,7 +80,7 @@ export const EnergyCheckInTool = () => {
   return (
     <div className="mx-auto max-w-2xl rounded-3xl border border-[#ded2c1] bg-[#f8f2e8] p-6 shadow-sm md:p-8">
       <div className="mb-6 flex items-center justify-between border-b border-[#ded2c1] pb-4">
-        <h3 className="font-display text-2xl font-semibold text-[#201a16]">Energy Check-In Tool</h3>
+        <h3 className="font-display text-2xl font-semibold text-[#201a16]">PACE Energy Check</h3>
         <span className="text-sm text-[#7a7065]">Step {step} of 4</span>
       </div>
 
@@ -200,7 +200,7 @@ export const EnergyCheckInTool = () => {
                 onClick={() => setStep(4)}
                 className="flex-1 rounded-xl bg-[#201a16] py-3 text-center text-sm font-semibold text-white hover:bg-[#3a332b]"
               >
-                Reveal Gentle Practice
+                Show my pace
               </button>
             </div>
           </motion.div>
@@ -216,7 +216,7 @@ export const EnergyCheckInTool = () => {
             className="grid gap-6"
           >
             <div className="rounded-2xl bg-[#fffaf2] p-5 border border-[#ded2c1] shadow-sm">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#b68a3a]">[Your Gentle Recommendation]</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#b68a3a]">[Your pace for today]</span>
               
               <div className="mt-4">
                 <h4 className="text-xs text-[#7a7065]">Recommended Pace</h4>
@@ -224,12 +224,12 @@ export const EnergyCheckInTool = () => {
               </div>
 
               <div className="mt-4 border-t border-[#ded2c1]/60 pt-4">
-                <h4 className="text-xs text-[#7a7065]">Somatic Practice</h4>
+                <h4 className="text-xs text-[#7a7065]">Try this</h4>
                 <p className="mt-1 text-sm leading-relaxed text-[#3a332b]">{recommendation.practice}</p>
               </div>
 
               <div className="mt-4 border-t border-[#ded2c1]/60 pt-4">
-                <h4 className="text-xs text-[#7a7065]">Gentle Limit to Honor</h4>
+                <h4 className="text-xs text-[#7a7065]">Your limit today</h4>
                 <p className="mt-1 text-sm leading-relaxed text-[#3a332b]">{recommendation.limit}</p>
               </div>
 
@@ -244,7 +244,7 @@ export const EnergyCheckInTool = () => {
                 onClick={() => setStep(1)}
                 className="flex-1 rounded-xl border border-[#ded2c1] py-3 text-center text-sm font-semibold text-[#201a16] hover:bg-[#fffaf2]"
               >
-                Reset Assessment
+                Start again
               </button>
               <button
                 onClick={handleCopy}
@@ -252,7 +252,7 @@ export const EnergyCheckInTool = () => {
                   copied ? "bg-[#b68a3a]" : "bg-[#201a16] hover:bg-[#3a332b]"
                 }`}
               >
-                {copied ? "Copied to Clipboard!" : "Copy Recommendation"}
+                {copied ? "Copied" : "Copy my pace"}
               </button>
             </div>
           </motion.div>

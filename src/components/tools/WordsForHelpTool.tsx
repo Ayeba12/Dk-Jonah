@@ -136,7 +136,7 @@ export const WordsForHelpTool = () => {
         {/* Detail Toggle */}
         {recipient !== "medical" && (
           <div className="flex items-center justify-between border-t border-[#ded2c1]/40 pt-4">
-            <span className="text-sm font-semibold text-[#3a332b]">Include gentle capacity details?</span>
+            <span className="text-sm font-semibold text-[#3a332b]">Include capacity details?</span>
             <button
               onClick={() => setShowDetail(!showDetail)}
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
@@ -166,7 +166,7 @@ export const WordsForHelpTool = () => {
             copied ? "bg-[#b68a3a]" : "bg-[#201a16] hover:bg-[#3a332b]"
           }`}
         >
-          {copied ? "Copied Script text!" : "Copy Script Text"}
+          {copied ? "Copied" : "Copy these words"}
         </button>
       </div>
     </div>

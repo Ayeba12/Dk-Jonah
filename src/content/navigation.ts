@@ -7,6 +7,37 @@ export const myWorkLinks: NavLink[] = [
   { label: "Advocacy and Faith", href: "/advocacy-faith" },
 ];
 
+export type MegaMenuItem = NavLink & { line: string; image: string };
+
+// The "My work" mega menu. Each line is that page's locked headline; the pictures are
+// pre-sized thumbnails served as-is, so the menu never waits on the image optimiser.
+export const myWorkMenu: MegaMenuItem[] = [
+  {
+    label: "Work with me",
+    href: "/work",
+    line: "Let's work on the thing you keep putting off",
+    image: "/assets/avenzor/images/menu-work.webp",
+  },
+  {
+    label: "Speaking",
+    href: "/speaking",
+    line: "I speak where complex ideas need clear language.",
+    image: "/assets/avenzor/images/menu-speaking.webp",
+  },
+  {
+    label: "Advocacy and Faith",
+    href: "/advocacy-faith",
+    line: "A voice where silence costs people",
+    image: "/assets/avenzor/images/menu-advocacy.webp",
+  },
+  {
+    label: "On the Record",
+    href: "/on-the-record",
+    line: "Rooms, studios and stages since 2011",
+    image: "/assets/avenzor/images/menu-record.webp",
+  },
+];
+
 // Final menu from the handover pack:
 // About · Work with me · Speaking · Advocacy and Faith · Writing · Toolkit · Quiet Focus · Find me
 // Writing (the Reflections archive) will move to /writing once the essays land.
