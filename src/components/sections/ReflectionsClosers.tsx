@@ -9,7 +9,8 @@ export const ReflectionsBand = () => (
     <div className="container-shell text-center">
       <ScrollReveal>
         <h2 className="mx-auto max-w-5xl font-display text-5xl font-bold uppercase leading-[0.95] text-ivory sm:text-6xl lg:text-[6.5rem]">
-          {band.headline}
+          <span className="block">{band.headline}</span>
+          <span className="thread-text block">{band.headlineAccent}</span>
         </h2>
       </ScrollReveal>
       <ScrollReveal delay={0.08}>

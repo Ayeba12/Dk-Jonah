@@ -271,12 +271,23 @@ export const InTheirWordsSection = () => (
                 {item.quote}
               </blockquote>
               <figcaption className="mt-auto flex items-center gap-3 pt-6">
-                <span
-                  aria-hidden="true"
-                  className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-black font-display text-sm font-semibold text-ivory"
-                >
-                  {initials(item.name)}
-                </span>
+                {item.image ? (
+                  <Image
+                    alt={item.name}
+                    className="h-11 w-11 shrink-0 rounded-lg object-cover"
+                    height={44}
+                    src={item.image}
+                    unoptimized
+                    width={44}
+                  />
+                ) : (
+                  <span
+                    aria-hidden="true"
+                    className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-black font-display text-sm font-semibold text-ivory"
+                  >
+                    {initials(item.name)}
+                  </span>
+                )}
                 <p className="font-semibold leading-tight">{item.name}</p>
               </figcaption>
             </figure>

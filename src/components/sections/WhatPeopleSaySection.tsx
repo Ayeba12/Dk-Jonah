@@ -79,12 +79,23 @@ export const WhatPeopleSaySection = () => {
                 </span>
                 <p className="mt-4 text-[15px] leading-relaxed text-black/80">{card.quote}</p>
                 <div className="mt-6 flex items-center gap-3">
-                  <span
-                    aria-hidden="true"
-                    className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-black font-display text-sm font-semibold text-ivory"
-                  >
-                    {initials(card.name)}
-                  </span>
+                  {card.image ? (
+                    <Image
+                      alt={card.name}
+                      className="h-11 w-11 shrink-0 rounded-lg object-cover"
+                      height={44}
+                      src={card.image}
+                      unoptimized
+                      width={44}
+                    />
+                  ) : (
+                    <span
+                      aria-hidden="true"
+                      className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-black font-display text-sm font-semibold text-ivory"
+                    >
+                      {initials(card.name)}
+                    </span>
+                  )}
                   <div>
                     <p className="text-[15px] font-semibold leading-tight">{card.name}</p>
                     <p className="mt-0.5 text-sm text-black/55">

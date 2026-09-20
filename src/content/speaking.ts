@@ -173,9 +173,21 @@ export const whereSpokenContent = {
 export const inTheirWordsContent = {
   headline: "In their words",
   quotes: [
-    { quote: "I can literally quantify my productivity level.", name: "Dr Amina Omar-Ikaige" },
-    { quote: "She did not push me into anything, making her easy to trust.", name: "Ope" },
-    { quote: "The business secret every business owner needs.", name: "Fola" },
+    {
+      quote: "I can literally quantify my productivity level.",
+      name: "Dr Amina Omar-Ikaige",
+      image: "/assets/avenzor/images/testimonial-amina.webp",
+    },
+    {
+      quote: "She did not push me into anything, making her easy to trust.",
+      name: "Ope",
+      image: "/assets/avenzor/images/testimonial-ope.webp",
+    },
+    {
+      quote: "The business secret every business owner needs.",
+      name: "Fola",
+      image: "/assets/avenzor/images/testimonial-fola.webp",
+    },
   ],
 };
 

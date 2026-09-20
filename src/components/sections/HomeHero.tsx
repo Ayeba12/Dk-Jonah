@@ -93,7 +93,7 @@ export const HomeHero = () => {
         {/* Meta row: copyright, eyebrow, main button */}
         <motion.div
           animate={{ opacity: 1 }}
-          className="mt-12 grid items-center gap-4 border-t border-ivory/20 pt-6 md:mt-14 md:grid-cols-[auto_1fr_auto]"
+          className="mt-12 grid items-center gap-4 md:mt-14 md:grid-cols-[auto_1fr_auto]"
           initial={{ opacity: 0 }}
           transition={{ duration: 0.8, delay: 0.75, ease }}
         >

@@ -170,6 +170,7 @@ export const whatPeopleSayContent = {
       quote:
         "DK's coaching is client-centred and framed to meet you at the level you currently are. With her coaching, I can literally quantify my productivity level.",
       name: "Amina Omar-Ikaige",
+      image: "/assets/avenzor/images/testimonial-amina.webp",
       role: "Medical Doctor",
     },
     {
@@ -177,6 +178,7 @@ export const whatPeopleSayContent = {
       quote:
         "DK is very insightful and knowledgeable in her field. I learnt a lot from her just through the first consultation. I also really appreciate her patience and professionalism. She did not push me into anything, making her easy to trust.",
       name: "Ope",
+      image: "/assets/avenzor/images/testimonial-ope.webp",
       role: null,
     },
     {
@@ -184,6 +186,7 @@ export const whatPeopleSayContent = {
       quote:
         "She knows how to stretch and draw the best out of you through her unique hands-on style of delivery. Her service heart alongside her desire for uncompromised excellence means I go away with tangible action and application plans.",
       name: "Omosola",
+      image: "/assets/avenzor/images/testimonial-omosola.webp",
       role: "Transition Coach and Consultant",
     },
     {
@@ -191,6 +194,7 @@ export const whatPeopleSayContent = {
       quote:
         "DK Jonah is a powerhouse of a woman. DK wants the best for everyone she meets; she has never stopped growing or showing up. Nothing sets her back.",
       name: "Grace Peters",
+      image: "/assets/avenzor/images/testimonial-grace-peters.webp",
       role: null,
     },
   ],

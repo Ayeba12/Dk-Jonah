@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { aboutHeroContent as content } from "@/content/about";
 
-// Split hero, as the reference: stacked headline left, framed monochrome film right.
+// Split hero, as the reference: stacked headline left, framed portrait right.
 export const AboutHero = () => {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const bodyRef = useRef<HTMLParagraphElement>(null);
@@ -39,16 +40,18 @@ export const AboutHero = () => {
         </div>
 
         <div
-          className="relative min-h-[420px] overflow-hidden rounded-2xl bg-black lg:min-h-[600px]"
+          className="relative min-h-[420px] overflow-hidden rounded-2xl bg-dove-tint lg:min-h-[600px]"
           ref={frameRef}
         >
-          <video
-            autoPlay
-            className="absolute inset-0 h-full w-full object-cover opacity-80 grayscale"
-            loop
-            muted
-            playsInline
-            src="/assets/avenzor/videos/about-hero-video.mp4"
+          {/* DK's portrait, in place of the earlier film. */}
+          <Image
+            alt="DK Jonah"
+            className="object-cover object-top"
+            fill
+            priority
+            sizes="(min-width: 1024px) 55vw, 100vw"
+            src="/assets/avenzor/images/about-portrait.webp"
+            unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
           <p className="absolute inset-x-0 bottom-0 p-8 font-display text-2xl font-medium leading-tight text-ivory md:p-10 md:text-4xl">

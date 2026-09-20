@@ -19,7 +19,9 @@ export const reflectionsHeroContent = {
 };
 
 export const reflectionsBandContent = {
-  headline: "Slow first. Then precise.",
+  // Two lines: the second is set in metallic gold.
+  headline: "Slow first.",
+  headlineAccent: "Then precise.",
   body: "Gra gra is noise, force and looking busy. NO GraGra is the opposite: no noise, no panic, no pressure, just rhythm.",
   cta: { label: "Work with me", href: "/work" },
 };

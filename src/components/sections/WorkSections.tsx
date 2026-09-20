@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -128,12 +129,23 @@ export const WorkQuotesSection = () => (
                 {item.quote}
               </blockquote>
               <figcaption className="mt-6 flex items-center gap-3">
-                <span
-                  aria-hidden="true"
-                  className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-black font-display text-sm font-semibold text-ivory"
-                >
-                  {initials(item.name)}
-                </span>
+                {item.image ? (
+                  <Image
+                    alt={item.name}
+                    className="h-11 w-11 shrink-0 rounded-lg object-cover"
+                    height={44}
+                    src={item.image}
+                    unoptimized
+                    width={44}
+                  />
+                ) : (
+                  <span
+                    aria-hidden="true"
+                    className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-black font-display text-sm font-semibold text-ivory"
+                  >
+                    {initials(item.name)}
+                  </span>
+                )}
                 <div>
                   <p className="font-semibold leading-tight">{item.name}</p>
                   {item.role ? <p className="mt-0.5 text-sm text-black/60">{item.role}</p> : null}

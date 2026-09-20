@@ -122,12 +122,14 @@ export const workQuotesContent = {
       quote:
         "DK is really meticulous and engages both her clients and workers so personally. Combined with her zeal to keep improving, she is easily one of the best in the game.",
       name: "Richard Enake",
+      image: "/assets/avenzor/images/testimonial-richard-enake.webp",
       role: null,
     },
     {
       quote:
         "She knows how to stretch and draw the best out of you through her unique hands-on style of delivery.",
       name: "Omosola",
+      image: "/assets/avenzor/images/testimonial-omosola.webp",
       role: "Transition Coach and Consultant",
     },
   ],
