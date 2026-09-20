@@ -132,9 +132,17 @@ a {
   color: var(--black);
 }
 
-:focus-visible {
+/* Keyboard focus ring for links and buttons. Form fields show focus through their own line instead. */
+:focus-visible:not(input):not(textarea):not(select) {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 ::-webkit-scrollbar {

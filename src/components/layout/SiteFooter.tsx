@@ -1,20 +1,16 @@
 import Link from "next/link";
-import { footerNavLinks, legalLinks, socialLinks } from "@/content/navigation";
+import { footerGroups, legalLinks, socialLinks } from "@/content/navigation";
+import { CookieChoicesButton } from "@/components/ui/CookieChoicesButton";
 import { profile } from "@/content/portfolio";
 
 export const SiteFooter = () => (
   <footer className="paper relative overflow-hidden">
     <hr className="thread" />
 
-    <div className="container-shell relative z-10 grid gap-12 pb-20 pt-16 md:grid-cols-[1.1fr_1fr_0.8fr_0.8fr] md:gap-8 md:pt-20">
-      <div>
-        <p className="max-w-xs text-[15px] leading-relaxed text-black/60">
-          {profile.tagline}
-        </p>
-      </div>
-
-      <div>
-        <p className="eyebrow mb-4">Email</p>
+    <div className="container-shell relative z-10 grid gap-12 pb-20 pt-16 md:gap-8 md:pt-20 lg:grid-cols-[1.4fr_repeat(4,minmax(0,1fr))]">
+      <div className="lg:pr-10">
+        <p className="max-w-xs text-[15px] leading-relaxed text-black/60">{profile.tagline}</p>
+        <p className="eyebrow mb-4 mt-10">Email</p>
         <a
           className="font-display text-2xl font-semibold leading-tight text-black transition-colors hover:text-gold sm:text-3xl"
           href={`mailto:${profile.email}`}
@@ -23,8 +19,12 @@ export const SiteFooter = () => (
         </a>
       </div>
 
-      <FooterColumn label="Menu" links={footerNavLinks} />
-      <FooterColumn label="Social" links={socialLinks} />
+      <div className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-4 lg:col-span-4 lg:gap-8">
+        {footerGroups.map((group) => (
+          <FooterColumn key={group.label} label={group.label} links={group.links} />
+        ))}
+        <FooterColumn label="Social" links={socialLinks} />
+      </div>
     </div>
 
     {/* Watermark, as the reference sets its name across the footer. */}
@@ -45,6 +45,7 @@ export const SiteFooter = () => (
             {link.label}
           </Link>
         ))}
+        <CookieChoicesButton className="transition-colors hover:text-black" />
       </div>
     </div>
   </footer>

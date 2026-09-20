@@ -26,7 +26,7 @@ export const generateMetadata = async ({
   }
 
   return {
-    title: `${article.title} | Cozy Corner`,
+    title: `${article.title} | Reflections`,
     description: article.excerpt,
     alternates: {
       canonical: `/articles/${slug}`,
@@ -102,7 +102,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               href="/articles"
               className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#9a8f83] hover:text-[#b68a3a] transition-colors mb-6"
             >
-              ← Back to Cozy Corner
+              ← Back to Reflections
             </Link>
             {article.categories && article.categories.length > 0 && (
               <div className="mb-4 flex flex-wrap gap-1.5">
@@ -195,7 +195,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   </Link>
                 ) : (
                   <div className="rounded-2xl border border-[#ded2c1]/20 bg-[#f8f2e8]/40 p-6 flex flex-col justify-center text-[#9a8f83]">
-                    <p className="text-sm italic">You are reading the first essay in Cozy Corner.</p>
+                    <p className="text-sm italic">You are reading the first essay in Reflections.</p>
                   </div>
                 )}
 
@@ -222,7 +222,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             {/* Back Button */}
             <div className="mt-12 flex justify-center">
               <ArrowButton href="/articles" variant="dark">
-                Back to Cozy Corner
+                Back to Reflections
               </ArrowButton>
             </div>
           </ScrollReveal>

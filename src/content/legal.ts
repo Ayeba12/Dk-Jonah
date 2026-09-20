@@ -11,7 +11,7 @@ export const legalPages = [
       ],
       [
         "2. Information We Collect",
-        "We only collect information that you voluntarily provide to us. When you subscribe to our newsletter ('Quiet Circle') or submit a note through our contact form, we collect your name, email address, and the content of your message. We also automatically gather minor technical data through cookies, such as your IP address, browser type, and page interaction details to improve your browsing experience."
+        "We only collect information that you voluntarily provide to us. When you subscribe to our letters (Quiet Focus) or submit a note through our contact form, we collect your name, email address, and the content of your message. We also automatically gather minor technical data through cookies, such as your IP address, browser type, and page interaction details to improve your browsing experience."
       ],
       [
         "3. How We Use Your Information",
@@ -19,7 +19,7 @@ export const legalPages = [
       ],
       [
         "4. Data Retention & Security",
-        "We retain your personal data only as long as necessary to provide the services you requested. We use industry-standard security measures to protect your data from unauthorized access, alteration, or disclosure. However, please remember that no method of transmission over the internet is 100% secure."
+        "We retain your personal data only as long as necessary to provide the services you requested. We use industry-standard security measures to protect your data from unauthorised access, alteration, or disclosure. However, please remember that no method of transmission over the internet is 100% secure."
       ],
       [
         "5. Third-Party Services",
@@ -47,7 +47,7 @@ export const legalPages = [
       ],
       [
         "3. Performance & Analytics Cookies",
-        "We use minor analytical tools to understand how visitors interact with our site, which pages are visited most, and where we can improve. This information is aggregated and completely anonymized—it does not track personal identity or sensitive data."
+        "We use minor analytical tools to understand how visitors interact with our site, which pages are visited most, and where we can improve. This information is aggregated and completely anonymised. It does not track personal identity or sensitive data."
       ],
       [
         "4. Functionality & Choice",
@@ -71,7 +71,7 @@ export const legalPages = [
       ],
       [
         "2. Purpose of the Site",
-        "DK Jonah is a space dedicated to sharing personal reflections, writing, and gentle resources related to chronic illness, neurodivergence, faith, and lifestyle. All content is for informational and creative purposes only."
+        "DK Jonah is a space dedicated to sharing personal reflections, writing and everyday resources related to chronic illness, neurodivergence, faith, and lifestyle. All content is for informational and creative purposes only."
       ],
       [
         "3. Medical Disclaimer",
@@ -79,7 +79,7 @@ export const legalPages = [
       ],
       [
         "4. Intellectual Property",
-        "Unless otherwise stated, all materials on this website—including text, graphics, design layout, photography, and resources—are the intellectual property of DK Jonah. You may read, print, and save content for personal, non-commercial use. Any redistribution, commercial exploitation, or modification of this content without prior written permission is strictly prohibited."
+        "Unless otherwise stated, all materials on this website, including text, graphics, design layout, photography and resources, are the intellectual property of DK Jonah. You may read, print, and save content for personal, non-commercial use. Any redistribution, commercial exploitation, or modification of this content without prior written permission is strictly prohibited."
       ],
       [
         "5. User Conduct",

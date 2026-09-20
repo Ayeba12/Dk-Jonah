@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArrowButton } from "@/components/ui/ArrowButton";
 import { getLegalPage, legalPages } from "@/content/legal";
 import { profile } from "@/content/portfolio";
 
@@ -8,12 +9,9 @@ type LegalPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export const generateStaticParams = () =>
-  legalPages.map((page) => ({ slug: page.slug }));
+export const generateStaticParams = () => legalPages.map((page) => ({ slug: page.slug }));
 
-export const generateMetadata = async ({
-  params,
-}: LegalPageProps): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: LegalPageProps): Promise<Metadata> => {
   const { slug } = await params;
   const page = getLegalPage(slug);
 
@@ -24,7 +22,21 @@ export const generateMetadata = async ({
   return {
     title: page.title,
     description: page.intro,
+    alternates: { canonical: `/legal/${slug}` },
   };
+};
+
+const slugify = (text: string) =>
+  text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+
+// Section titles carry their own number ("1. Overview"). Split it out so the numeral can be set in gold.
+const splitTitle = (title: string, index: number) => {
+  const match = title.match(/^(\d+)\.\s*(.*)$/);
+  return match ? { number: match[1].padStart(2, "0"), text: match[2] } : { number: String(index + 1).padStart(2, "0"), text: title };
 };
 
 export default async function LegalPage({ params }: LegalPageProps) {
@@ -35,129 +47,121 @@ export default async function LegalPage({ params }: LegalPageProps) {
     notFound();
   }
 
-  // Helper to slugify section titles for anchor links
-  const slugify = (text: string) =>
-    text
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, "")
-      .replace(/\s+/g, "-");
-
   return (
-    <section className="section-padding min-h-screen bg-[#fffaf2] pt-32 pb-24 md:pt-40">
-      <div className="container-shell max-w-6xl">
-        {/* Dynamic Header */}
-        <div className="mb-12 border-b border-[#ded2c1] pb-10">
-          <p className="mb-3 text-xs tracking-widest uppercase text-[#b68a3a] font-semibold">
-            [ Legal Documentation ]
-          </p>
-          <h1 className="font-display text-5xl font-semibold leading-tight text-[#111111] md:text-7xl">
+    <>
+      {/* 1. Title. Words only, the gold thread beneath. */}
+      <section className="paper pb-10 pt-32 md:pb-14 md:pt-40">
+        <div className="container-shell">
+          <p className="eyebrow">Legal</p>
+          <h1 className="mt-8 max-w-4xl font-display text-4xl font-bold uppercase leading-[1.0] text-balance sm:text-5xl lg:text-[4.5rem]">
             {page.title}
           </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#7a7065] md:text-xl md:leading-8">
-            {page.intro}
-          </p>
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-black/75">{page.intro}</p>
+          <hr className="thread mt-14" />
         </div>
+      </section>
 
-        {/* Responsive Grid Layout */}
-        <div className="grid gap-12 lg:grid-cols-[260px_1fr]">
-          
-          {/* Sticky Sidebar */}
-          <aside className="space-y-8 lg:sticky lg:top-28 lg:h-fit">
-            
-            {/* Document Switcher */}
-            <div>
-              <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-[#7a7065]/60">
-                Documents
-              </h3>
-              <nav className="flex flex-col gap-2">
-                {legalPages.map((p) => {
-                  const isActive = p.slug === slug;
+      {/* 2. The document. Switcher and index stay put on the left, the sections scroll on the right. */}
+      <section className="paper pb-20 pt-4 md:pb-28">
+        <div className="container-shell grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <aside>
+            <div className="lg:sticky lg:top-32">
+              <p className="eyebrow">Documents</p>
+              <ul className="mt-5 flex flex-wrap gap-2.5 lg:flex-col lg:gap-0 lg:border-t lg:border-black/15">
+                {legalPages.map((doc) => {
+                  const active = doc.slug === slug;
                   return (
-                    <Link
-                      href={`/legal/${p.slug}`}
-                      key={p.slug}
-                      className={`group flex items-center gap-2 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-300 ${
-                        isActive
-                          ? "bg-[#ead9ad]/20 text-[#b68a3a] shadow-sm font-semibold"
-                          : "text-[#7a7065] hover:bg-[#ded2c1]/20 hover:text-[#111111]"
-                      }`}
-                    >
-                      <span
-                        className={`h-1.5 w-1.5 rounded-full bg-[#b68a3a] transition-all duration-300 ${
-                          isActive ? "scale-100 opacity-100" : "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-50"
+                    <li className="lg:border-b lg:border-black/15" key={doc.slug}>
+                      <Link
+                        aria-current={active ? "page" : undefined}
+                        className={`inline-flex items-center gap-3 rounded-full border px-4 py-2 text-sm transition-colors lg:w-full lg:rounded-none lg:border-0 lg:px-0 lg:py-4 lg:font-display lg:text-xl lg:font-semibold ${
+                          active
+                            ? "border-black bg-black text-ivory lg:bg-transparent lg:text-black"
+                            : "border-black/15 text-black/70 hover:border-black hover:text-black lg:text-black/45 lg:hover:text-black"
                         }`}
-                      />
-                      {p.title}
-                    </Link>
+                        href={`/legal/${doc.slug}`}
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={`hidden h-2 w-2 shrink-0 rounded-full lg:block ${active ? "bg-gold" : "bg-transparent"}`}
+                        />
+                        {doc.title}
+                      </Link>
+                    </li>
                   );
                 })}
+              </ul>
+
+              <nav aria-label="On this page" className="mt-12 hidden lg:block">
+                <p className="eyebrow">On this page</p>
+                <ol className="mt-5 space-y-2.5">
+                  {page.sections.map(([title], index) => {
+                    const { number, text } = splitTitle(title, index);
+                    return (
+                      <li key={title}>
+                        <a
+                          className="group inline-flex items-baseline gap-3 text-sm text-black/60 transition-colors hover:text-black"
+                          href={`#${slugify(title)}`}
+                        >
+                          <span className="font-display text-xs font-semibold text-gold-shadow">{number}</span>
+                          <span className="underline-offset-4 group-hover:underline group-hover:decoration-gold group-hover:decoration-2">
+                            {text}
+                          </span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ol>
               </nav>
             </div>
-
-            {/* Table of Contents */}
-            <div className="hidden border-t border-[#ded2c1]/60 pt-6 lg:block">
-              <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-[#7a7065]/60">
-                On This Page
-              </h3>
-              <nav className="flex flex-col gap-3">
-                {page.sections.map(([title]) => {
-                  const sectionSlug = slugify(title);
-                  return (
-                    <a
-                      href={`#${sectionSlug}`}
-                      key={title}
-                      className="text-xs text-[#7a7065] transition-colors duration-200 hover:text-[#b68a3a] hover:underline"
-                    >
-                      {title}
-                    </a>
-                  );
-                })}
-              </nav>
-            </div>
-
-            {/* Support / Quick Box */}
-            <div className="rounded-xl border border-[#ded2c1] bg-[#fffaf2] p-5 shadow-sm">
-              <h4 className="text-sm font-semibold text-[#111111]">Got Questions?</h4>
-              <p className="mt-2 text-xs leading-relaxed text-[#7a7065]">
-                If you have any questions regarding our policies, feel free to contact us.
-              </p>
-              <a
-                href={`mailto:${profile.email}`}
-                className="mt-4 inline-block text-xs font-bold text-[#b68a3a] hover:underline transition-all duration-200"
-              >
-                {profile.email} &rarr;
-              </a>
-            </div>
-
           </aside>
 
-          {/* Main Legal Content */}
-          <article className="space-y-12">
-            <div className="rounded-2xl border border-[#ded2c1] bg-white p-6 shadow-sm sm:p-10 md:p-12">
-              <div className="space-y-10">
-                {page.sections.map(([title, text]) => {
-                  const sectionSlug = slugify(title);
-                  return (
-                    <section
-                      id={sectionSlug}
-                      key={title}
-                      className="scroll-mt-28 border-b border-[#ded2c1]/40 pb-8 last:border-b-0 last:pb-0"
-                    >
-                      <h2 className="font-display text-2xl font-semibold text-[#111111] md:text-3xl">
-                        {title}
-                      </h2>
-                      <p className="mt-4 text-base leading-relaxed text-[#7a7065] md:text-lg md:leading-8 whitespace-pre-line">
-                        {text}
-                      </p>
-                    </section>
-                  );
-                })}
-              </div>
-            </div>
+          <article>
+            <ol className="border-t border-black/15">
+              {page.sections.map(([title, text], index) => {
+                const heading = splitTitle(title, index);
+                return (
+                  <li className="scroll-mt-32 border-b border-black/15 py-9 md:py-11" id={slugify(title)} key={title}>
+                    <div className="grid gap-4 sm:grid-cols-[3.5rem_1fr]">
+                      <span className="thread-text font-display text-3xl font-bold leading-none md:text-4xl">{heading.number}</span>
+                      <div>
+                        <h2 className="font-display text-2xl font-semibold leading-snug md:text-3xl">{heading.text}</h2>
+                        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-black/75 whitespace-pre-line">{text}</p>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
           </article>
-
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* 3. Close. Where to take a question. */}
+      <section className="section-padding bg-dove-tint">
+        <div className="container-shell grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <h2 className="font-display text-3xl font-bold uppercase leading-[1.02] sm:text-4xl lg:text-[3rem]">
+            A question about this?
+          </h2>
+          <div>
+            <p className="max-w-xl text-lg leading-relaxed text-black/75">
+              Email me at{" "}
+              <a className="font-medium text-black underline decoration-gold decoration-2 underline-offset-4 hover:text-gold-shadow" href={`mailto:${profile.email}`}>
+                {profile.email}
+              </a>
+              . A short message is plenty. The everyday questions are answered on the FAQ page.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <ArrowButton href={`mailto:${profile.email}`} variant="dark">
+                Email me
+              </ArrowButton>
+              <ArrowButton href="/faq" variant="gold">
+                Read the FAQ
+              </ArrowButton>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

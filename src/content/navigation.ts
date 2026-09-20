@@ -57,6 +57,33 @@ export const footerNavLinks: NavLink[] = [
   { label: "On the Record", href: "/on-the-record" },
 ];
 
+export type FooterGroup = { label: string; links: NavLink[] };
+
+// The footer menu, grouped so it reads as a map of the site rather than one long list.
+export const footerGroups: FooterGroup[] = [
+  {
+    label: "Site",
+    links: [
+      { label: "Home", href: "/" },
+      { label: "About", href: "/about" },
+      { label: "Find me", href: "/find-me" },
+      { label: "FAQ", href: "/faq" },
+    ],
+  },
+  {
+    label: "My work",
+    links: [...myWorkLinks, { label: "On the Record", href: "/on-the-record" }],
+  },
+  {
+    label: "Resources",
+    links: [
+      { label: "Writing", href: "/articles" },
+      { label: "Toolkit", href: "/toolkit" },
+      { label: "Quiet Focus", href: "/quiet-focus" },
+    ],
+  },
+];
+
 export const socialLinks: NavLink[] = [
   { label: "Instagram", href: "https://instagram.com/dkjonah" },
   { label: "X", href: "https://x.com/dkjonah" },

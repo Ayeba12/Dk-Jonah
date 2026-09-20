@@ -16,7 +16,8 @@ export const articles: Article[] = [
     title: "You Are Not Behind Because Your Body Needed Rest",
     date: "May 12, 2026",
     readTime: "6 min read",
-    image: "/assets/avenzor/images/article-minimalism.png",
+    image: "/assets/avenzor/images/quiet-moment-window.webp",
+    categories: [{ name: "Rest", slug: "rest" }],
     excerpt:
       "A gentle reminder for the days your pace feels smaller than your dreams.",
     body: [
@@ -30,7 +31,8 @@ export const articles: Article[] = [
     title: "When Faith Feels Like Pressure Instead Of Peace",
     date: "May 18, 2026",
     readTime: "7 min read",
-    image: "/assets/avenzor/images/article-trends.png",
+    image: "/assets/avenzor/images/quiet-moment-journaling.webp",
+    categories: [{ name: "Faith", slug: "faith" }],
     excerpt:
       "For the person who loves God deeply but is tired of pretending that struggle is simple.",
     body: [
@@ -44,7 +46,8 @@ export const articles: Article[] = [
     title: "You Are Not Lazy Because The System Did Not Fit",
     date: "May 24, 2026",
     readTime: "8 min read",
-    image: "/assets/avenzor/images/article-process.jpg",
+    image: "/assets/avenzor/images/quiet-moment-reading.webp",
+    categories: [{ name: "Comfy Productivity", slug: "comfy-productivity" }],
     excerpt:
       "A softer way to think about routines, planning, neurodivergence, and fluctuating capacity.",
     body: [
@@ -58,7 +61,8 @@ export const articles: Article[] = [
     title: "Softness Is Not A Weakness To Outgrow",
     date: "May 30, 2026",
     readTime: "5 min read",
-    image: "/assets/avenzor/images/hero-portrait.avif",
+    image: "/assets/avenzor/images/quiet-moment-evening.webp",
+    categories: [{ name: "Invisible realities", slug: "invisible-realities" }],
     excerpt:
       "For the tender person learning that sensitivity can be wisdom, not something to erase.",
     body: [

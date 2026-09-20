@@ -139,19 +139,20 @@ export const SiteHeader = () => {
               aria-controls="mobile-menu"
               aria-expanded={isOpen}
               aria-label={isOpen ? "Close menu" : "Open menu"}
-              className="grid h-11 w-11 place-items-center rounded-full border border-white/70 lg:hidden"
+              className="-mr-2 grid h-11 w-12 place-items-center lg:hidden"
               onClick={() => setIsOpen((value) => !value)}
               type="button"
             >
-              <span className="relative flex h-3 w-5 flex-col justify-between">
+              {/* Two bare lines, the top one longer. They meet in the middle and cross when the menu is open. */}
+              <span className="relative flex h-[14px] w-8 flex-col items-end justify-between">
                 <span
-                  className={`h-px w-full bg-current transition-transform duration-300 ${
-                    isOpen ? "translate-y-[5.5px] rotate-45" : ""
+                  className={`h-[2px] rounded-full bg-current transition-all duration-300 ease-out ${
+                    isOpen ? "w-full translate-y-[6px] rotate-45" : "w-full"
                   }`}
                 />
                 <span
-                  className={`h-px w-full bg-current transition-transform duration-300 ${
-                    isOpen ? "-translate-y-[5.5px] -rotate-45" : ""
+                  className={`h-[2px] rounded-full bg-current transition-all duration-300 ease-out ${
+                    isOpen ? "w-full -translate-y-[6px] -rotate-45" : "w-[62%]"
                   }`}
                 />
               </span>

@@ -6,7 +6,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dkjonah.com";
 
   // Static routes
-  const staticRoutes = ["", "/about", "/contact", "/articles", "/projects"].map((route) => ({
+  const staticRoutes = [
+    "",
+    "/about",
+    "/work",
+    "/speaking",
+    "/advocacy-faith",
+    "/on-the-record",
+    "/toolkit",
+    "/quiet-focus",
+    "/find-me",
+    "/faq",
+    "/articles",
+  ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
