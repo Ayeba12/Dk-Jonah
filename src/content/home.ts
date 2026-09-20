@@ -38,7 +38,7 @@ export const recognitionContent = {
   ],
   emphasis: "hidden captivity",
   // The hidden captivity article is still to be written. Points at the archive until it lands.
-  articleLink: { label: "Read the hidden captivity article", href: "/articles" },
+  articleLink: { label: "Read the hidden captivity article", href: "/articles/three-levels-of-captivity" },
 };
 
 // Section 3
@@ -206,27 +206,7 @@ export const reflectionsContent = {
   eyebrow: "Reflections",
   headline: "Essays for the quiet questions you carry",
   body: "Writing on invisible illness, neurodiversity, faith, rest and the rules we never chose. Written from the inside, so you can find words for what you have been carrying.",
-  essays: [
-    {
-      title: "The hidden captivity article",
-      tag: "Essay",
-      // Still to be written. Points at the archive until it lands.
-      href: "/articles",
-      image: "/assets/avenzor/images/quiet-moment-window.webp",
-    },
-    {
-      title: "When Faith Feels Like Pressure Instead of Peace",
-      tag: "Faith",
-      href: "/articles/when-faith-feels-like-pressure-instead-of-peace",
-      image: "/assets/avenzor/images/quiet-moment-journaling.webp",
-    },
-    {
-      title: "You Are Not Lazy. The System Did Not Fit.",
-      tag: "Comfy Productivity",
-      href: "/articles/you-are-not-lazy-because-the-system-did-not-fit",
-      image: "/assets/avenzor/images/quiet-moment-reading.webp",
-    },
-  ],
+  // The three cards are the three latest essays in the archive, fetched on the home page.
   cta: { label: "Read more reflections", href: "/articles" },
 };
 

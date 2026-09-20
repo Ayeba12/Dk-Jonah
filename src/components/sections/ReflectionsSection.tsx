@@ -4,11 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import type { Article } from "@/content/articles";
 import { reflectionsContent as content } from "@/content/home";
 
 // The reference's "Design Journal" block: heading column on the left,
-// three square image cards on the right, the button aligned under the cards.
-export const ReflectionsSection = () => (
+// the three latest essays as square image cards on the right, the button aligned under the cards.
+export const ReflectionsSection = ({ essays }: { essays: Article[] }) => (
   <section className="paper section-padding" id="reflections">
     <div className="container-shell">
       <span aria-hidden="true" className="mx-auto mb-14 block h-2 w-2 rounded-full bg-gold md:mb-20" />
@@ -24,11 +25,10 @@ export const ReflectionsSection = () => (
 
         <div>
           <div className="grid gap-6 sm:grid-cols-3">
-            {content.essays.map((essay, index) => (
-              <ScrollReveal delay={index * 0.08} key={essay.title}>
-                <Link className="group block" href={essay.href}>
+            {essays.map((essay, index) => (
+              <ScrollReveal delay={index * 0.08} key={essay.slug}>
+                <Link className="group block" href={`/articles/${essay.slug}`}>
                   <div className="relative aspect-square overflow-hidden rounded-2xl bg-dove-tint">
-                    {/* Placeholder imagery until essay artwork is chosen. */}
                     <Image
                       alt=""
                       className="object-cover grayscale transition-transform duration-700 ease-out group-hover:scale-[1.04]"
@@ -37,7 +37,7 @@ export const ReflectionsSection = () => (
                       src={essay.image}
                     />
                     <span className="absolute left-4 top-4 rounded-full bg-ivory px-3 py-1 text-xs font-medium text-black">
-                      {essay.tag}
+                      {essay.categories?.[0]?.name ?? "Reflection"}
                     </span>
                     <span
                       aria-hidden="true"

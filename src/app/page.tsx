@@ -9,6 +9,7 @@ import { ReflectionsSection } from "@/components/sections/ReflectionsSection";
 import { SpeakingSection } from "@/components/sections/SpeakingSection";
 import { CloseSection } from "@/components/sections/CloseSection";
 import { homeSEO } from "@/content/home";
+import { getWPArticles } from "@/lib/wordpress";
 
 export const metadata: Metadata = {
   title: homeSEO.title,
@@ -28,7 +29,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+// Essays are fetched at render, newest first, so the block updates on its own when a new one is published.
+export const revalidate = 60;
+
+export default async function Home() {
+  const articles = await getWPArticles();
+  const latest = [...articles]
+    .sort((a, b) => (Date.parse(b.date) || 0) - (Date.parse(a.date) || 0))
+    .slice(0, 3);
+
   return (
     <>
       {/* 1. Hero: its film stays pinned while the page scrolls over it */}
@@ -50,7 +59,7 @@ export default function Home() {
       <WhatPeopleSaySection />
 
       {/* 8. Reflections */}
-      <ReflectionsSection />
+      <ReflectionsSection essays={latest} />
 
       {/* 9. Speaking */}
       <SpeakingSection />

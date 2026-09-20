@@ -128,13 +128,13 @@ export const getWPArticles = cache(async (): Promise<Article[]> => {
       return {
         slug: post.slug,
         title: post.title,
-        date: new Date(post.date).toLocaleDateString("en-US", {
-          month: "long",
+        date: new Date(post.date).toLocaleDateString("en-GB", {
           day: "numeric",
+          month: "long",
           year: "numeric",
         }),
         readTime: calculateReadingTime(post.content || ""),
-        image: post.featuredImage?.node?.sourceUrl || "/assets/avenzor/images/article-minimalism.png",
+        image: post.featuredImage?.node?.sourceUrl || "/assets/avenzor/images/quiet-moment-window.webp",
         excerpt: post.excerpt?.replace(/<[^>]*>/g, "") || "",
         body: post.content || "",
         categories: post.categories?.nodes || [],
