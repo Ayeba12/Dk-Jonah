@@ -30,54 +30,50 @@ const initials = (name: string) =>
 
 // Section 1 · Hero. Stacked headline left, framed picture right with the closing line over it.
 export const SpeakingHero = () => (
-  <section className="paper pt-24 md:pt-28">
-    {/* Below the desktop breakpoint the headline sits above the picture. */}
-    <div className="container-shell pb-8 lg:hidden">
-      <p className="eyebrow">{hero.eyebrow}</p>
-      <h1 className="mt-6 font-display text-4xl font-bold uppercase leading-[1.0] text-balance sm:text-5xl">{hero.headline}</h1>
-    </div>
+  <section className="paper pb-16 pt-32 md:pb-24 md:pt-40">
+    <div className="container-shell grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-stretch lg:gap-14">
+      <div className="flex flex-col justify-between">
+        <div>
+          <p className="eyebrow">{hero.eyebrow}</p>
+          <h1 className="mt-8 font-display text-4xl font-bold uppercase leading-[1.0] text-balance sm:text-5xl lg:text-[3.9rem]">
+            {hero.headline}
+          </h1>
+        </div>
+        <div className="mt-10 lg:mt-14">
+          <div className="max-w-md space-y-4 text-base leading-relaxed text-black/75">
+            {hero.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap items-center gap-6">
+            <ArrowButton href={hero.primaryCta.href} variant="dark">
+              {hero.primaryCta.label}
+            </ArrowButton>
+            <Link
+              className="text-sm underline decoration-black/30 underline-offset-4 transition-colors hover:text-gold-shadow"
+              href={hero.secondaryCta.href}
+            >
+              {hero.secondaryCta.label}
+            </Link>
+          </div>
+        </div>
+      </div>
 
-    {/* Photograph 01, black and white, full width. The audience heads stay along the bottom edge. */}
-    <div className="relative">
-      <div className="relative aspect-[4/5] w-full overflow-hidden bg-black sm:aspect-[4/3] lg:aspect-[16/9] lg:max-h-[88vh]">
+      {/* Photograph 01, black and white, the red pillar trimmed. DK at the lectern is the focal point. */}
+      <div className="relative min-h-[440px] overflow-hidden rounded-2xl bg-black lg:min-h-[620px]">
         <Image
           alt={hero.imageAlt}
-          className="object-cover object-[48%_45%] lg:object-[50%_74%]"
+          className="object-cover object-[48%_45%]"
           fill
           priority
-          sizes="100vw"
+          sizes="(min-width: 1024px) 55vw, 100vw"
           src={hero.image}
           unoptimized
         />
-      </div>
-      {/* On desktop the bright wall at the top left takes the headline, so there is no scrim. */}
-      <div className="container-shell absolute inset-x-0 top-0 hidden pt-10 lg:block xl:pt-14">
-        <p className="eyebrow">{hero.eyebrow}</p>
-        <h1 className="mt-5 max-w-[30rem] font-display text-[2.6rem] font-bold uppercase leading-[1.0] text-black xl:max-w-[34rem] xl:text-[3.1rem]">
-          {hero.headline}
-        </h1>
-      </div>
-    </div>
-
-    <div className="container-shell grid gap-10 py-14 md:py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-      <p className="font-display text-2xl font-medium leading-snug text-balance md:text-3xl">{hero.closingLine}</p>
-      <div>
-        <div className="max-w-xl space-y-4 text-lg leading-relaxed text-black/75">
-          {hero.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
-        <div className="mt-8 flex flex-wrap items-center gap-6">
-          <ArrowButton href={hero.primaryCta.href} variant="dark">
-            {hero.primaryCta.label}
-          </ArrowButton>
-          <Link
-            className="text-sm underline decoration-black/30 underline-offset-4 transition-colors hover:text-gold-shadow"
-            href={hero.secondaryCta.href}
-          >
-            {hero.secondaryCta.label}
-          </Link>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
+        <p className="absolute inset-x-0 bottom-0 p-8 font-display text-2xl font-medium leading-tight text-ivory md:p-10 md:text-4xl">
+          {hero.closingLine}
+        </p>
       </div>
     </div>
   </section>
