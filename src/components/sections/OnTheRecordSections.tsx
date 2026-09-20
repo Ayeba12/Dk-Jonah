@@ -18,29 +18,37 @@ const stagger = ["", "lg:mt-4", "lg:mt-8"];
 
 // Section 1 · Hero. The About-style split, then the numbers strip as cards.
 export const RecordHero = () => (
-  <section className="paper pb-16 pt-32 md:pb-24 md:pt-40">
-    <div className="container-shell">
-      <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-stretch lg:gap-14">
-        <div className="flex flex-col justify-between">
-          <div>
-            <p className="eyebrow">{hero.eyebrow}</p>
-            <h1 className="mt-8 font-display text-4xl font-bold uppercase leading-[1.0] text-balance sm:text-5xl lg:text-[4rem]">
-              {hero.headline}
-            </h1>
-          </div>
-          <p className="mt-10 max-w-md text-base leading-relaxed text-black/75 lg:mt-14">{hero.body}</p>
-        </div>
-        <div className="relative min-h-[440px] overflow-hidden rounded-2xl bg-dove-tint lg:min-h-[620px]">
-          <Image
-            alt="DK Jonah on a conference stage"
-            className="object-cover object-top"
-            fill
-            priority
-            sizes="(min-width: 1024px) 55vw, 100vw"
-            src={hero.image}
-          />
+  <section className="paper pt-24 md:pt-28">
+    {/* Below the desktop breakpoint the headline sits above the picture. */}
+    <div className="container-shell pb-8 lg:hidden">
+      <p className="eyebrow">{hero.eyebrow}</p>
+      <h1 className="mt-6 font-display text-4xl font-bold uppercase leading-[1.0] text-balance sm:text-5xl">{hero.headline}</h1>
+    </div>
+
+    {/* Photograph 09, in colour, full width. On phones it crops to DK's face and shoulders. */}
+    <div className="relative">
+      <div className="relative aspect-[4/5] w-full overflow-hidden bg-dove-tint sm:aspect-[16/10] lg:aspect-[16/8] lg:max-h-[80vh]">
+        <Image
+          alt={hero.imageAlt}
+          className="object-cover object-[30%_35%] lg:object-[50%_40%]"
+          fill
+          priority
+          sizes="100vw"
+          src={hero.image}
+          unoptimized
+        />
+      </div>
+      {/* On desktop the plain wall on the right takes the headline. */}
+      <div className="container-shell absolute inset-x-0 top-0 hidden pt-10 lg:flex lg:justify-end xl:pt-14">
+        <div className="max-w-[30rem] text-right lg:mr-[14%] xl:max-w-[34rem]">
+          <p className="eyebrow">{hero.eyebrow}</p>
+          <h1 className="mt-5 font-display text-[2.6rem] font-bold uppercase leading-[1.0] text-black xl:text-[3.1rem]">{hero.headline}</h1>
         </div>
       </div>
+    </div>
+
+    <div className="container-shell pt-14 md:pt-20">
+      <p className="max-w-2xl text-lg leading-relaxed text-black/75">{hero.body}</p>
 
       <div className="mt-14 grid grid-cols-2 gap-3 md:mt-20 md:gap-4 lg:grid-cols-4">
         {hero.numbers.map((item, index) => (
@@ -164,6 +172,18 @@ export const ConversationsSection = () => (
           <h2 className="mt-8 font-display text-3xl font-bold uppercase leading-[1.02] text-balance sm:text-4xl lg:text-[3rem]">
             {conversationsContent.headline}
           </h2>
+          {/* Photograph 10, in colour. */}
+          <div className="mt-8 w-full" style={{ maxWidth: conversationsContent.image.width }}>
+            <Image
+              alt={conversationsContent.image.alt}
+              className="h-auto w-full rounded-2xl"
+              height={conversationsContent.image.height}
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              src={conversationsContent.image.src}
+              unoptimized
+              width={conversationsContent.image.width}
+            />
+          </div>
         </div>
       </ScrollReveal>
       <ul className="divide-y divide-black/15 border-y border-black/15">

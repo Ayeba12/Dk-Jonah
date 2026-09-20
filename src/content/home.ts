@@ -24,8 +24,7 @@ export const heroContent = {
   mainCta: { label: "Join Quiet Focus", href: "/quiet-focus" },
   name: "DK JONAH",
   lineUnderName: "Chronic illness. Neurodiversity. Faith. Rest. Honest becoming.",
-  identityLine:
-    "I turn complex ideas and lived experience into language and structure people can use.",
+  identityLine: "I help people find words for what they are carrying, and a structure that holds.",
   secondaryCta: { label: "Invite DK to speak", href: "/speaking#enquiry" },
 };
 
@@ -195,10 +194,7 @@ export const whatPeopleSayContent = {
       role: null,
     },
   ],
-  pullQuote: {
-    quote: "The business secret every business owner needs.",
-    author: "Fola",
-  },
+  // Fola's line was removed on 20 September 2026: it had no role or descriptor. DK will send replacement words.
 };
 
 // Section 8

@@ -19,7 +19,9 @@ export const speakingHeroContent = {
   closingLine: "People leave with a clearer head and one step they can take the next morning.",
   primaryCta: { label: "Invite DK", href: "#enquiry" },
   secondaryCta: { label: "See topics", href: "#topics" },
-  image: "/assets/avenzor/images/speaking-hero.webp",
+  // Photograph 01, black and white, the red pillar trimmed. Numbered file names are kept so DK can swap them.
+  image: "/assets/avenzor/images/01-speaking-hero-auditorium.jpg",
+  imageAlt: "DK Jonah speaking from a lectern on stage to a seated audience",
 };
 
 export const whatIBringContent = {
@@ -43,6 +45,11 @@ export const roomsContent = {
     "Podcasts and radio",
     "Community and creative groups",
   ],
+};
+
+export const topicsImage = {
+  src: "/assets/avenzor/images/03-speaking-lectern-black-and-white.jpg",
+  alt: "DK Jonah smiling as she speaks into a microphone at a lectern",
 };
 
 export const topicsContent = {
@@ -134,6 +141,13 @@ export const formatsContent = {
     },
   ],
   line: "Online or in person. If your event has a theme, I can build the talk around it.",
+  // Photograph 08, in colour. Its original is 840 by 585, so it is never shown wider than that.
+  image: {
+    src: "/assets/avenzor/images/08-workshop-NO-GraGra-cleaned.jpg",
+    alt: "DK Jonah leading a NO GraGra workshop, gesturing as she explains an idea",
+    width: 840,
+    height: 585,
+  },
 };
 
 export const whereSpokenContent = {

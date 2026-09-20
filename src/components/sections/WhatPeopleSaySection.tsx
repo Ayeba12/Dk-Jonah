@@ -20,8 +20,8 @@ export const WhatPeopleSaySection = () => {
   return (
     <section className="section-padding bg-ivory" id="testimonials">
       <div className="container-shell">
-        <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-16">
-          <ScrollReveal>
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-6">
+          <ScrollReveal className="lg:w-[54%] lg:shrink-0">
             <p className="eyebrow">{content.eyebrow}</p>
             <h2 className="mt-3 font-display text-base font-semibold uppercase tracking-wide text-black/70">
               {content.headline}
@@ -51,29 +51,23 @@ export const WhatPeopleSaySection = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-2xl bg-dove-tint lg:ml-auto">
+            {/* Amina's portrait sits beside her words, narrower than its column so the section keeps air on the right. */}
+            <div className="relative h-[24rem] w-full overflow-hidden rounded-2xl bg-dove-tint sm:mx-auto sm:h-[28rem] sm:max-w-sm lg:mx-0 lg:h-[29rem] lg:w-72">
               <Image
-                alt="DK Jonah"
-                className="object-cover object-[50%_15%] grayscale"
+                alt={featured.name}
+                className="object-cover object-top grayscale"
                 fill
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                src="/assets/avenzor/images/about-hero.png"
+                sizes="(min-width: 1024px) 18rem, (min-width: 640px) 24rem, 100vw"
+                src="/assets/avenzor/images/testimonial-amina.webp"
+                // The file is already web-sized, and the dev image optimiser has stalled on it, so serve it as is.
+                unoptimized
               />
             </div>
           </ScrollReveal>
         </div>
 
-        {/* Shorter quotes, with the pull quote in the reference's left-hand slot */}
-        <div className="mt-20 grid gap-10 md:mt-28 lg:grid-cols-[0.75fr_1fr_1fr_1fr] lg:gap-8">
-          <ScrollReveal>
-            <div className="lg:pr-6">
-              <p className="text-sm leading-relaxed text-black/55">
-                &ldquo;{content.pullQuote.quote}&rdquo;
-              </p>
-              <p className="mt-2 text-sm font-medium text-black/70">{content.pullQuote.author}</p>
-            </div>
-          </ScrollReveal>
-
+        {/* Shorter quotes, three across */}
+        <div className="mt-20 grid gap-10 md:mt-28 lg:grid-cols-3 lg:gap-8">
           {others.map((card, index) => (
             <ScrollReveal delay={0.05 + index * 0.06} key={card.name}>
               <article className="flex h-full flex-col">

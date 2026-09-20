@@ -313,3 +313,63 @@ select:focus {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Essay body. Covers the local paragraphs and HTML that arrives from WordPress. */
+.article-body > * + * {
+  margin-top: 1.5em;
+}
+.article-body h2,
+.article-body h3,
+.article-body h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--black);
+  margin-top: 2.2em;
+}
+.article-body h2 {
+  font-size: 1.75rem;
+}
+.article-body h3 {
+  font-size: 1.35rem;
+}
+.article-body h4 {
+  font-size: 1.15rem;
+}
+.article-body a {
+  color: var(--black);
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.article-body ul,
+.article-body ol {
+  padding-left: 1.4em;
+}
+.article-body ul {
+  list-style: disc;
+}
+.article-body ol {
+  list-style: decimal;
+}
+.article-body li + li {
+  margin-top: 0.5em;
+}
+.article-body blockquote {
+  border-left: 2px solid var(--gold);
+  padding-left: 1.25em;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1.35;
+  color: var(--black);
+}
+.article-body img,
+.article-body figure {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.article-body strong {
+  font-weight: 600;
+  color: var(--black);
+}

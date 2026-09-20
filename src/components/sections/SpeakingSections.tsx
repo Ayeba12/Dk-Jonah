@@ -14,6 +14,7 @@ import {
   roomsContent,
   speakingHeroContent as hero,
   topicsContent,
+  topicsImage,
   whatIBringContent,
   whereSpokenContent,
 } from "@/content/speaking";
@@ -29,54 +30,59 @@ const initials = (name: string) =>
 
 // Section 1 · Hero. Stacked headline left, framed picture right with the closing line over it.
 export const SpeakingHero = () => (
-  <section className="paper pb-16 pt-32 md:pb-24 md:pt-40">
-    <div className="container-shell grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-stretch lg:gap-14">
-      <div className="flex flex-col justify-between">
-        <div>
-          <p className="eyebrow">{hero.eyebrow}</p>
-          <h1 className="mt-8 font-display text-4xl font-bold uppercase leading-[1.0] text-balance sm:text-5xl lg:text-[3.9rem]">
-            {hero.headline}
-          </h1>
-        </div>
-        <div className="mt-10 lg:mt-14">
-          <div className="max-w-md space-y-4 text-base leading-relaxed text-black/75">
-            {hero.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-          <div className="mt-8 flex flex-wrap items-center gap-6">
-            <ArrowButton href={hero.primaryCta.href} variant="dark">
-              {hero.primaryCta.label}
-            </ArrowButton>
-            <Link
-              className="text-sm underline decoration-black/30 underline-offset-4 transition-colors hover:text-gold-shadow"
-              href={hero.secondaryCta.href}
-            >
-              {hero.secondaryCta.label}
-            </Link>
-          </div>
-        </div>
-      </div>
+  <section className="paper pt-24 md:pt-28">
+    {/* Below the desktop breakpoint the headline sits above the picture. */}
+    <div className="container-shell pb-8 lg:hidden">
+      <p className="eyebrow">{hero.eyebrow}</p>
+      <h1 className="mt-6 font-display text-4xl font-bold uppercase leading-[1.0] text-balance sm:text-5xl">{hero.headline}</h1>
+    </div>
 
-      <div className="relative min-h-[440px] overflow-hidden rounded-2xl bg-black lg:min-h-[620px]">
+    {/* Photograph 01, black and white, full width. The audience heads stay along the bottom edge. */}
+    <div className="relative">
+      <div className="relative aspect-[4/5] w-full overflow-hidden bg-black sm:aspect-[4/3] lg:aspect-[16/9] lg:max-h-[88vh]">
         <Image
-          alt="DK Jonah speaking to a room"
-          className="object-cover object-top"
+          alt={hero.imageAlt}
+          className="object-cover object-[48%_45%] lg:object-[50%_74%]"
           fill
           priority
-          sizes="(min-width: 1024px) 55vw, 100vw"
+          sizes="100vw"
           src={hero.image}
+          unoptimized
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
-        <p className="absolute inset-x-0 bottom-0 p-8 font-display text-2xl font-medium leading-tight text-ivory md:p-10 md:text-4xl">
-          {hero.closingLine}
-        </p>
+      </div>
+      {/* On desktop the bright wall at the top left takes the headline, so there is no scrim. */}
+      <div className="container-shell absolute inset-x-0 top-0 hidden pt-10 lg:block xl:pt-14">
+        <p className="eyebrow">{hero.eyebrow}</p>
+        <h1 className="mt-5 max-w-[30rem] font-display text-[2.6rem] font-bold uppercase leading-[1.0] text-black xl:max-w-[34rem] xl:text-[3.1rem]">
+          {hero.headline}
+        </h1>
+      </div>
+    </div>
+
+    <div className="container-shell grid gap-10 py-14 md:py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <p className="font-display text-2xl font-medium leading-snug text-balance md:text-3xl">{hero.closingLine}</p>
+      <div>
+        <div className="max-w-xl space-y-4 text-lg leading-relaxed text-black/75">
+          {hero.paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+        <div className="mt-8 flex flex-wrap items-center gap-6">
+          <ArrowButton href={hero.primaryCta.href} variant="dark">
+            {hero.primaryCta.label}
+          </ArrowButton>
+          <Link
+            className="text-sm underline decoration-black/30 underline-offset-4 transition-colors hover:text-gold-shadow"
+            href={hero.secondaryCta.href}
+          >
+            {hero.secondaryCta.label}
+          </Link>
+        </div>
       </div>
     </div>
   </section>
 );
 
-// Section 2 · What I bring, with the stats and the rooms beneath.
 export const WhatIBringSection = () => (
   <section className="section-padding bg-ivory" id="what-i-bring">
     <div className="container-shell">
@@ -131,9 +137,15 @@ export const TopicsSection = () => (
   <section className="paper section-padding scroll-mt-24" id={topicsContent.anchor}>
     <div className="container-shell grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
       <ScrollReveal>
-        <h2 className="font-display text-4xl font-bold uppercase leading-[1.02] sm:text-5xl lg:sticky lg:top-32 lg:text-[4rem]">
-          {topicsContent.headline}
-        </h2>
+        <div className="lg:sticky lg:top-32">
+          <h2 className="font-display text-4xl font-bold uppercase leading-[1.02] sm:text-5xl lg:text-[4rem]">
+            {topicsContent.headline}
+          </h2>
+          {/* Photograph 03, already black and white. */}
+          <div className="relative mt-8 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-dove-tint">
+            <Image alt={topicsImage.alt} className="object-cover" fill sizes="(min-width: 1024px) 40vw, 100vw" src={topicsImage.src} unoptimized />
+          </div>
+        </div>
       </ScrollReveal>
       <div className="space-y-12">
         {topicsContent.groups.map((group, index) => (
@@ -160,10 +172,8 @@ export const TopicsSection = () => (
   </section>
 );
 
-// Section 5 · What I can do for your event. The reference's approach cards: a full-height
-// picture with the text in a box floating over it, each card stepping down a little.
-const stagger = ["", "lg:mt-4", "lg:mt-8", "lg:mt-12", "lg:mt-16"];
-
+// Section 5 · What I can do for your event. The formats as a ruled list on the left and the
+// workshop photograph on the right, so the page alternates after the topics block.
 export const FormatsSection = () => (
   <section className="section-padding bg-ivory" id="formats">
     <div className="container-shell">
@@ -174,38 +184,37 @@ export const FormatsSection = () => (
           </h2>
         </ScrollReveal>
         <ScrollReveal delay={0.1}>
-          <p className="max-w-xs text-base leading-relaxed text-black/65 lg:text-right">
-            {formatsContent.line}
-          </p>
+          <p className="max-w-xs text-base leading-relaxed text-black/65 lg:text-right">{formatsContent.line}</p>
         </ScrollReveal>
       </div>
 
-      <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-start">
-        {formatsContent.formats.map((format, index) => (
-          <ScrollReveal className={stagger[index] ?? ""} delay={index * 0.05} key={format.title}>
-            <div
-              className={`relative aspect-[3/4] overflow-hidden rounded-2xl bg-dove-tint ${
-                index === formatsContent.formats.length - 1 ? "ring-2 ring-black" : ""
-              }`}
-            >
-              <Image
-                alt=""
-                className="object-cover"
-                fill
-                sizes="(min-width: 1024px) 20vw, (min-width: 640px) 50vw, 100vw"
-                src={format.image}
-              />
-              <div className="absolute inset-x-3 top-3 rounded-xl bg-ivory p-5 shadow-[0_12px_30px_rgba(0,0,0,0.12)]">
-                <p className="font-display text-lg font-semibold uppercase leading-tight">
-                  {format.title}
+      <div className="mt-14 grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <ScrollReveal>
+          <ul className="divide-y divide-black/15 border-y border-black/15">
+            {formatsContent.formats.map((format, index) => (
+              <li className="grid grid-cols-[2.5rem_1fr] gap-4 py-5" key={format.title}>
+                <span className="font-display text-sm font-semibold text-gold-shadow">0{index + 1}</span>
+                <p className="text-lg leading-relaxed text-black/75">
+                  <strong className="font-semibold text-black">{format.title}</strong>
+                  {format.detail ? ` ${format.detail}` : ""}
                 </p>
-                {format.detail ? (
-                  <p className="mt-3 text-sm leading-relaxed text-black/65">{format.detail}</p>
-                ) : null}
-              </div>
-            </div>
-          </ScrollReveal>
-        ))}
+              </li>
+            ))}
+          </ul>
+        </ScrollReveal>
+        <ScrollReveal delay={0.1}>
+          <div className="mx-auto w-full lg:mx-0 lg:ml-auto" style={{ maxWidth: formatsContent.image.width }}>
+            <Image
+              alt={formatsContent.image.alt}
+              className="h-auto w-full rounded-2xl"
+              height={formatsContent.image.height}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              src={formatsContent.image.src}
+              unoptimized
+              width={formatsContent.image.width}
+            />
+          </div>
+        </ScrollReveal>
       </div>
     </div>
   </section>

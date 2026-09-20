@@ -11,7 +11,9 @@ export const recordHeroContent = {
   eyebrow: "On the Record",
   headline: "Rooms, studios and stages since 2011",
   body: "I started in the Christian creative space. I founded Create With Words, brought bloggers together, then led Pinky Promise London. I was gathering rooms of people and interviewing them long before any of it had a name. Since then I have hosted my own shows, been a guest on many more, and spoken on stages from student conferences to NHS publications.",
-  image: "/assets/avenzor/images/record-hero.webp",
+  // Photograph 09, in colour. Numbered file names are kept so DK can swap them.
+  image: "/assets/avenzor/images/09-on-the-record-headphones.jpg",
+  imageAlt: "DK Jonah smiling at a studio microphone, wearing headphones",
   numbers: [
     { big: "2011", rest: "On platforms since" },
     { big: "4,500+", rest: "followers across Instagram and TikTok" },
@@ -69,6 +71,13 @@ export const showsContent = {
 export const conversationsContent = {
   eyebrow: "In conversation",
   headline: "The interviews where the thinking comes through",
+  // Photograph 10, in colour. An older, smaller image: never shown wider than its 1242 pixels.
+  image: {
+    src: "/assets/avenzor/images/10-on-the-record-studio-interview.jpg",
+    alt: "DK Jonah in conversation across a radio studio desk",
+    width: 1242,
+    height: 815,
+  },
   items: [
     { show: "The 91P Podcast", role: "Guest", detail: "Season 2, Episode 1: How to Increase Productivity, living with chronic pain and invisible illness.", href: null },
     { show: "A Seat With Me", role: "Guest", detail: "Hosted by Solène. Episode 38: Overnight Success Does Not Exist.", href: null },
