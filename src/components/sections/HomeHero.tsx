@@ -61,11 +61,11 @@ export const HomeHero = () => {
       <div className="pointer-events-none fixed inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/80" />
 
       {/* Right gutter held at 32px or more on every width; the words never reach the edge. */}
-      <div className="container-shell relative flex min-h-svh flex-col justify-end pb-8 pr-3 pt-32 md:pb-10 md:pr-0">
+      <div className="container-shell relative flex min-h-svh flex-col justify-end pb-8 pr-3 pt-40 md:pb-10 md:pr-0 md:pt-48 lg:pt-52">
         <div className="lg:max-w-[50%]">
           <motion.h1
             animate={{ opacity: 1, y: 0 }}
-            className="max-w-2xl font-display text-4xl font-medium leading-[1.06] text-ivory text-balance sm:text-5xl lg:text-[3.6rem]"
+            className="max-w-xl font-display text-3xl font-medium leading-[1.08] text-ivory text-balance sm:text-4xl lg:text-[2.9rem]"
             initial={{ opacity: 0, y: 24 }}
             transition={{ duration: 1, delay: 0.3, ease }}
           >
