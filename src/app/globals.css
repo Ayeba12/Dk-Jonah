@@ -373,3 +373,14 @@ select:focus {
   font-weight: 600;
   color: var(--black);
 }
+
+/* Native select lists. The open list follows the surface it sits on, so options always pass contrast. */
+select option {
+  background-color: var(--ivory);
+  color: var(--black);
+}
+.on-black select,
+.on-black select option {
+  background-color: var(--black);
+  color: var(--ivory);
+}

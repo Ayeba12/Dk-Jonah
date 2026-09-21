@@ -143,7 +143,7 @@ export const InteractiveToolsSection = () => (
                 ) : null}
                 <span
                   aria-hidden="true"
-                  className="absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-full bg-gold text-black opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  className="absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-full bg-gold text-black opacity-100 transition-opacity duration-300 lg:opacity-0 lg:group-hover:opacity-100"
                 >
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path d="M5 12h14m0 0-5-5m5 5-5 5" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />

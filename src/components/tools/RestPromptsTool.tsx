@@ -1,167 +1,122 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowButton } from "@/components/ui/ArrowButton";
+import { CopyButton, ToolActions, ToolFrame, ToolLabel, textareaClass } from "@/components/tools/ToolPrimitives";
+
+// Rest Without Guilt Prompts. A breathing pacer, one prompt at a time, and a private place to write.
+
+const prompts = [
+  "What is one thing you accomplished today by doing absolutely nothing?",
+  "Who gave you permission to run so fast? Can you return it to them?",
+  "What does rest feel like in your chest when you let go of expectations?",
+  "If your body was a room today, what would the temperature and lighting be?",
+  "What is one task you can move to tomorrow to give yourself room to breathe tonight?",
+];
+
+const phases = ["Inhale", "Hold", "Exhale"] as const;
+const STORAGE_KEY = "dk_jonah_rest_entry";
 
 export const RestPromptsTool = () => {
-  const prompts = [
-    "What is one thing you accomplished today by doing absolutely nothing?",
-    "Who gave you permission to run so fast? Can you return it to them?",
-    "What does rest feel like in your chest when you let go of expectations?",
-    "If your body was a room today, what would the temperature and lighting be?",
-    "What is a task you can defer to tomorrow to give yourself space to breathe tonight?",
-  ];
-
-  const [promptIndex, setPromptIndex] = useState(0);
-  const [journalText, setJournalText] = useState("");
-  const [breathPhase, setBreathPhase] = useState("Inhale");
-  const [breathTime, setBreathTime] = useState(4);
-  const [copied, setCopied] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const [index, setIndex] = useState(0);
+  const [entry, setEntry] = useState("");
+  const [phase, setPhase] = useState<(typeof phases)[number]>("Inhale");
+  const [seconds, setSeconds] = useState(4);
   const [saved, setSaved] = useState(false);
 
-  // Breathing pacer cycle
+  // A four-count breath: in, hold, out.
   useEffect(() => {
-    const timer = setInterval(() => {
-      setBreathTime((prevTime) => {
-        if (prevTime === 1) {
-          if (breathPhase === "Inhale") {
-            setBreathPhase("Hold");
-            return 4;
-          } else if (breathPhase === "Hold") {
-            setBreathPhase("Exhale");
-            return 4;
-          } else {
-            setBreathPhase("Inhale");
-            return 4;
-          }
-        }
-        return prevTime - 1;
+    const id = window.setInterval(() => {
+      setSeconds((value) => {
+        if (value > 1) return value - 1;
+        setPhase((current) => phases[(phases.indexOf(current) + 1) % phases.length]);
+        return 4;
       });
     }, 1000);
+    return () => window.clearInterval(id);
+  }, []);
 
-    return () => clearInterval(timer);
-  }, [breathPhase]);
-
-  // Load saved session
+  // Entries stay in this browser session only.
   useEffect(() => {
-    const savedText = sessionStorage.getItem("dk_jonah_journal_reflection");
-    if (savedText) {
-      setTimeout(() => {
-        setJournalText(savedText);
-      }, 0);
+    try {
+      const stored = window.sessionStorage.getItem(STORAGE_KEY);
+      if (stored) window.setTimeout(() => setEntry(stored), 0);
+    } catch {
+      // Storage may be blocked; the tool still works without it.
     }
   }, []);
 
-  const handleNextPrompt = () => {
-    setPromptIndex((prev) => (prev + 1) % prompts.length);
-  };
-
-  const handleSave = () => {
-    sessionStorage.setItem("dk_jonah_journal_reflection", journalText);
+  const save = () => {
+    try {
+      window.sessionStorage.setItem(STORAGE_KEY, entry);
+    } catch {
+      // Nothing to do; the words are still on screen.
+    }
     setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    window.setTimeout(() => setSaved(false), 2000);
   };
 
-  const handleCopy = () => {
-    const text = `DK Jonah Reflection Journal:\nPrompt: "${prompts[promptIndex]}"\nResponse: ${journalText}`;
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const scale = phase === "Inhale" ? 1.35 : phase === "Hold" ? 1.35 : 1;
+  const copyText = `Rest Without Guilt Prompts\nPrompt: ${prompts[index]}\n\n${entry}`;
 
   return (
-    <div className="mx-auto max-w-2xl rounded-3xl border border-[#ded2c1] bg-[#f8f2e8] p-6 shadow-sm md:p-8">
-      <div className="mb-6 flex items-center justify-between border-b border-[#ded2c1] pb-4">
-        <h3 className="font-display text-2xl font-semibold text-[#201a16]">Rest Without Guilt Prompts</h3>
-        <span className="text-xs text-[#7a7065]">distraction-free reflection</span>
-      </div>
-
-      <div className="grid gap-6">
-        {/* Breathing pacer */}
-        <div className="flex flex-col items-center justify-center rounded-2xl bg-[#fffaf2] p-6 border border-[#ded2c1]/60">
-          <span className="text-xs text-[#7a7065] uppercase tracking-wider mb-3">Breathing pacer</span>
-          
-          <div className="relative flex h-28 w-28 items-center justify-center">
-            {/* Breathing Bubble Outer */}
-            <motion.div
-              animate={{
-                scale: breathPhase === "Inhale" ? [1, 1.4] : breathPhase === "Hold" ? 1.4 : [1.4, 1],
-              }}
-              transition={{
-                duration: 4,
-                ease: "easeInOut",
-              }}
-              className="absolute inset-0 rounded-full bg-[#ead9ad]/40"
+    <ToolFrame title="Rest Without Guilt Prompts">
+      <div className="grid gap-8 md:grid-cols-[auto_1fr] md:items-center md:gap-12">
+        <div className="flex flex-col items-center">
+          <p className="eyebrow">Breathing pacer</p>
+          <div className="relative mt-6 grid h-32 w-32 place-items-center">
+            <motion.span
+              animate={{ scale: reduceMotion ? 1 : scale }}
+              className="absolute inset-0 rounded-full bg-dove-tint"
+              transition={{ duration: reduceMotion ? 0 : 4, ease: "easeInOut" }}
             />
-            {/* Breathing Bubble Inner */}
-            <motion.div
-              animate={{
-                scale: breathPhase === "Inhale" ? [0.8, 1.15] : breathPhase === "Hold" ? 1.15 : [1.15, 0.8],
-              }}
-              transition={{
-                duration: 4,
-                ease: "easeInOut",
-              }}
-              className="absolute h-20 w-20 rounded-full bg-[#b68a3a]/25 flex flex-col items-center justify-center z-10"
-            >
-              <span className="text-sm font-semibold text-[#201a16]">{breathPhase}</span>
-              <span className="text-[10px] font-medium text-[#7a7065]">{breathTime}s</span>
-            </motion.div>
+            <motion.span
+              animate={{ scale: reduceMotion ? 1 : scale }}
+              className="absolute inset-4 rounded-full border border-gold"
+              transition={{ duration: reduceMotion ? 0 : 4, ease: "easeInOut" }}
+            />
+            <span className="relative text-center">
+              <span className="block font-display text-lg font-semibold">{phase}</span>
+              <span className="block text-xs text-black/55">{seconds}</span>
+            </span>
           </div>
-          <p className="mt-3 text-xs text-[#7a7065] italic">Take a breath to center your mind before writing.</p>
+          <p className="mt-4 max-w-[12rem] text-center text-xs leading-relaxed text-black/55">Breathe with it for a moment before you write.</p>
         </div>
 
-        {/* Prompt Header */}
-        <div className="rounded-2xl border border-[#ded2c1] bg-[#fffaf2] p-5 shadow-sm">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#b68a3a]">[Journal Prompt]</span>
+        <div>
+          <div className="flex items-start justify-between gap-4">
+            <p className="eyebrow">Prompt {index + 1} of {prompts.length}</p>
             <button
-              onClick={handleNextPrompt}
-              className="text-xs font-semibold text-[#7a7065] hover:text-[#b68a3a] transition-colors"
+              className="text-sm text-black/60 underline decoration-black/30 underline-offset-4 transition-colors hover:text-black"
+              onClick={() => setIndex((value) => (value + 1) % prompts.length)}
+              type="button"
             >
-              Next Prompt ↗
+              Next prompt
             </button>
           </div>
-          <p className="mt-3 font-display text-lg font-bold text-[#201a16] leading-snug">
-            &ldquo;{prompts[promptIndex]}&rdquo;
-          </p>
-        </div>
-
-        {/* Text Area */}
-        <div className="grid gap-2">
-          <label className="text-sm font-semibold text-[#3a332b]" htmlFor="journal-textarea">
-            Your Private Reflection
-          </label>
-          <textarea
-            id="journal-textarea"
-            rows={5}
-            placeholder="Type your quiet thoughts here... Your entries are only saved locally in your current browser session."
-            value={journalText}
-            onChange={(e) => setJournalText(e.target.value)}
-            className="w-full rounded-2xl border border-[#ded2c1] bg-[#fffaf2] p-4 text-sm text-[#201a16] focus:border-[#b68a3a] focus:outline-none resize-none leading-relaxed"
-          />
-        </div>
-
-        {/* Buttons */}
-        <div className="flex flex-col gap-2 sm:flex-row">
-          <button
-            onClick={handleSave}
-            className={`flex-1 rounded-xl py-3 text-center text-sm font-semibold transition-all ${
-              saved ? "bg-[#b68a3a] text-white" : "border border-[#ded2c1] text-[#201a16] hover:bg-[#fffaf2]"
-            }`}
-          >
-            {saved ? "Saved to Session!" : "Save Session Note"}
-          </button>
-          <button
-            onClick={handleCopy}
-            className={`flex-1 rounded-xl py-3 text-center text-sm font-semibold text-white transition-all ${
-              copied ? "bg-[#b68a3a]" : "bg-[#201a16] hover:bg-[#3a332b]"
-            }`}
-          >
-            {copied ? "Copied" : "Copy my entry"}
-          </button>
+          <p className="mt-4 font-display text-2xl font-semibold leading-snug md:text-3xl">{prompts[index]}</p>
         </div>
       </div>
-    </div>
+
+      <div className="mt-10">
+        <ToolLabel htmlFor="rest-entry">Your private entry</ToolLabel>
+        <textarea
+          className={`${textareaClass} mt-2 min-h-[10rem]`}
+          id="rest-entry"
+          onChange={(event) => setEntry(event.target.value)}
+          placeholder="Write here. It stays in this browser and goes nowhere else."
+          value={entry}
+        />
+      </div>
+
+      <ToolActions>
+        <ArrowButton onClick={save} variant="light">
+          {saved ? "Saved for this session" : "Save for this session"}
+        </ArrowButton>
+        <CopyButton label="Copy my entry" text={copyText} />
+      </ToolActions>
+    </ToolFrame>
   );
 };

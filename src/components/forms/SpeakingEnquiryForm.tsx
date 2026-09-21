@@ -26,6 +26,30 @@ const fieldClass =
   "w-full border-0 border-b border-ivory/30 bg-transparent py-3 text-ivory placeholder:text-ivory/40 focus:border-champagne focus:outline-none focus-visible:outline-none";
 const labelClass = "block text-xs uppercase tracking-wide text-ivory/70";
 
+// A native select on the black form. The options are set in ivory on black so the open list reads
+// as clearly as the closed field, and a drawn chevron replaces the browser's own arrow.
+const SelectField = ({ value, options, onChange }: { value: string; options: string[]; onChange: (value: string) => void }) => (
+  <span className="relative block">
+    <select
+      className={`${fieldClass} cursor-pointer appearance-none bg-black pr-8 [color-scheme:dark]`}
+      onChange={(event) => onChange(event.target.value)}
+      value={value}
+    >
+      <option className="bg-black text-ivory" value="">
+        Choose one
+      </option>
+      {options.map((option) => (
+        <option className="bg-black text-ivory" key={option} value={option}>
+          {option}
+        </option>
+      ))}
+    </select>
+    <svg aria-hidden="true" className="pointer-events-none absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-champagne" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+    </svg>
+  </span>
+);
+
 // Until DK confirms where enquiries should send, the form opens the visitor's
 // email app with everything filled in, addressed to hello@dkjonah.com.
 export const SpeakingEnquiryForm = () => {
@@ -99,18 +123,7 @@ export const SpeakingEnquiryForm = () => {
 
       <label className="block">
         <span className={labelClass}>What kind of event is it?</span>
-        <select
-          className={`${fieldClass} appearance-none bg-black`}
-          onChange={(event) => update("eventKind", event.target.value)}
-          value={form.eventKind}
-        >
-          <option value="">Choose one</option>
-          {inviteContent.eventKinds.map((kind) => (
-            <option key={kind} value={kind}>
-              {kind}
-            </option>
-          ))}
-        </select>
+        <SelectField onChange={(value) => update("eventKind", value)} options={inviteContent.eventKinds} value={form.eventKind} />
       </label>
 
       <div className="grid gap-7 sm:grid-cols-2">
@@ -156,18 +169,7 @@ export const SpeakingEnquiryForm = () => {
 
       <label className="block">
         <span className={labelClass}>What would you like me to do?</span>
-        <select
-          className={`${fieldClass} appearance-none bg-black`}
-          onChange={(event) => update("sessionKind", event.target.value)}
-          value={form.sessionKind}
-        >
-          <option value="">Choose one</option>
-          {inviteContent.sessionKinds.map((kind) => (
-            <option key={kind} value={kind}>
-              {kind}
-            </option>
-          ))}
-        </select>
+        <SelectField onChange={(value) => update("sessionKind", value)} options={inviteContent.sessionKinds} value={form.sessionKind} />
       </label>
 
       <label className="block">

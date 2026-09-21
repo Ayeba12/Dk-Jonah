@@ -15,7 +15,38 @@ export const SiteHeader = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [workOpen, setWorkOpen] = useState(false);
+  const [overDark, setOverDark] = useState(false);
   const closeTimer = useRef<number | null>(null);
+
+  // The header has no background of its own. It reads the section beneath it and
+  // sets its type to ivory over black sections and to black over paper.
+  useEffect(() => {
+    let frame = 0;
+    const probe = () => {
+      frame = 0;
+      const y = 48; // the middle of the header
+      const dark = Array.from(document.querySelectorAll<HTMLElement>("main .on-black, main [data-tone='dark']")).some(
+        (el) => {
+          const rect = el.getBoundingClientRect();
+          return rect.top <= y && rect.bottom >= y && rect.height > 0;
+        },
+      );
+      setOverDark(dark);
+    };
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(probe);
+    };
+    probe();
+    const settle = window.setTimeout(probe, 400);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      window.clearTimeout(settle);
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, [pathname]);
 
   const cancelClose = useCallback(() => {
     if (closeTimer.current) {
@@ -62,13 +93,12 @@ export const SiteHeader = () => {
       active ? "after:w-full" : "after:w-0 hover:after:w-full"
     }`;
 
+  // Ivory type over black sections or with the black drawer open; black type over paper. No bar behind it.
+  const onDark = isOpen || overDark;
+
   return (
     <>
-      {/*
-        The header sits over every hero, ivory or black. Difference blending keeps
-        the monochrome nav legible on both without a second header colour.
-      */}
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 mix-blend-difference text-white">
+      <header className={`pointer-events-none fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${onDark ? "text-ivory" : "text-black"}`}>
         <div className="container-shell pointer-events-auto flex h-20 items-center justify-between md:h-24">
           <Link
             aria-label="DK Jonah, home"
@@ -78,7 +108,7 @@ export const SiteHeader = () => {
           >
             <Image
               alt="DK Jonah"
-              className="object-contain object-left brightness-0 invert"
+              className={`object-contain object-left brightness-0 transition-[filter] duration-300 ${onDark ? "invert" : ""}`}
               fill
               priority
               sizes="112px"
@@ -162,7 +192,7 @@ export const SiteHeader = () => {
       </header>
 
       {/*
-        "My work" mega menu. It lives outside the blended header so its pictures and
+        "My work" mega menu. It lives outside the header so its pictures and
         gold keep their true colours: a black sheet under the nav, one card per page.
       */}
       <div

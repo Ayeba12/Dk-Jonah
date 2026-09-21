@@ -7,6 +7,9 @@ import { EnergyCheckInTool } from "@/components/tools/EnergyCheckInTool";
 import { SoftWeekPlannerTool } from "@/components/tools/SoftWeekPlannerTool";
 import { WordsForHelpTool } from "@/components/tools/WordsForHelpTool";
 import { RestPromptsTool } from "@/components/tools/RestPromptsTool";
+import { MindlessFlowTool } from "@/components/tools/MindlessFlowTool";
+import { HawfaCheckInTool } from "@/components/tools/HawfaCheckInTool";
+import { DecisionForNowTool } from "@/components/tools/DecisionForNowTool";
 import { getTool, tools, toolkitQuietFocusContent } from "@/content/toolkit";
 
 type ToolPageProps = {
@@ -26,12 +29,17 @@ export const generateMetadata = async ({ params }: ToolPageProps): Promise<Metad
   };
 };
 
-// Which built interface renders for each tool. The three marked "building" show a holding line
-// until their interfaces land.
+// Which interface renders for each tool.
 const ToolInterface = ({ component }: { component: string }) => {
   switch (component) {
     case "energy":
       return <EnergyCheckInTool />;
+    case "mindless":
+      return <MindlessFlowTool />;
+    case "hawfa":
+      return <HawfaCheckInTool />;
+    case "decision":
+      return <DecisionForNowTool />;
     case "week":
       return <SoftWeekPlannerTool />;
     case "words":

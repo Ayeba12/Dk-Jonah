@@ -1,302 +1,156 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { ArrowButton } from "@/components/ui/ArrowButton";
+import {
+  Choice,
+  ChoiceGrid,
+  CopyButton,
+  ResultCard,
+  ResultRow,
+  ToolActions,
+  ToolFrame,
+  ToolLabel,
+  ToolQuestion,
+  ToolStep,
+  inputClass,
+} from "@/components/tools/ToolPrimitives";
+
+// PACE Week Planner. Capacity first, then anchors, then up to three focus tasks that can move between days.
+
+type Capacity = "low" | "variable" | "high";
+
+const capacities: { id: Capacity; label: string; desc: string }[] = [
+  { id: "low", label: "Low capacity", desc: "One focus task, spread thin." },
+  { id: "variable", label: "Variable capacity", desc: "Two focus tasks, with room to move." },
+  { id: "high", label: "High capacity", desc: "Three focus tasks, rest still protected." },
+];
+
+const weekdays = [
+  { day: "Monday", rest: "Morning stretch" },
+  { day: "Tuesday", rest: "Midday screen break" },
+  { day: "Wednesday", rest: "No meetings in the evening" },
+  { day: "Thursday", rest: "Walk outdoors" },
+  { day: "Friday", rest: "Quiet reading block" },
+  { day: "Saturday", rest: "Full rest and a slow day" },
+  { day: "Sunday", rest: "Stillness and a faith check-in" },
+];
+
+const focusDays: Record<Capacity, string[]> = {
+  low: ["Wednesday"],
+  variable: ["Tuesday", "Thursday"],
+  high: ["Tuesday", "Wednesday", "Friday"],
+};
 
 export const SoftWeekPlannerTool = () => {
-  const [capacity, setCapacity] = useState("variable");
+  const [built, setBuilt] = useState(false);
+  const [capacity, setCapacity] = useState<Capacity>("variable");
   const [rest, setRest] = useState("");
   const [care, setCare] = useState("");
-  const [task1, setTask1] = useState("");
-  const [task2, setTask2] = useState("");
-  const [task3, setTask3] = useState("");
-  const [isGenerated, setIsGenerated] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [tasks, setTasks] = useState(["", "", ""]);
 
-  const handleGenerate = () => {
-    setIsGenerated(true);
-  };
+  const setTask = (index: number, value: string) => setTasks((current) => current.map((task, i) => (i === index ? value : task)));
 
-  const handleReset = () => {
-    setIsGenerated(false);
+  const reset = () => {
+    setBuilt(false);
+    setCapacity("variable");
     setRest("");
     setCare("");
-    setTask1("");
-    setTask2("");
-    setTask3("");
+    setTasks(["", "", ""]);
   };
 
-  const handleCopy = () => {
-    let dailyText = "";
-    weekdays.forEach((wd) => {
-      let focusAllocated = "";
-      if (capacity === "high") {
-        if (wd.day === "Tuesday") focusAllocated = task1;
-        if (wd.day === "Wednesday") focusAllocated = task2;
-        if (wd.day === "Friday") focusAllocated = task3;
-      } else if (capacity === "variable") {
-        if (wd.day === "Tuesday") focusAllocated = task1;
-        if (wd.day === "Thursday") focusAllocated = task2;
-      } else {
-        if (wd.day === "Wednesday") focusAllocated = task1;
-      }
-
-      dailyText += `\n* ${wd.day}:\n  - Rest Window: ${wd.activity}`;
-      if (focusAllocated) {
-        dailyText += `\n  - Focus: ${focusAllocated}`;
-      }
-      dailyText += "\n";
-    });
-
-    const text = `DK Jonah - PACE Week Plan\n` +
-      `=========================\n` +
-      `Capacity Mode: ${capacity.toUpperCase()} Capacity\n` +
-      `Rest anchor: ${rest || "None set"}\n` +
-      `Body care anchor: ${care || "None set"}\n\n` +
-      `Weekly Rhythm:${dailyText}`;
-
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const focusFor = (day: string) => {
+    const index = focusDays[capacity].indexOf(day);
+    return index === -1 ? "" : tasks[index] ?? "";
   };
 
-  const weekdays = [
-    { day: "Monday", restClass: "bg-[#ead9ad]/40", activity: "Morning stretch" },
-    { day: "Tuesday", restClass: "bg-[#f1e7d8]", activity: "Mid-day screen break" },
-    { day: "Wednesday", restClass: "bg-[#ead9ad]/40", activity: "No meetings evening" },
-    { day: "Thursday", restClass: "bg-[#f1e7d8]", activity: "Walk outdoors" },
-    { day: "Friday", restClass: "bg-[#ead9ad]/40", activity: "Quiet reading block" },
-    { day: "Saturday", restClass: "bg-[#ead9ad]", activity: "Full rest & slow day" },
-    { day: "Sunday", restClass: "bg-[#ead9ad]", activity: "Sacred stillness & faith check-in" },
-  ];
+  const capacityLabel = capacities.find((c) => c.id === capacity)?.label ?? "";
+  const copyText = [
+    "PACE Week Planner",
+    capacityLabel,
+    `Your rest anchor: ${rest || "not set"}`,
+    `Your body care anchor: ${care || "not set"}`,
+    "",
+    ...weekdays.map((item) => `${item.day}: rest, ${item.rest}${focusFor(item.day) ? `. Focus: ${focusFor(item.day)}` : ""}`),
+  ].join("\n");
 
   return (
-    <div id="soft-week-planner-print-area" className="mx-auto max-w-3xl rounded-3xl border border-[#ded2c1] bg-[#f8f2e8] p-6 shadow-sm md:p-8">
-      {/* Print-only CSS injection */}
-      <style dangerouslySetInnerHTML={{ __html: `
-        @media print {
-          body * {
-            visibility: hidden;
-          }
-          #soft-week-planner-print-area,
-          #soft-week-planner-print-area * {
-            visibility: visible;
-          }
-          #soft-week-planner-print-area {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            max-width: 100%;
-            border: 2px solid #ded2c1 !important;
-            border-radius: 24px !important;
-            background: #f8f2e8 !important;
-            color: #201a16 !important;
-            padding: 32px !important;
-            box-shadow: none !important;
-          }
-          .no-print {
-            display: none !important;
-          }
-        }
-      `}} />
+    <ToolFrame onReset={built ? reset : undefined} step={built ? 2 : 1} title="PACE Week Planner" total={2}>
+      {!built ? (
+        <ToolStep id="plan">
+          <ToolQuestion>What is your capacity for the week?</ToolQuestion>
+          <ChoiceGrid cols={3}>
+            {capacities.map((item) => (
+              <Choice desc={item.desc} key={item.id} label={item.label} onClick={() => setCapacity(item.id)} selected={capacity === item.id} />
+            ))}
+          </ChoiceGrid>
 
-      <div className="mb-6 flex items-center justify-between border-b border-[#ded2c1] pb-4">
-        <h3 className="font-display text-2xl font-semibold text-[#201a16]">PACE Week Planner</h3>
-        <button
-          onClick={handleReset}
-          className="text-xs font-semibold text-[#b68a3a] hover:underline no-print"
-        >
-          Start again
-        </button>
-      </div>
-
-      <AnimatePresence mode="wait">
-        {!isGenerated ? (
-          <motion.div
-            key="inputs"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="grid gap-6"
-          >
-            {/* Capacity Select */}
-            <div className="grid gap-2">
-              <label className="text-sm font-semibold text-[#3a332b]">1. What is your expected capacity for the week?</label>
-              <div className="grid gap-2 sm:grid-cols-3">
-                {["low", "variable", "high"].map((level) => (
-                  <button
-                    key={level}
-                    type="button"
-                    onClick={() => setCapacity(level)}
-                    className={`rounded-xl border py-3 text-center text-sm font-semibold capitalize transition-all ${
-                      capacity === level
-                        ? "border-[#b68a3a] bg-[#fffaf2] text-[#b68a3a]"
-                        : "border-[#ded2c1] bg-[#f8f2e8] hover:border-[#7a7065] text-[#201a16]"
-                    }`}
-                  >
-                    {level} Capacity
-                  </button>
-                ))}
-              </div>
+          <div className="mt-10 grid gap-7 sm:grid-cols-2">
+            <div>
+              <ToolLabel htmlFor="rest-anchor">Your rest anchor</ToolLabel>
+              <input className={inputClass} id="rest-anchor" onChange={(e) => setRest(e.target.value)} placeholder="A quiet bath, an afternoon nap" type="text" value={rest} />
             </div>
+            <div>
+              <ToolLabel htmlFor="care-anchor">Your body care anchor</ToolLabel>
+              <input className={inputClass} id="care-anchor" onChange={(e) => setCare(e.target.value)} placeholder="Ten minutes of neck stretches" type="text" value={care} />
+            </div>
+          </div>
 
-            {/* Rest & Care Anchors */}
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="grid gap-2">
-                <label className="text-sm font-semibold text-[#3a332b]" htmlFor="rest-anchor">
-                  2. Your rest anchor
-                </label>
+          <div className="mt-10">
+            <ToolLabel>Up to 3 focus tasks (these can move between days)</ToolLabel>
+            <div className="mt-2 space-y-3">
+              {tasks.map((task, index) => (
                 <input
-                  id="rest-anchor"
+                  aria-label={`Focus task ${index + 1}`}
+                  className={inputClass}
+                  key={index}
+                  onChange={(e) => setTask(index, e.target.value)}
+                  placeholder={index === 0 ? "First focus task" : index === 1 ? "Second focus task, optional" : "Third focus task, optional"}
                   type="text"
-                  placeholder="e.g. Quiet bath, afternoon nap"
-                  value={rest}
-                  onChange={(e) => setRest(e.target.value)}
-                  className="rounded-xl border border-[#ded2c1] bg-[#fffaf2] p-3 text-sm text-[#201a16] focus:border-[#b68a3a] focus:outline-none"
+                  value={task}
                 />
-              </div>
-
-              <div className="grid gap-2">
-                <label className="text-sm font-semibold text-[#3a332b]" htmlFor="care-anchor">
-                  3. Your body care anchor
-                </label>
-                <input
-                  id="care-anchor"
-                  type="text"
-                  placeholder="e.g. 10-minute neck stretches"
-                  value={care}
-                  onChange={(e) => setCare(e.target.value)}
-                  className="rounded-xl border border-[#ded2c1] bg-[#fffaf2] p-3 text-sm text-[#201a16] focus:border-[#b68a3a] focus:outline-none"
-                />
-              </div>
+              ))}
             </div>
+          </div>
 
-            {/* Flexible Focus Tasks */}
-            <div className="grid gap-3">
-              <label className="text-sm font-semibold text-[#3a332b]">
-                4. Up to 3 focus tasks (these can move between days)
-              </label>
-              <input
-                type="text"
-                placeholder="First focus task..."
-                value={task1}
-                onChange={(e) => setTask1(e.target.value)}
-                className="rounded-xl border border-[#ded2c1] bg-[#fffaf2] p-3 text-sm text-[#201a16] focus:border-[#b68a3a] focus:outline-none"
-              />
-              <input
-                type="text"
-                placeholder="Second focus task (optional)..."
-                value={task2}
-                onChange={(e) => setTask2(e.target.value)}
-                className="rounded-xl border border-[#ded2c1] bg-[#fffaf2] p-3 text-sm text-[#201a16] focus:border-[#b68a3a] focus:outline-none"
-              />
-              <input
-                type="text"
-                placeholder="Third focus task (optional)..."
-                value={task3}
-                onChange={(e) => setTask3(e.target.value)}
-                className="rounded-xl border border-[#ded2c1] bg-[#fffaf2] p-3 text-sm text-[#201a16] focus:border-[#b68a3a] focus:outline-none"
-              />
-            </div>
-
-            <button
-              onClick={handleGenerate}
-              className="mt-2 rounded-xl bg-[#201a16] py-3 text-center text-sm font-semibold text-white hover:bg-[#3a332b]"
-            >
+          <ToolActions>
+            <ArrowButton onClick={() => setBuilt(true)} variant="dark">
               Build my week
-            </button>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="calendar"
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            className="grid gap-6"
-          >
-            <div className="rounded-2xl border border-[#ded2c1] bg-[#fffaf2] p-5 shadow-sm">
-              <div className="mb-4 flex items-center justify-between border-b border-[#ded2c1] pb-3">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#b68a3a]">
-                  [Weekly Rhythm: {capacity} capacity]
-                </span>
-                <span className="text-xs text-[#7a7065]">Rest Anchored Week</span>
-              </div>
-
-              {/* Anchors Section */}
-              <div className="mb-6 grid gap-4 rounded-xl bg-[#f8f2e8] p-4 text-sm border border-[#ded2c1] sm:grid-cols-2">
-                <div>
-                  <span className="text-xs text-[#7a7065]">Rest Anchor:</span>
-                  <p className="mt-1 font-semibold text-[#201a16]">{rest || "None set"}</p>
-                </div>
-                <div>
-                  <span className="text-xs text-[#7a7065]">Care Activity:</span>
-                  <p className="mt-1 font-semibold text-[#201a16]">{care || "None set"}</p>
-                </div>
-              </div>
-
-              {/* Day Grid */}
-              <div className="grid gap-3">
-                {weekdays.map((wd) => {
-                  let focusAllocated = "";
-                  if (capacity === "high") {
-                    if (wd.day === "Tuesday") focusAllocated = task1;
-                    if (wd.day === "Wednesday") focusAllocated = task2;
-                    if (wd.day === "Friday") focusAllocated = task3;
-                  } else if (capacity === "variable") {
-                    if (wd.day === "Tuesday") focusAllocated = task1;
-                    if (wd.day === "Thursday") focusAllocated = task2;
-                  } else {
-                    if (wd.day === "Wednesday") focusAllocated = task1;
-                  }
-
+            </ArrowButton>
+          </ToolActions>
+        </ToolStep>
+      ) : (
+        <ToolStep id="week">
+          <ResultCard eyebrow={`Your week · ${capacityLabel}`}>
+            <ResultRow label="Your rest anchor">{rest || "Not set"}</ResultRow>
+            <ResultRow label="Your body care anchor">{care || "Not set"}</ResultRow>
+            <div className="py-5">
+              <p className="text-xs uppercase tracking-wide text-black/55">The rhythm</p>
+              <ul className="mt-3 divide-y divide-black/10">
+                {weekdays.map((item) => {
+                  const focus = focusFor(item.day);
                   return (
-                    <div
-                      key={wd.day}
-                      className="grid gap-2 border-b border-[#ded2c1]/40 pb-3 last:border-0 last:pb-0 sm:grid-cols-[120px_1fr]"
-                    >
-                      <span className="font-semibold text-[#201a16]">{wd.day}</span>
-                      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
-                        <span className={`inline-block rounded-md px-2 py-0.5 text-xs text-[#201a16] font-medium ${wd.restClass}`}>
-                          Rest Window: {wd.activity}
-                        </span>
-                        {focusAllocated && (
-                          <span className="inline-block rounded-md bg-[#201a16] px-2 py-0.5 text-xs text-white">
-                            Focus: {focusAllocated}
-                          </span>
-                        )}
+                    <li className="grid gap-1 py-3 sm:grid-cols-[7rem_1fr] sm:gap-4" key={item.day}>
+                      <span className="font-display font-semibold">{item.day}</span>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="rounded-full border border-black/15 px-3 py-1 text-sm text-black/70">Rest · {item.rest}</span>
+                        {focus ? <span className="rounded-full bg-black px-3 py-1 text-sm text-ivory">Focus · {focus}</span> : null}
                       </div>
-                    </div>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </div>
-
-            <div className="flex flex-wrap gap-3 no-print">
-              <button
-                onClick={() => setIsGenerated(false)}
-                className="flex-1 min-w-[120px] rounded-xl border border-[#ded2c1] py-3 text-center text-sm font-semibold text-[#201a16] hover:bg-[#fffaf2] transition-all duration-200"
-              >
-                Edit Plan
-              </button>
-              <button
-                onClick={handleCopy}
-                className={`flex-1 min-w-[120px] rounded-xl py-3 text-center text-sm font-semibold text-white transition-all ${
-                  copied ? "bg-[#b68a3a]" : "bg-[#201a16] hover:bg-[#3a332b]"
-                }`}
-              >
-                {copied ? "Copied" : "Copy my week"}
-              </button>
-              <button
-                onClick={() => window.print()}
-                className="flex-1 min-w-[120px] rounded-xl bg-[#b68a3a] py-3 text-center text-sm font-semibold text-white hover:bg-[#b68a3a]/90 transition-all duration-200"
-              >
-                Download PDF
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+          </ResultCard>
+          <p className="mt-6 text-sm leading-relaxed text-black/60">Use it to plan without shame. Protect the rest first, then let the focus tasks move if the week moves.</p>
+          <ToolActions onBack={() => setBuilt(false)}>
+            <ArrowButton onClick={reset} variant="light">
+              Start again
+            </ArrowButton>
+            <CopyButton label="Copy my week" text={copyText} />
+          </ToolActions>
+        </ToolStep>
+      )}
+    </ToolFrame>
   );
 };
