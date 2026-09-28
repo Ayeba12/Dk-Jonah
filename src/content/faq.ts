@@ -13,7 +13,9 @@ export type FaqLink = { label: string; href: string };
 
 export type FaqItem = {
   question: string;
-  answer: string;
+  // Plain answer with separate links (the content file), or ready HTML from WordPress.
+  answer?: string;
+  answerHtml?: string;
   // Where the answer points. Shown as small links beneath the words so the locked wording stays whole.
   links?: FaqLink[];
 };

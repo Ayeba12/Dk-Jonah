@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImages } from "@/lib/seo";
 import {
   DayWithToolkitSection,
   GoDeeperSection,
@@ -19,9 +20,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${toolkitSEO.title} | DK Jonah`,
     description: toolkitSEO.description,
-    url: "https://dkjonah.com/toolkit",
+    url: "https://www.dkjonah.com/toolkit",
     siteName: "DK Jonah",
     type: "website",
+    images: ogImages,
   },
 };
 

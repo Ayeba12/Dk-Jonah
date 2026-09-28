@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImages, twitterImages } from "@/lib/seo";
 import { AboutHero } from "@/components/sections/AboutHero";
 import { WhereMyWorkBeginsSection } from "@/components/sections/WhereMyWorkBeginsSection";
 import { MyStorySection } from "@/components/sections/MyStorySection";
@@ -15,9 +16,10 @@ export const metadata: Metadata = {
     canonical: "/about",
   },
   openGraph: {
+    images: ogImages,
     title: aboutSEO.title,
     description: aboutSEO.description,
-    url: "https://dkjonah.com/about",
+    url: "https://www.dkjonah.com/about",
     siteName: "DK Jonah",
     type: "profile",
   },
@@ -25,6 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: aboutSEO.title,
     description: aboutSEO.description,
+    images: twitterImages,
   },
 };
 
@@ -33,8 +36,8 @@ export default function AboutPage() {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "DK Jonah",
-    "url": "https://dkjonah.com/about",
-    "image": "https://dkjonah.com/assets/avenzor/images/website-logo.png",
+    "url": "https://www.dkjonah.com/about",
+    "image": "https://www.dkjonah.com/assets/avenzor/images/website-logo.png",
     "description":
       "Nigerian writer, speaker and coach helping people set goals they can keep and build structure that fits their real life.",
     "jobTitle": "Knowledge Architect, Speaker & Coach",

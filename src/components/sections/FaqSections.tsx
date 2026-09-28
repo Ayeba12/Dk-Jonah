@@ -5,10 +5,10 @@ import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { faqCloseContent as close, faqGroups, faqHeroContent as hero, type FaqItem } from "@/content/faq";
+import { faqCloseContent as close, faqHeroContent as hero, type FaqGroup, type FaqItem } from "@/content/faq";
 
 // Section 1 · Hero. Words only, the gold thread beneath, and a row of jumps to each group.
-export const FaqHero = () => (
+export const FaqHero = ({ groups }: { groups: FaqGroup[] }) => (
   <section className="paper pb-10 pt-32 md:pb-14 md:pt-40">
     <div className="container-shell">
       <p className="eyebrow">{hero.eyebrow}</p>
@@ -24,7 +24,7 @@ export const FaqHero = () => (
       </p>
       <hr className="thread mt-14" />
       <nav aria-label="Question groups" className="mt-8 flex flex-wrap gap-2.5">
-        {faqGroups.map((group, index) => (
+        {groups.map((group, index) => (
           <a
             className="inline-flex items-center gap-2 rounded-full border border-black/15 px-4 py-2 text-sm transition-colors hover:border-black hover:bg-black hover:text-ivory"
             href={`#${group.id}`}
@@ -79,7 +79,14 @@ const FaqPanel = ({ item, open, onToggle, id }: { item: FaqItem; open: boolean; 
             transition={{ duration: reduceMotion ? 0 : 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="pb-7 pr-0 md:pr-16">
-              <p className="max-w-2xl text-lg leading-relaxed text-black/75">{item.answer}</p>
+              {item.answerHtml ? (
+                <div
+                  className="faq-answer max-w-2xl text-lg leading-relaxed text-black/75"
+                  dangerouslySetInnerHTML={{ __html: item.answerHtml }}
+                />
+              ) : (
+                <p className="max-w-2xl text-lg leading-relaxed text-black/75">{item.answer}</p>
+              )}
               {item.links?.length ? (
                 <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
                   {item.links.map((link) => (
@@ -106,14 +113,14 @@ const FaqPanel = ({ item, open, onToggle, id }: { item: FaqItem; open: boolean; 
 };
 
 // Sections 2 to 7 · The six groups. Group heading stays put on the left while the questions scroll by.
-export const FaqGroupsSection = () => {
+export const FaqGroupsSection = ({ groups }: { groups: FaqGroup[] }) => {
   // The first question on the page starts open; everything else waits to be asked.
-  const [openId, setOpenId] = useState<string | null>(`${faqGroups[0].id}-0`);
+  const [openId, setOpenId] = useState<string | null>(groups[0] ? `${groups[0].id}-0` : null);
 
   return (
     <section className="paper pb-8 pt-4 md:pb-16">
       <div className="container-shell">
-        {faqGroups.map((group, groupIndex) => (
+        {groups.map((group, groupIndex) => (
           <div
             className={`grid gap-6 py-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 md:py-20 ${groupIndex === 0 ? "" : "border-t border-black/15"}`}
             id={group.id}

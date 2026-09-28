@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImages } from "@/lib/seo";
 import {
   AskedBackSection,
   ConversationsSection,
@@ -19,9 +20,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${onTheRecordSEO.title} | DK Jonah`,
     description: onTheRecordSEO.description,
-    url: "https://dkjonah.com/on-the-record",
+    url: "https://www.dkjonah.com/on-the-record",
     siteName: "DK Jonah",
     type: "website",
+    images: ogImages,
   },
 };
 

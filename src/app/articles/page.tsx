@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImages } from "@/lib/seo";
 import { ReflectionsBand, ReflectionsSignUp } from "@/components/sections/ReflectionsClosers";
 import { reflectionsHeroContent as hero, reflectionsSEO } from "@/content/reflections";
 import { getWPArticles } from "@/lib/wordpress";
@@ -13,9 +14,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${reflectionsSEO.title} | DK Jonah`,
     description: reflectionsSEO.description,
-    url: "https://dkjonah.com/articles",
+    url: "https://www.dkjonah.com/articles",
     siteName: "DK Jonah",
     type: "website",
+    images: ogImages,
   },
 };
 

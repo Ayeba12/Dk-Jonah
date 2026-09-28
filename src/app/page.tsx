@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImages, twitterImages } from "@/lib/seo";
 import { HomeHero } from "@/components/sections/HomeHero";
 import { RecognitionAndWhy } from "@/components/sections/RecognitionAndWhy";
 import { YourGuideSection } from "@/components/sections/YourGuideSection";
@@ -18,14 +19,16 @@ export const metadata: Metadata = {
   openGraph: {
     title: homeSEO.title,
     description: homeSEO.description,
-    url: "https://dkjonah.com",
+    url: "https://www.dkjonah.com",
     siteName: "DK Jonah",
     type: "website",
+    images: ogImages,
   },
   twitter: {
     card: "summary_large_image",
     title: homeSEO.title,
     description: homeSEO.description,
+    images: twitterImages,
   },
 };
 

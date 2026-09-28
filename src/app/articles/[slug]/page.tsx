@@ -35,7 +35,7 @@ export const generateMetadata = async ({ params }: ArticlePageProps): Promise<Me
     openGraph: {
       title: article.title,
       description: article.excerpt,
-      url: `https://dkjonah.com/articles/${slug}`,
+      url: `https://www.dkjonah.com/articles/${slug}`,
       siteName: "DK Jonah",
       type: "article",
       images: [{ url: article.image, alt: article.title }],
@@ -95,11 +95,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     headline: article.title,
     image: article.image,
     datePublished: isoPublishDate,
-    author: { "@type": "Person", name: "DK Jonah", url: "https://dkjonah.com/about" },
+    author: { "@type": "Person", name: "DK Jonah", url: "https://www.dkjonah.com/about" },
     publisher: {
       "@type": "Organization",
       name: "DK Jonah",
-      logo: { "@type": "ImageObject", url: "https://dkjonah.com/assets/avenzor/images/website-logo.png" },
+      logo: { "@type": "ImageObject", url: "https://www.dkjonah.com/assets/avenzor/images/website-logo.png" },
     },
     description: article.excerpt,
   };

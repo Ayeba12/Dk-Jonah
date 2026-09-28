@@ -1,9 +1,10 @@
 import { MetadataRoute } from "next";
-import { getWPArticles, getWPResources } from "@/lib/wordpress";
+import { getWPArticles } from "@/lib/wordpress";
+import { tools } from "@/content/toolkit";
 import { legalPages } from "@/content/legal";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dkjonah.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.dkjonah.com";
 
   // Static routes
   const staticRoutes = [
@@ -52,19 +53,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("Sitemap dynamic articles error:", e);
   }
 
-  // Dynamic projects/tools
-  let projectRoutes: MetadataRoute.Sitemap = [];
-  try {
-    const projectsList = await getWPResources();
-    projectRoutes = projectsList.map((project) => ({
-      url: `${baseUrl}/projects/${project.slug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    }));
-  } catch (e) {
-    console.error("Sitemap dynamic projects error:", e);
-  }
+  // The Routine Ready tools
+  const toolRoutes = tools.map((tool) => ({
+    url: `${baseUrl}/toolkit/${tool.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
 
-  return [...staticRoutes, ...legalRoutes, ...articleRoutes, ...projectRoutes];
+  return [...staticRoutes, ...legalRoutes, ...articleRoutes, ...toolRoutes];
 }

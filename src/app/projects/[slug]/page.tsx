@@ -50,7 +50,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     "@type": "WebApplication",
     "name": project.title,
     "description": project.summary,
-    "url": `https://dkjonah.com/projects/${slug}`,
+    "url": `https://www.dkjonah.com/projects/${slug}`,
     "image": project.image,
     "applicationCategory": "HealthApplication",
     "browserRequirements": "Requires JavaScript. Requires HTML5.",
@@ -58,7 +58,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     "author": {
       "@type": "Person",
       "name": "DK Jonah",
-      "url": "https://dkjonah.com/about",
+      "url": "https://www.dkjonah.com/about",
     },
   };
 

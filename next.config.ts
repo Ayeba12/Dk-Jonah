@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
     dangerouslyAllowLocalIP: true,
     remotePatterns: [
       {
+        protocol: "https",
+        hostname: "cms.dkjonah.com",
+      },
+      {
         protocol: "http",
         hostname: "localhost",
         port: "10011",

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImages } from "@/lib/seo";
 import {
   FindMeHero,
   JoinLiveSection,
@@ -18,9 +19,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${findMeSEO.title} | DK Jonah`,
     description: findMeSEO.description,
-    url: "https://dkjonah.com/find-me",
+    url: "https://www.dkjonah.com/find-me",
     siteName: "DK Jonah",
     type: "website",
+    images: ogImages,
   },
 };
 

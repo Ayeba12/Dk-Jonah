@@ -192,13 +192,13 @@ export const getWPArticle = cache(async (slug: string): Promise<Article | null> 
     return {
       slug: post.slug,
       title: post.title,
-      date: new Date(post.date).toLocaleDateString("en-US", {
-        month: "long",
+      date: new Date(post.date).toLocaleDateString("en-GB", {
         day: "numeric",
+        month: "long",
         year: "numeric",
       }),
       readTime: calculateReadingTime(post.content || ""),
-      image: post.featuredImage?.node?.sourceUrl || "/assets/avenzor/images/article-minimalism.png",
+      image: post.featuredImage?.node?.sourceUrl || "/assets/avenzor/images/quiet-moment-window.webp",
       excerpt: post.excerpt?.replace(/<[^>]*>/g, "") || "",
       body: post.content || "",
       categories: post.categories?.nodes || [],
@@ -378,5 +378,67 @@ export const getWPFAQs = cache(async (): Promise<[string, string][]> => {
     ]);
   } catch {
     return faqs as [string, string][];
+  }
+});
+
+// ----------------------------------------------------
+// FAQ (WordPress pages: FAQ > group > question, ordered by the page Order field)
+// ----------------------------------------------------
+
+export type WPFaqGroup = {
+  id: string;
+  label: string;
+  items: { question: string; answerHtml: string }[];
+};
+
+const FAQ_ROOT_SLUG = "faq";
+
+export const getWPFaqGroups = cache(async (): Promise<WPFaqGroup[] | null> => {
+  try {
+    if (!WORDPRESS_API_URL) return null;
+
+    const data = await fetchAPI(`
+      query GetWPFaqPages {
+        pages(first: 200, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
+          nodes {
+            databaseId
+            parentDatabaseId
+            slug
+            title
+            content
+            menuOrder
+          }
+        }
+      }
+    `);
+
+    const nodes: {
+      databaseId: number;
+      parentDatabaseId: number | null;
+      slug: string;
+      title: string;
+      content: string | null;
+      menuOrder: number | null;
+    }[] = data.pages.nodes;
+
+    const root = nodes.find((n) => n.slug === FAQ_ROOT_SLUG);
+    if (!root) return null;
+
+    const byOrder = (a: { menuOrder: number | null }, b: { menuOrder: number | null }) => (a.menuOrder ?? 0) - (b.menuOrder ?? 0);
+    const groups = nodes.filter((n) => n.parentDatabaseId === root.databaseId).sort(byOrder);
+
+    const result = groups.map((group) => ({
+      id: group.slug,
+      label: group.title,
+      items: nodes
+        .filter((n) => n.parentDatabaseId === group.databaseId)
+        .sort(byOrder)
+        .map((n) => ({ question: n.title, answerHtml: n.content || "" })),
+    }));
+
+    return result.length ? result : null;
+  } catch (error) {
+    console.warn("WordPress connection failed for FAQ pages. Falling back to local.", error);
+    return null;
   }
 });
