@@ -11,14 +11,15 @@ const fieldClass =
 const labelClass = "block text-xs uppercase tracking-wide text-black/60";
 
 /**
- * The Quiet Focus sign-up. The list lives in SendFox; until DK sends the embed
- * code or list details, this validates the two fields and goes to the thank-you
- * page without sending anything. Wire the SendFox call in `submit` when it arrives.
+ * The Quiet Focus sign-up. Sends the two fields to /api/quiet-focus, which adds the person
+ * to the Quiet Focus list in SendFox, then goes to the thank-you page. SendFox sends the
+ * confirmation and the welcome letters.
  */
 export const QuietFocusForm = () => {
   const router = useRouter();
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState(""); // honeypot, never shown
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -34,12 +35,34 @@ export const QuietFocusForm = () => {
     }
     setBusy(true);
     setStatus("");
-    // SendFox submission goes here once the list details arrive.
-    router.push("/quiet-focus/thank-you");
+    try {
+      const response = await fetch("/api/quiet-focus", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ firstName: firstName.trim(), email: email.trim(), website }),
+      });
+      const result = (await response.json()) as { ok: boolean; message?: string };
+      if (!response.ok || !result.ok) {
+        setStatus(result.message ?? "The sign-up did not go through. Please try again in a moment.");
+        setBusy(false);
+        return;
+      }
+      router.push("/quiet-focus/thank-you");
+    } catch {
+      setStatus("The sign-up did not go through. Please try again in a moment, or email hello@dkjonah.com.");
+      setBusy(false);
+    }
   };
 
   return (
     <form className="space-y-7" noValidate onSubmit={submit}>
+      {/* Honeypot: hidden from people, filled in by bots. */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label>
+          Website
+          <input autoComplete="off" name="website" onChange={(event) => setWebsite(event.target.value)} tabIndex={-1} type="text" value={website} />
+        </label>
+      </div>
       <div className="grid gap-7 sm:grid-cols-2">
         <label className="block">
           <span className={labelClass}>{signUpContent.fields.firstName}</span>
@@ -67,7 +90,7 @@ export const QuietFocusForm = () => {
 
       <div className="flex flex-col gap-3">
         <ArrowButton disabled={busy} type="submit" variant="dark">
-          {signUpContent.button}
+          {busy ? "One moment" : signUpContent.button}
         </ArrowButton>
         <p className="text-sm text-black/60">{signUpContent.underButton}</p>
         <p className="text-sm text-black/60">
