@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { CookieBanner } from "@/components/ui/CookieBanner";
@@ -69,6 +70,7 @@ export default function RootLayout({
         <main className="min-h-screen">{children}</main>
         <SiteFooter />
         <CookieBanner />
+        <Analytics />
       </body>
     </html>
   );
