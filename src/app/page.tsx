@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { keywordsFor } from "@/content/keywords";
 import { ogImages, pageJsonLd, twitterImages } from "@/lib/seo";
 import { HomeHero } from "@/components/sections/HomeHero";
 import { RecognitionAndWhy } from "@/components/sections/RecognitionAndWhy";
@@ -16,7 +17,7 @@ import { getWPArticles } from "@/lib/wordpress";
 export const metadata: Metadata = {
   title: { absolute: homeSEO.title },
   description: homeSEO.description,
-  keywords: homeSEO.keywords,
+  keywords: keywordsFor("/"),
   alternates: { canonical: "/" },
   openGraph: {
     title: homeSEO.title,

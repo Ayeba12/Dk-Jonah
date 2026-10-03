@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { keywordsFor } from "@/content/keywords";
 import { ogImages, pageJsonLd } from "@/lib/seo";
 import {
   AdvocacyHero,
@@ -14,6 +15,7 @@ import { advocacySEO } from "@/content/advocacy";
 export const metadata: Metadata = {
   title: advocacySEO.title,
   description: advocacySEO.description,
+  keywords: keywordsFor("/advocacy-faith"),
   alternates: {
     canonical: "/advocacy-faith",
   },

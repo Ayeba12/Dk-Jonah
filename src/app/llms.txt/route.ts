@@ -5,6 +5,7 @@ import { advocacySEO } from "@/content/advocacy";
 import { faqGroups as localFaqGroups, type FaqGroup } from "@/content/faq";
 import { findMeSEO } from "@/content/find-me";
 import { homeSEO } from "@/content/home";
+import { expertiseTopics, siteKeywords } from "@/content/keywords";
 import { legalPages } from "@/content/legal";
 import { onTheRecordSEO } from "@/content/on-the-record";
 import { quietFocusSEO } from "@/content/quiet-focus";
@@ -52,6 +53,12 @@ export async function GET() {
     `> ${homeSEO.description}`,
     "",
     `${personJsonLd.description} Site: ${SITE_URL}. Language: British English.`,
+    "",
+    "## Topics",
+    "",
+    ...expertiseTopics.map((topic) => `- ${topic}`),
+    "",
+    `Search terms: ${siteKeywords.join(", ")}.`,
     "",
     "## Pages",
     "",

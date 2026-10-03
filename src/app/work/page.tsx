@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { keywordsFor } from "@/content/keywords";
 import { ogImages, pageJsonLd } from "@/lib/seo";
 import {
   NotSureSection,
@@ -13,6 +14,7 @@ import { workSEO } from "@/content/work";
 export const metadata: Metadata = {
   title: workSEO.title,
   description: workSEO.description,
+  keywords: keywordsFor("/work"),
   alternates: {
     canonical: "/work",
   },

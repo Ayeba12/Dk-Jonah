@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ReflectionsBand, ReflectionsSignUp } from "@/components/sections/ReflectionsClosers";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { keywordsFor } from "@/content/keywords";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import type { Article } from "@/content/articles";
@@ -35,6 +36,7 @@ export const generateMetadata = async ({ params }: ArticlePageProps): Promise<Me
   return {
     title: article.title,
     description: article.excerpt,
+    keywords: keywordsFor("/articles", essayTerms(article)),
     alternates: {
       canonical: `/articles/${slug}`,
     },
@@ -67,6 +69,12 @@ const isoDay = (stamp: number) => {
   const pad = (n: number) => String(n).padStart(2, "0");
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 };
+
+// The essay's own search terms: its tags and category, in that order.
+const essayTerms = (article: Article) => [
+  ...(article.tags ?? []).map((tag) => tag.name),
+  ...(article.categories ?? []).map((category) => category.name),
+];
 
 const tagOf = (article: Article) => article.categories?.[0]?.name ?? reflectionsHeroContent.defaultTag;
 
@@ -136,7 +144,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         isPartOf: { "@id": WEBSITE_ID },
         inLanguage: "en-GB",
         articleSection: tagOf(article),
-        ...(article.tags?.length ? { keywords: article.tags.map((tag) => tag.name).join(", ") } : {}),
+        keywords: keywordsFor("/articles", essayTerms(article)).join(", "),
         ...(plainBody ? { wordCount: plainBody.split(" ").length } : {}),
       },
       breadcrumbJsonLd([

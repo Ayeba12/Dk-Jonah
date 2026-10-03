@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { keywordsFor } from "@/content/keywords";
 import { ogImages, pageJsonLd } from "@/lib/seo";
 import {
   FindMeHero,
@@ -14,6 +15,7 @@ import { findMeSEO } from "@/content/find-me";
 export const metadata: Metadata = {
   title: findMeSEO.title,
   description: findMeSEO.description,
+  keywords: keywordsFor("/find-me"),
   alternates: {
     canonical: "/find-me",
   },

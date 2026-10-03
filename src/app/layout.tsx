@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { CookieBanner } from "@/components/ui/CookieBanner";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { siteKeywords } from "@/content/keywords";
 import { metadataAuthors, siteGraphJsonLd } from "@/lib/seo";
 import "./globals.css";
 
@@ -15,16 +16,7 @@ export const metadata: Metadata = {
   },
   description:
     "DK Jonah turns lived experience and complex ideas into language and structure people can use. Chronic illness, neurodiversity, faith and pace.",
-  keywords: [
-    "DK Jonah",
-    "lived experience speaker",
-    "chronic illness writer",
-    "neurodivergent writing",
-    "faith reflections",
-    "hidden captivity",
-    "Routine Ready",
-    "Quiet Focus",
-  ],
+  keywords: siteKeywords,
   authors: metadataAuthors,
   creator: "DK Jonah",
   publisher: "DK Jonah",

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { keywordsFor } from "@/content/keywords";
 import { absoluteUrl, breadcrumbJsonLd, ogImages, PERSON_ID, plainFaqAnswer, WEBSITE_ID } from "@/lib/seo";
 import { FaqCloseSection, FaqGroupsSection, FaqHero } from "@/components/sections/FaqSections";
 import { faqGroups as localFaqGroups, faqSEO, type FaqGroup } from "@/content/faq";
@@ -8,6 +9,7 @@ import { getWPFaqGroups } from "@/lib/wordpress";
 export const metadata: Metadata = {
   title: faqSEO.title,
   description: faqSEO.description,
+  keywords: keywordsFor("/faq"),
   alternates: {
     canonical: "/faq",
   },

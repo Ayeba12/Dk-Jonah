@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { keywordsFor } from "@/content/keywords";
 import { absoluteUrl, ogImages, pageJsonLd } from "@/lib/seo";
 import { ReflectionsBand, ReflectionsSignUp } from "@/components/sections/ReflectionsClosers";
 import { reflectionsHeroContent as hero, reflectionsSEO } from "@/content/reflections";
@@ -9,6 +10,7 @@ import { ArticlesList } from "./ArticlesList";
 export const metadata: Metadata = {
   title: reflectionsSEO.title,
   description: reflectionsSEO.description,
+  keywords: keywordsFor("/articles"),
   alternates: {
     canonical: "/articles",
   },

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { keywordsFor } from "@/content/keywords";
 import { ogImages, pageJsonLd, twitterImages } from "@/lib/seo";
 import { AboutHero } from "@/components/sections/AboutHero";
 import { WhereMyWorkBeginsSection } from "@/components/sections/WhereMyWorkBeginsSection";
@@ -12,7 +13,7 @@ import { aboutSEO } from "@/content/about";
 export const metadata: Metadata = {
   title: aboutSEO.title,
   description: aboutSEO.description,
-  keywords: aboutSEO.keywords,
+  keywords: keywordsFor("/about"),
   alternates: {
     canonical: "/about",
   },

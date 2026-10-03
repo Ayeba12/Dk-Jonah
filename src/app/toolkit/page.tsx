@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { keywordsFor } from "@/content/keywords";
 import { ogImages, pageJsonLd } from "@/lib/seo";
 import {
   DayWithToolkitSection,
@@ -15,6 +16,7 @@ import { toolkitSEO } from "@/content/toolkit";
 export const metadata: Metadata = {
   title: toolkitSEO.title,
   description: toolkitSEO.description,
+  keywords: keywordsFor("/toolkit"),
   alternates: {
     canonical: "/toolkit",
   },

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { keywordsFor } from "@/content/keywords";
 import { absoluteUrl, ogImages, pageJsonLd } from "@/lib/seo";
 import { EnergyCheckInTool } from "@/components/tools/EnergyCheckInTool";
 import { SoftWeekPlannerTool } from "@/components/tools/SoftWeekPlannerTool";
@@ -27,6 +28,7 @@ export const generateMetadata = async ({ params }: ToolPageProps): Promise<Metad
   return {
     title: `${tool.title} | Routine Ready Toolkit`,
     description: tool.desc,
+    keywords: keywordsFor(`/toolkit/${slug}`, [tool.title]),
     alternates: { canonical: `/toolkit/${slug}` },
     openGraph: {
       title: `${tool.title} | Routine Ready Toolkit | DK Jonah`,

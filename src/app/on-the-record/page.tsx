@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { keywordsFor } from "@/content/keywords";
 import { ogImages, pageJsonLd } from "@/lib/seo";
 import {
   AskedBackSection,
@@ -15,6 +16,7 @@ import { onTheRecordSEO } from "@/content/on-the-record";
 export const metadata: Metadata = {
   title: onTheRecordSEO.title,
   description: onTheRecordSEO.description,
+  keywords: keywordsFor("/on-the-record"),
   alternates: {
     canonical: "/on-the-record",
   },

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { keywordsFor } from "@/content/keywords";
 import { ogImages, pageJsonLd } from "@/lib/seo";
 import {
   ComeAsYouAreSection,
@@ -13,6 +14,7 @@ import { quietFocusSEO } from "@/content/quiet-focus";
 export const metadata: Metadata = {
   title: quietFocusSEO.title,
   description: quietFocusSEO.description,
+  keywords: keywordsFor("/quiet-focus"),
   alternates: {
     canonical: "/quiet-focus",
   },

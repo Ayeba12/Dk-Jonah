@@ -2,6 +2,7 @@
 // that describes DK and the site once, so every page points at the same entities.
 import type { FaqItem } from "@/content/faq";
 import { homeSEO } from "@/content/home";
+import { expertiseTopics, keywordsFor, siteKeywords } from "@/content/keywords";
 import { socialLinks } from "@/content/navigation";
 
 export const SITE_URL = "https://www.dkjonah.com";
@@ -44,16 +45,7 @@ export const personJsonLd = {
   jobTitle: "Knowledge Architect, Speaker and Coach",
   email: CONTACT_EMAIL,
   nationality: { "@type": "Country", name: "Nigeria" },
-  knowsAbout: [
-    "Chronic illness advocacy",
-    "Neurodiversity",
-    "Lived experience leadership",
-    "Knowledge architecture",
-    "Goal setting and decision making",
-    "Faith without performance",
-    "Hidden captivity",
-    "NO GraGra",
-  ],
+  knowsAbout: expertiseTopics,
   sameAs: socialLinks.map((link) => link.href),
   worksFor: { "@id": ORGANIZATION_ID },
 };
@@ -77,6 +69,7 @@ export const websiteJsonLd = {
   alternateName: "dkjonah.com",
   url: SITE_URL,
   description: homeSEO.description,
+  keywords: siteKeywords.join(", "),
   inLanguage: "en-GB",
   publisher: { "@id": ORGANIZATION_ID },
   author: { "@id": PERSON_ID },
@@ -124,6 +117,7 @@ export const pageJsonLd = ({ name, description, path, type = "WebPage", crumbs, 
         url,
         name,
         description,
+        keywords: keywordsFor(path).join(", "),
         inLanguage: "en-GB",
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
