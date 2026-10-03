@@ -6,7 +6,7 @@ export const FAQ_EMAIL = "hello@dkjonah.com";
 export const faqSEO = {
   title: "FAQ: the questions people ask before they join, book or buy",
   description:
-    "The things people usually ask DK Jonah before they join, book or buy: getting started, NO GraGra, hidden captivity, HAWFA, PACE, working together, speaking, faith, books and email.",
+    "The things people usually ask DK Jonah before they join, book or buy: getting started, NO GraGra, hidden captivity, HAWFA, PACE, working together, speaking, faith, chronic illness, neurodiversity, pacing, books and email.",
 };
 
 export type FaqLink = { label: string; href: string };
@@ -184,6 +184,83 @@ export const faqGroups: FaqGroup[] = [
         answer:
           "My faith-based work, for churches, ministries and Christian communicators. I help you work out what God has given you to carry, then build the people, purpose and platforms to carry it well.",
         links: [{ label: "Amplify the Gospel", href: "/find-me#practices" }],
+      },
+    ],
+  },
+  {
+    // Added 3 October 2026 for search. Every sentence is reused from wording already locked on
+    // Home, About, Work with me, Speaking, Toolkit, Advocacy and Faith or this page.
+    id: "living-and-working",
+    label: "Chronic illness, neurodiversity, faith and work",
+    items: [
+      {
+        question: "Who is DK Jonah?",
+        answer:
+          "I am DK Jonah, a Nigerian writer, speaker and coach. I help people set goals they can keep, make decisions that give them peace, and build a life that fits who they really are, with the illness, the neurodiversity, the faith and the full diary in it. I have been building in public since 2011. Two books. More than 300 people trained and 150 mentored.",
+        links: [{ label: "About", href: "/about" }],
+      },
+      {
+        question: "Do you coach people with chronic illness or neurodivergence?",
+        answer:
+          "Yes. My lived experience shapes how I work, but I work with anyone who is capable, busy and tired of living by rules they never chose. Much of what feels like personal failure is a life squeezed into rules that were never built for it. My coaching happens through The Autonomy Code. It starts with the Ownership Scan, so you know where you stand before we begin.",
+        links: [
+          { label: "Work with me", href: "/work" },
+          { label: "The Autonomy Code", href: "/find-me#practices" },
+        ],
+      },
+      {
+        question: "What is a lived experience speaker?",
+        answer:
+          "Someone who brings lived experience and practical structure into the same room. I speak about living with long-term illness and neurodiversity, being heard inside health systems, faith without performance, and why institutions make better decisions when the people most affected are included as knowledge-holders. People leave with a clearer head and one step they can take the next morning.",
+        links: [{ label: "Speaking", href: "/speaking" }],
+      },
+      {
+        question: "Where have you spoken, and do you speak in the UK?",
+        answer:
+          "Yes. I speak online or in person, in churches and faith communities, organisations and leadership teams, health and public services, conferences, summits and panels, podcasts and radio. Rooms so far include Queen Mary University of London, NHS North East London (The Collaborative), Worital Authors Conclave, Thrive Trybe Flourish Summit, Freelancer to CEO Summit and Reconcilers Radio.",
+        links: [{ label: "Where I have spoken", href: "/speaking" }],
+      },
+      {
+        question: "What is pacing, and how do the PACE tools help?",
+        answer:
+          "PACE is how I plan work around the capacity you really have. The PACE Energy Check asks four quick questions about your body, energy and mind, and gives you the pace your day can hold. The PACE Week Planner lets you choose your capacity for the week first, then up to three focus tasks that can move between days.",
+        links: [
+          { label: "PACE Energy Check", href: "/toolkit/pace-energy-check" },
+          { label: "PACE Week Planner", href: "/toolkit/pace-week-planner" },
+        ],
+      },
+      {
+        question: "What is the Routine Ready Toolkit, and who is it for?",
+        answer:
+          "Everyday tools to help you pause before you push, in five minutes or less, right here on the page. Routine Ready comes from NO GraGra: no noise, no panic, no pressure, just rhythm. These are not tests you can fail. If a tool does not fit, that is information, not proof you are doing it wrong.",
+        links: [{ label: "Open the Toolkit", href: "/toolkit#tools" }],
+      },
+      {
+        question: "How do I ask for help when my illness is invisible?",
+        answer:
+          "Words for Asking for Help gives you clear words for asking for help and explaining needs other people cannot see, without over-explaining. I also speak on being heard inside the system: long-term illness, neurodiversity and finding the words to ask for what you need.",
+        links: [
+          { label: "Words for Asking for Help", href: "/toolkit/words-for-asking-for-help" },
+          { label: "Speaking topics", href: "/speaking#topics" },
+        ],
+      },
+      {
+        question: "What does faith without performance mean?",
+        answer:
+          "Faith, rest and calling that hold through hard seasons, without pretending to be fine. My Christian faith shapes everything I do. It is how I listen, and why I believe people deserve better. You do not need to share my faith to find something useful here.",
+        links: [{ label: "Advocacy and Faith", href: "/advocacy-faith" }],
+      },
+      {
+        question: "How do you help with rest, and the guilt that comes with it?",
+        answer:
+          "Here we pause before we push. We assess honestly what you are carrying, choose what is truly yours, and take the next step at a pace your body and mind can hold. Rest Without Guilt Prompts are journal prompts for resting without treating it as failure.",
+        links: [{ label: "Rest Without Guilt Prompts", href: "/toolkit/rest-without-guilt-prompts" }],
+      },
+      {
+        question: "What is a Knowledge Architect?",
+        answer:
+          "I turn what people know and have lived through into clear structures they can understand and use. Knowledge Architecture is for experts, founders and organisations sitting on years of knowledge that nobody else can use yet. When an organisation knows more than it can explain, I help turn that knowledge into something people can follow: guidance, doctrine, training or a message everyone understands.",
+        links: [{ label: "Work with me", href: "/work" }],
       },
     ],
   },
