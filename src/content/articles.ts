@@ -6,6 +6,8 @@ export type Article = {
   slug: string;
   title: string;
   date: string;
+  /** Last edit in WordPress, as an ISO stamp. Absent for the local fallback essays. */
+  modified?: string;
   readTime: string;
   image: string;
   excerpt: string;

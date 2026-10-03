@@ -4,7 +4,7 @@
 export const FAQ_EMAIL = "hello@dkjonah.com";
 
 export const faqSEO = {
-  title: "FAQ",
+  title: "FAQ: the questions people ask before they join, book or buy",
   description:
     "The things people usually ask DK Jonah before they join, book or buy: getting started, NO GraGra, hidden captivity, HAWFA, PACE, working together, speaking, faith, books and email.",
 };

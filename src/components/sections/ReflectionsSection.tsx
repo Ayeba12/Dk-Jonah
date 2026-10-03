@@ -30,7 +30,7 @@ export const ReflectionsSection = ({ essays }: { essays: Article[] }) => (
                 <Link className="group block" href={`/articles/${essay.slug}`}>
                   <div className="relative aspect-square overflow-hidden rounded-2xl bg-dove-tint">
                     <Image
-                      alt=""
+                      alt={`Cover sketch for ${essay.title}`}
                       className="object-cover grayscale transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                       fill
                       sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 100vw"

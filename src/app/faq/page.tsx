@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ogImages } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { absoluteUrl, breadcrumbJsonLd, ogImages, PERSON_ID, plainFaqAnswer, WEBSITE_ID } from "@/lib/seo";
 import { FaqCloseSection, FaqGroupsSection, FaqHero } from "@/components/sections/FaqSections";
 import { faqGroups as localFaqGroups, faqSEO, type FaqGroup } from "@/content/faq";
 import { getWPFaqGroups } from "@/lib/wordpress";
@@ -20,19 +21,29 @@ export const metadata: Metadata = {
   },
 };
 
-const stripTags = (html: string) => html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
-
 // Structured data so search engines can show the questions directly.
 const buildJsonLd = (groups: FaqGroup[]) => ({
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: groups.flatMap((group) =>
-    group.items.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: { "@type": "Answer", text: item.answerHtml ? stripTags(item.answerHtml) : item.answer ?? "" },
-    })),
-  ),
+  "@graph": [
+    {
+      "@type": "FAQPage",
+      "@id": `${absoluteUrl("/faq")}#webpage`,
+      url: absoluteUrl("/faq"),
+      name: "FAQ",
+      description: faqSEO.description,
+      inLanguage: "en-GB",
+      isPartOf: { "@id": WEBSITE_ID },
+      about: { "@id": PERSON_ID },
+      mainEntity: groups.flatMap((group) =>
+        group.items.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: plainFaqAnswer(item) },
+        })),
+      ),
+    },
+    breadcrumbJsonLd([{ name: "FAQ", path: "/faq" }]),
+  ],
 });
 
 // FAQs come from WordPress (pages under "faq"), with the content file as the fallback.
@@ -43,7 +54,7 @@ export default async function FaqPage() {
 
   return (
     <>
-      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(groups)) }} type="application/ld+json" />
+      <JsonLd data={buildJsonLd(groups)} />
 
       {/* 1. Hero */}
       <FaqHero groups={groups} />

@@ -2,11 +2,13 @@ import { MetadataRoute } from "next";
 import { getWPArticles } from "@/lib/wordpress";
 import { tools } from "@/content/toolkit";
 import { legalPages } from "@/content/legal";
+import { SITE_URL } from "@/lib/seo";
 
+// Pages are listed without a last-modified date unless we really know it (the essays). A date that
+// changes on every build is noise, and search engines learn to ignore it.
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.dkjonah.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || SITE_URL;
 
-  // Static routes
   const staticRoutes = [
     "",
     "/about",
@@ -21,42 +23,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/articles",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
+    changeFrequency: (route === "" || route === "/articles" ? "weekly" : "monthly") as "weekly" | "monthly",
     priority: route === "" ? 1.0 : 0.8,
   }));
 
-  // Legal routes
   const legalRoutes = legalPages.map((page) => ({
     url: `${baseUrl}/legal/${page.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.5,
+    changeFrequency: "yearly" as const,
+    priority: 0.3,
   }));
 
-  // Dynamic articles
+  // Essays from WordPress, with the real publish or edit date.
   let articleRoutes: MetadataRoute.Sitemap = [];
   try {
     const articles = await getWPArticles();
     articleRoutes = articles.map((article) => {
-      // Validate date string
-      const dateVal = Date.parse(article.date);
-      const lastMod = isNaN(dateVal) ? new Date() : new Date(dateVal);
+      const stamp = Date.parse(article.modified ?? article.date);
       return {
         url: `${baseUrl}/articles/${article.slug}`,
-        lastModified: lastMod,
-        changeFrequency: "weekly" as const,
+        ...(Number.isNaN(stamp) ? {} : { lastModified: new Date(stamp) }),
+        changeFrequency: "monthly" as const,
         priority: 0.7,
       };
     });
-  } catch (e) {
-    console.error("Sitemap dynamic articles error:", e);
+  } catch (error) {
+    console.error("Sitemap: could not list the essays.", error);
   }
 
-  // The Routine Ready tools
   const toolRoutes = tools.map((tool) => ({
     url: `${baseUrl}/toolkit/${tool.slug}`,
-    lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));

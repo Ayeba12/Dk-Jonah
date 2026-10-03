@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowButton } from "@/components/ui/ArrowButton";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { absoluteUrl, ogImages, pageJsonLd } from "@/lib/seo";
 import { EnergyCheckInTool } from "@/components/tools/EnergyCheckInTool";
 import { SoftWeekPlannerTool } from "@/components/tools/SoftWeekPlannerTool";
 import { WordsForHelpTool } from "@/components/tools/WordsForHelpTool";
@@ -26,6 +28,14 @@ export const generateMetadata = async ({ params }: ToolPageProps): Promise<Metad
     title: `${tool.title} | Routine Ready Toolkit`,
     description: tool.desc,
     alternates: { canonical: `/toolkit/${slug}` },
+    openGraph: {
+      title: `${tool.title} | Routine Ready Toolkit | DK Jonah`,
+      description: tool.desc,
+      url: absoluteUrl(`/toolkit/${slug}`),
+      siteName: "DK Jonah",
+      type: "website",
+      images: ogImages,
+    },
   };
 };
 
@@ -67,6 +77,18 @@ export default async function ToolPage({ params }: ToolPageProps) {
 
   return (
     <>
+      <JsonLd
+        data={pageJsonLd({
+          name: tool.title,
+          description: tool.desc,
+          path: `/toolkit/${slug}`,
+          crumbs: [
+            { name: "Toolkit", path: "/toolkit" },
+            { name: tool.title, path: `/toolkit/${slug}` },
+          ],
+        })}
+      />
+
       {/* Tool hero: a black band with the name and its line */}
       <section className="on-black dotted pb-16 pt-32 md:pb-20 md:pt-40">
         <div className="container-shell grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-16">
@@ -92,7 +114,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
         <div className="container-shell grid gap-10 lg:grid-cols-[0.35fr_1fr] lg:gap-16">
           <div>
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-dove-tint lg:sticky lg:top-32">
-              <Image alt="" className="object-cover" fill sizes="(min-width: 1024px) 30vw, 100vw" src={tool.image} />
+              <Image alt={`${tool.title}, a pencil sketch`} className="object-cover" fill sizes="(min-width: 1024px) 30vw, 100vw" src={tool.image} />
             </div>
           </div>
           <div>

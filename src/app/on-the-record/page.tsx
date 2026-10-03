@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ogImages } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ogImages, pageJsonLd } from "@/lib/seo";
 import {
   AskedBackSection,
   ConversationsSection,
@@ -30,6 +31,7 @@ export const metadata: Metadata = {
 export default function OnTheRecordPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd({ name: "On the Record", description: onTheRecordSEO.description, path: "/on-the-record", type: "WebPage" })} />
       {/* 1. Hero */}
       <RecordHero />
 

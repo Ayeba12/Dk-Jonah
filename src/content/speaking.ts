@@ -4,7 +4,7 @@
 export const SPEAKING_EMAIL = "hello@dkjonah.com";
 
 export const speakingSEO = {
-  title: "Speaking",
+  title: "Speaking: talks, workshops and training where complex ideas need clear language",
   description:
     "DK Jonah speaks where complex ideas need clear language: goals your real life can hold, lived experience and advocacy, ownership and growth, and faith without performance.",
 };

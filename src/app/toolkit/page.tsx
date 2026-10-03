@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ogImages } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ogImages, pageJsonLd } from "@/lib/seo";
 import {
   DayWithToolkitSection,
   GoDeeperSection,
@@ -30,6 +31,7 @@ export const metadata: Metadata = {
 export default function ToolkitPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd({ name: "Toolkit", description: toolkitSEO.description, path: "/toolkit", type: "CollectionPage" })} />
       {/* 1. Hero */}
       <ToolkitHero />
 

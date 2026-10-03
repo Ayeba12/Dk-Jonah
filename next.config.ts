@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
       { source: "/projects/words-for-asking-for-help", destination: "/toolkit/words-for-asking-for-help", permanent: true },
       { source: "/projects/rest-without-guilt-prompts", destination: "/toolkit/rest-without-guilt-prompts", permanent: true },
       { source: "/projects/:slug", destination: "/toolkit", permanent: true },
+      // The old contact page. Email and every platform now live on Find me.
+      { source: "/contact", destination: "/find-me", permanent: true },
     ];
   },
   turbopack: {

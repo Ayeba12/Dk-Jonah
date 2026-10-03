@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ogImages } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { absoluteUrl, ogImages, pageJsonLd } from "@/lib/seo";
 import { ReflectionsBand, ReflectionsSignUp } from "@/components/sections/ReflectionsClosers";
 import { reflectionsHeroContent as hero, reflectionsSEO } from "@/content/reflections";
 import { getWPArticles } from "@/lib/wordpress";
@@ -24,8 +25,29 @@ export const metadata: Metadata = {
 export default async function ArticlesPage() {
   const articles = await getWPArticles();
 
+  const jsonLd = pageJsonLd({
+    name: "Reflections",
+    description: reflectionsSEO.description,
+    path: "/articles",
+    type: "CollectionPage",
+    crumbs: [{ name: "Writing", path: "/articles" }],
+    extra: [
+      {
+        "@type": "ItemList",
+        name: "Essays by DK Jonah",
+        itemListElement: articles.map((article, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: article.title,
+          url: absoluteUrl(`/articles/${article.slug}`),
+        })),
+      },
+    ],
+  });
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       {/* 1. The journal: heading column on the left, the grid of essays on the right. */}
       <section className="paper pb-20 pt-32 md:pb-28 md:pt-40">
         <div className="container-shell grid gap-12 lg:grid-cols-[0.32fr_1fr] lg:gap-10">

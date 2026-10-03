@@ -26,7 +26,7 @@ export const RolesAndHowIWorkSection = () => (
                 }`}
               >
                 <Image
-                  alt=""
+                  alt={`${role.title}, a pencil sketch`}
                   className="scale-[1.12] object-cover"
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"

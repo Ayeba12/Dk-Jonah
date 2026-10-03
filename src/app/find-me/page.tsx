@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ogImages } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ogImages, pageJsonLd } from "@/lib/seo";
 import {
   FindMeHero,
   JoinLiveSection,
@@ -29,6 +30,7 @@ export const metadata: Metadata = {
 export default function FindMePage() {
   return (
     <>
+      <JsonLd data={pageJsonLd({ name: "Find me", description: findMeSEO.description, path: "/find-me", type: "WebPage" })} />
       {/* 1. Hero */}
       <FindMeHero />
 

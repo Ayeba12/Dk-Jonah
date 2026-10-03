@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ogImages } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ogImages, pageJsonLd } from "@/lib/seo";
 import {
   AdvocacyHero,
   AdvocacySection,
@@ -29,6 +30,7 @@ export const metadata: Metadata = {
 export default function AdvocacyFaithPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd({ name: "Advocacy and Faith", description: advocacySEO.description, path: "/advocacy-faith", type: "WebPage" })} />
       {/* 1. Hero */}
       <AdvocacyHero />
 

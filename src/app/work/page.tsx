@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ogImages } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ogImages, pageJsonLd } from "@/lib/seo";
 import {
   NotSureSection,
   TeamsSection,
@@ -28,6 +29,7 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd({ name: "Work with me", description: workSEO.description, path: "/work", type: "WebPage" })} />
       {/* 1. Hero */}
       <WorkHero />
 

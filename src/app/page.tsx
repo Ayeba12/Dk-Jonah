@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ogImages, twitterImages } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ogImages, pageJsonLd, twitterImages } from "@/lib/seo";
 import { HomeHero } from "@/components/sections/HomeHero";
 import { RecognitionAndWhy } from "@/components/sections/RecognitionAndWhy";
 import { YourGuideSection } from "@/components/sections/YourGuideSection";
@@ -13,9 +14,10 @@ import { homeSEO } from "@/content/home";
 import { getWPArticles } from "@/lib/wordpress";
 
 export const metadata: Metadata = {
-  title: homeSEO.title,
+  title: { absolute: homeSEO.title },
   description: homeSEO.description,
   keywords: homeSEO.keywords,
+  alternates: { canonical: "/" },
   openGraph: {
     title: homeSEO.title,
     description: homeSEO.description,
@@ -43,6 +45,8 @@ export default async function Home() {
 
   return (
     <>
+      <JsonLd data={pageJsonLd({ name: homeSEO.title, description: homeSEO.description, path: "/", crumbs: [] })} />
+
       {/* 1. Hero: its film stays pinned while the page scrolls over it */}
       <HomeHero />
 

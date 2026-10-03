@@ -3,7 +3,7 @@
 // wording locked on the FAQ and Quiet Focus pages.
 
 export const reflectionsSEO = {
-  title: "Reflections",
+  title: "Reflections: essays on invisible illness, neurodiversity, faith and rest",
   description:
     "Essays from DK Jonah on invisible illness, neurodiversity, faith, rest and the rules we never chose. Written from the inside, so you can find words for what you have been carrying.",
 };

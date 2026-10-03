@@ -2,7 +2,7 @@
 // Recording links are still to come from DK. Each item has an `href` slot; null means no link yet.
 
 export const onTheRecordSEO = {
-  title: "On the Record",
+  title: "On the Record: shows, interviews, stages and summits since 2011",
   description:
     "The shows DK Jonah hosts, the interviews, the stages and summits, and the institutions that have featured her voice. Rooms, studios and stages since 2011.",
 };

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { CookieBanner } from "@/components/ui/CookieBanner";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { metadataAuthors, siteGraphJsonLd } from "@/lib/seo";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -22,6 +24,9 @@ export const metadata: Metadata = {
     "Routine Ready",
     "Quiet Focus",
   ],
+  authors: metadataAuthors,
+  creator: "DK Jonah",
+  publisher: "DK Jonah",
   alternates: {
     canonical: "./",
   },
@@ -68,6 +73,8 @@ export default function RootLayout({
   return (
     <html lang="en-GB">
       <body className="antialiased">
+        {/* Who DK is, the organisation and the site, described once for search engines and AI assistants. */}
+        <JsonLd data={siteGraphJsonLd} />
         <SiteHeader />
         {/* No overflow clipping here: it would break the sticky headings on About. */}
         <main className="min-h-screen">{children}</main>

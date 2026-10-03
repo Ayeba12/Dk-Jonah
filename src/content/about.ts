@@ -1,5 +1,5 @@
 export const aboutSEO = {
-  title: "About DK Jonah | Knowledge Architect, Speaker & Advocate",
+  title: "About: Knowledge Architect, Speaker, Coach and Advocate",
   description:
     "I am DK Jonah, a Nigerian writer, speaker and coach. I help people set goals they can keep, make decisions that give them peace, and build a life that fits who they really are.",
   keywords: [

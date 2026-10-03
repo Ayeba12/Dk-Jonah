@@ -130,7 +130,7 @@ export const InteractiveToolsSection = () => (
             <Link className="group block" href={`/toolkit/${tool.slug}`}>
               <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-dove-tint">
                 <Image
-                  alt=""
+                  alt={`${tool.title}, a pencil sketch`}
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                   fill
                   sizes="(min-width: 768px) 50vw, 100vw"

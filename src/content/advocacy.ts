@@ -4,7 +4,7 @@
 const LINK_TO_COME = "/find-me";
 
 export const advocacySEO = {
-  title: "Advocacy and Faith",
+  title: "Advocacy and Faith: invisible illness, late diagnosis and the right to be heard",
   description:
     "DK Jonah uses her voice, her radio work and her faith to bring hidden things into the open: invisible illness, late diagnosis, unanswered prayer, and the right to be heard.",
 };

@@ -5,7 +5,7 @@ const EMAIL = "hello@dkjonah.com";
 const LINK_TO_COME = "/find-me";
 
 export const workSEO = {
-  title: "Work with me",
+  title: "Work with me: coaching, The Autonomy Code and Knowledge Architecture",
   description:
     "Every way to work with DK Jonah: the Annual Reset, The Autonomy Code, Knowledge Architecture, the Communication Clarity Audit, the Routine Ready Toolkit and speaking.",
 };

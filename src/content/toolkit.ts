@@ -2,7 +2,7 @@
 // Page address /toolkit replaces /projects. Page name: The Routine Ready Toolkit.
 
 export const toolkitSEO = {
-  title: "Toolkit",
+  title: "The Routine Ready Toolkit: five-minute tools to pause before you push",
   description:
     "The Routine Ready Toolkit: everyday tools to help you pause before you push, in five minutes or less. PACE Energy Check, Mindless Flow, HAWFA Check-In, Decision for Now, PACE Week Planner and more.",
 };

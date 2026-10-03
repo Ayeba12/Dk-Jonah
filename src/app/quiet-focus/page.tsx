@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ogImages } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ogImages, pageJsonLd } from "@/lib/seo";
 import {
   ComeAsYouAreSection,
   QuietFocusHero,
@@ -28,6 +29,7 @@ export const metadata: Metadata = {
 export default function QuietFocusPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd({ name: "Quiet Focus", description: quietFocusSEO.description, path: "/quiet-focus", type: "WebPage" })} />
       {/* 1. Hero */}
       <QuietFocusHero />
 

@@ -100,6 +100,7 @@ export const getWPArticles = cache(async (): Promise<Article[]> => {
             slug
             title
             date
+            modified
             excerpt
             content
             featuredImage {
@@ -133,6 +134,7 @@ export const getWPArticles = cache(async (): Promise<Article[]> => {
           month: "long",
           year: "numeric",
         }),
+        modified: post.modified || undefined,
         readTime: calculateReadingTime(post.content || ""),
         image: post.featuredImage?.node?.sourceUrl || "/assets/avenzor/images/quiet-moment-window.webp",
         excerpt: post.excerpt?.replace(/<[^>]*>/g, "") || "",
@@ -160,6 +162,7 @@ export const getWPArticle = cache(async (slug: string): Promise<Article | null> 
           slug
           title
           date
+          modified
           content
           excerpt
           featuredImage {
@@ -197,6 +200,7 @@ export const getWPArticle = cache(async (slug: string): Promise<Article | null> 
         month: "long",
         year: "numeric",
       }),
+      modified: post.modified || undefined,
       readTime: calculateReadingTime(post.content || ""),
       image: post.featuredImage?.node?.sourceUrl || "/assets/avenzor/images/quiet-moment-window.webp",
       excerpt: post.excerpt?.replace(/<[^>]*>/g, "") || "",

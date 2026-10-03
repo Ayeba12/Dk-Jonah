@@ -5,7 +5,7 @@ export const QUIET_FOCUS_EMAIL = "hello@dkjonah.com";
 export const TIKTOK_URL = "https://tiktok.com/@dkjonah";
 
 export const quietFocusSEO = {
-  title: "Quiet Focus",
+  title: "Quiet Focus: short letters, one idea at a time",
   description:
     "Quiet Focus is the quiet you need to do what needs to be done. Short letters from DK Jonah, one idea at a time. Nothing you have to keep up with.",
 };

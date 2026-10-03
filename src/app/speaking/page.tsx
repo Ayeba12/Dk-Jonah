@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ogImages } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ogImages, pageJsonLd } from "@/lib/seo";
 import {
   FormatsSection,
   InTheirWordsSection,
@@ -30,6 +31,7 @@ export const metadata: Metadata = {
 export default function SpeakingPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd({ name: "Speaking", description: speakingSEO.description, path: "/speaking", type: "WebPage" })} />
       {/* 1. Hero */}
       <SpeakingHero />
 

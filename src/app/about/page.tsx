@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ogImages, twitterImages } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ogImages, pageJsonLd, twitterImages } from "@/lib/seo";
 import { AboutHero } from "@/components/sections/AboutHero";
 import { WhereMyWorkBeginsSection } from "@/components/sections/WhereMyWorkBeginsSection";
 import { MyStorySection } from "@/components/sections/MyStorySection";
@@ -32,30 +33,9 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "DK Jonah",
-    "url": "https://www.dkjonah.com/about",
-    "image": "https://www.dkjonah.com/assets/avenzor/images/website-logo.png",
-    "description":
-      "Nigerian writer, speaker and coach helping people set goals they can keep and build structure that fits their real life.",
-    "jobTitle": "Knowledge Architect, Speaker & Coach",
-    "knowsAbout": [
-      "Chronic Illness Advocacy",
-      "Neurodiversity",
-      "Restorative Structure",
-      "Lived Experience Leadership",
-      "Faith Without Performance"
-    ]
-  };
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={pageJsonLd({ name: "About DK Jonah", description: aboutSEO.description, path: "/about", type: "ProfilePage", crumbs: [{ name: "About", path: "/about" }] })} />
       {/* 1. Hero */}
       <AboutHero />
 

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowButton } from "@/components/ui/ArrowButton";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { absoluteUrl, ogImages, pageJsonLd } from "@/lib/seo";
 import { getLegalPage, legalPages } from "@/content/legal";
 import { profile } from "@/content/portfolio";
 
@@ -23,6 +25,14 @@ export const generateMetadata = async ({ params }: LegalPageProps): Promise<Meta
     title: page.title,
     description: page.intro,
     alternates: { canonical: `/legal/${slug}` },
+    openGraph: {
+      title: `${page.title} | DK Jonah`,
+      description: page.intro,
+      url: absoluteUrl(`/legal/${slug}`),
+      siteName: "DK Jonah",
+      type: "website",
+      images: ogImages,
+    },
   };
 };
 
@@ -49,6 +59,8 @@ export default async function LegalPage({ params }: LegalPageProps) {
 
   return (
     <>
+      <JsonLd data={pageJsonLd({ name: page.title, description: page.intro, path: `/legal/${slug}`, crumbs: [{ name: page.title, path: `/legal/${slug}` }] })} />
+
       {/* 1. Title. Words only, the gold thread beneath. */}
       <section className="paper pb-10 pt-32 md:pb-14 md:pt-40">
         <div className="container-shell">

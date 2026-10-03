@@ -4,7 +4,7 @@
 export const FIND_ME_EMAIL = "hello@dkjonah.com";
 
 export const findMeSEO = {
-  title: "Find me",
+  title: "Find me: every project, platform and the shop in one place",
   description:
     "Everywhere DK Jonah is, in one place: The Autonomy Code, The NO GraGra Practice, Amplify the Gospel, Quiet Focus, Substack, Leverage, The Curious Creative and the shop.",
 };

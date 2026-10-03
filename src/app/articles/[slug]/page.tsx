@@ -3,10 +3,12 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ReflectionsBand, ReflectionsSignUp } from "@/components/sections/ReflectionsClosers";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import type { Article } from "@/content/articles";
 import { reflectionsHeroContent } from "@/content/reflections";
+import { absoluteUrl, breadcrumbJsonLd, ORGANIZATION_ID, PERSON_ID, WEBSITE_ID } from "@/lib/seo";
 import { getWPArticle, getWPArticles } from "@/lib/wordpress";
 
 type ArticlePageProps = {
@@ -26,8 +28,12 @@ export const generateMetadata = async ({ params }: ArticlePageProps): Promise<Me
     return { title: "Reflection" };
   }
 
+  const published = Date.parse(article.date);
+  const modified = article.modified ? Date.parse(article.modified) : Number.NaN;
+  const cover = absoluteUrl(article.image);
+
   return {
-    title: `${article.title} | Reflections`,
+    title: article.title,
     description: article.excerpt,
     alternates: {
       canonical: `/articles/${slug}`,
@@ -35,12 +41,31 @@ export const generateMetadata = async ({ params }: ArticlePageProps): Promise<Me
     openGraph: {
       title: article.title,
       description: article.excerpt,
-      url: `https://www.dkjonah.com/articles/${slug}`,
+      url: absoluteUrl(`/articles/${slug}`),
       siteName: "DK Jonah",
+      locale: "en_GB",
       type: "article",
-      images: [{ url: article.image, alt: article.title }],
+      publishedTime: Number.isNaN(published) ? undefined : isoDay(published),
+      modifiedTime: Number.isNaN(modified) ? undefined : isoDay(modified),
+      authors: [absoluteUrl("/about")],
+      section: article.categories?.[0]?.name,
+      tags: article.tags?.map((tag) => tag.name),
+      images: [{ url: cover, alt: article.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [cover],
     },
   };
+};
+
+// A calendar day as YYYY-MM-DD from a local timestamp. toISOString would shift midnight to the day before.
+const isoDay = (stamp: number) => {
+  const d = new Date(stamp);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 };
 
 const tagOf = (article: Article) => article.categories?.[0]?.name ?? reflectionsHeroContent.defaultTag;
@@ -83,37 +108,52 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     (item, index, list): item is Article => !!item && item.slug !== slug && list.findIndex((x) => x?.slug === item.slug) === index,
   ).slice(0, 2);
 
-  let isoPublishDate = new Date().toISOString().split("T")[0];
   const parsed = Date.parse(article.date);
-  if (!isNaN(parsed)) {
-    isoPublishDate = new Date(parsed).toISOString().split("T")[0];
-  }
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.title,
-    image: article.image,
-    datePublished: isoPublishDate,
-    author: { "@type": "Person", name: "DK Jonah", url: "https://www.dkjonah.com/about" },
-    publisher: {
-      "@type": "Organization",
-      name: "DK Jonah",
-      logo: { "@type": "ImageObject", url: "https://www.dkjonah.com/assets/avenzor/images/website-logo.png" },
-    },
-    description: article.excerpt,
-  };
+  const isoPublishDate = Number.isNaN(parsed) ? undefined : isoDay(parsed);
 
   const bodyHtml = Array.isArray(article.body) ? article.body.map((p) => `<p>${p}</p>`).join("") : article.body;
 
+  // Structured data: the essay, who wrote it, and where it sits on the site.
+  const url = absoluteUrl(`/articles/${slug}`);
+  const modifiedStamp = article.modified ? Date.parse(article.modified) : Number.NaN;
+  const isoModifiedDate = Number.isNaN(modifiedStamp) ? isoPublishDate : isoDay(modifiedStamp);
+  const plainBody = bodyHtml.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `${url}#article`,
+        headline: article.title,
+        description: article.excerpt,
+        image: absoluteUrl(article.image),
+        url,
+        mainEntityOfPage: { "@type": "WebPage", "@id": url },
+        ...(isoPublishDate ? { datePublished: isoPublishDate } : {}),
+        ...(isoModifiedDate ? { dateModified: isoModifiedDate } : {}),
+        author: { "@id": PERSON_ID },
+        publisher: { "@id": ORGANIZATION_ID },
+        isPartOf: { "@id": WEBSITE_ID },
+        inLanguage: "en-GB",
+        articleSection: tagOf(article),
+        ...(article.tags?.length ? { keywords: article.tags.map((tag) => tag.name).join(", ") } : {}),
+        ...(plainBody ? { wordCount: plainBody.split(" ").length } : {}),
+      },
+      breadcrumbJsonLd([
+        { name: "Writing", path: "/articles" },
+        { name: article.title, path: `/articles/${slug}` },
+      ]),
+    ],
+  };
+
   return (
     <article>
-      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} type="application/ld+json" />
+      <JsonLd data={jsonLd} />
 
       {/* 1. Cover. The picture fills the top of the page, the title sits on it. */}
       <section className="relative isolate flex min-h-[78vh] items-end overflow-hidden bg-black text-ivory md:min-h-[86vh]">
         <Image
-          alt=""
+          alt={`Cover sketch for ${article.title}`}
           className="object-cover grayscale"
           fill
           priority
@@ -187,7 +227,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               dangerouslySetInnerHTML={{ __html: bodyHtml }}
             />
             <div className="mt-14 border-t border-black/15 pt-8">
-              <p className="text-sm text-black/55">Written by DK Jonah</p>
+              <p className="text-sm text-black/55">
+                Written by{" "}
+                <Link className="underline decoration-black/30 underline-offset-4 transition-colors hover:text-gold-shadow" href="/about" rel="author">
+                  DK Jonah
+                </Link>
+              </p>
             </div>
           </ScrollReveal>
         </div>
