@@ -37,8 +37,8 @@ export const recognitionContent = {
     "Nobody else can see it, so it rarely gets named. I call it hidden captivity. This is where the work of coming back to yourself begins.",
   ],
   emphasis: "hidden captivity",
-  // The hidden captivity article is still to be written. Points at the archive until it lands.
-  articleLink: { label: "Read the hidden captivity article", href: "/articles/three-levels-of-captivity" },
+  // The short explainer, published 3 October 2026. It links on to Three Levels of Captivity for the full structure.
+  articleLink: { label: "Read the hidden captivity article", href: "/articles/what-is-hidden-captivity" },
 };
 
 // Section 3

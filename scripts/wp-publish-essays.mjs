@@ -23,6 +23,7 @@ const covers = {
   "pacing-for-people-who-cannot-afford-to-stop": { file: "essay-pacing-kitchen", alt: "A woman pauses at her kitchen table before the day begins, a pencil sketch" },
   "faith-without-performance": { file: "essay-faith-pew", alt: "A woman sits alone in an empty church pew, light from a tall window, a pencil sketch" },
   "how-to-ask-for-help-when-nobody-can-see-what-you-carry": { file: "essay-help-meeting", alt: "Two colleagues talk calmly across a small table, a pencil sketch" },
+  "what-is-hidden-captivity": { file: "essay-hidden-captivity-door", alt: "A woman at her desk after hours looks up, the office door open behind her with the key in the lock, a pencil sketch" },
 };
 
 for (const arg of process.argv.slice(2)) {
