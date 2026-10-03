@@ -84,12 +84,11 @@ export const footerGroups: FooterGroup[] = [
   },
 ];
 
-// Profiles confirmed from search results on 3 October 2026 (X, Facebook and LinkedIn were placeholders before).
+// The three profiles DK confirmed on 3 October 2026, without tracking parameters.
+// X (@dk_jonah) and TikTok are left out until DK asks for them.
 export const socialLinks: NavLink[] = [
-  { label: "Instagram", href: "https://instagram.com/dkjonah" },
-  { label: "X", href: "https://x.com/dk_jonah" },
+  { label: "Instagram", href: "https://www.instagram.com/dkjonah" },
   { label: "Facebook", href: "https://www.facebook.com/missdkjonah" },
-  // TikTok removed 3 October 2026: @dkjonah does not exist. Add it back once DK confirms her handle.
   { label: "LinkedIn", href: "https://www.linkedin.com/in/dk-jonah-8527112b" },
 ];
 
