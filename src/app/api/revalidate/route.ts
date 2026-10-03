@@ -26,6 +26,9 @@ const handle = async (request: Request) => {
 
   // Everything that reads from WordPress: the home essays block, the archive, essay pages, FAQ and the sitemap.
   revalidatePath("/", "layout");
+  // The sitemap and llms.txt are prerendered on their own and are not covered by the layout refresh.
+  revalidatePath("/sitemap.xml");
+  revalidatePath("/llms.txt");
 
   // Fresh list after revalidation, so a new essay is included.
   let indexNow: Awaited<ReturnType<typeof notifyIndexNow>> | { ok: false; message: string } = { ok: false, message: "Skipped." };

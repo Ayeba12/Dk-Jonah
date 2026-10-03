@@ -4,6 +4,9 @@ import { tools } from "@/content/toolkit";
 import { legalPages } from "@/content/legal";
 import { SITE_URL } from "@/lib/seo";
 
+// Rebuilt at most hourly, and straight away when WordPress pings /api/revalidate.
+export const revalidate = 3600;
+
 // Pages are listed without a last-modified date unless we really know it (the essays). A date that
 // changes on every build is noise, and search engines learn to ignore it.
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
