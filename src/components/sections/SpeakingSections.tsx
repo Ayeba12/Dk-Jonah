@@ -3,12 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SpeakingEnquiryForm } from "@/components/forms/SpeakingEnquiryForm";
+import { CopyButton } from "@/components/tools/ToolPrimitives";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 import { CountUp } from "@/components/ui/CountUp";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import {
   SPEAKING_EMAIL,
   formatsContent,
+  speakerBioContent,
   inTheirWordsContent,
   inviteContent,
   roomsContent,
@@ -315,6 +317,16 @@ export const InviteSection = () => (
               {SPEAKING_EMAIL}
             </a>
           </p>
+
+          {/* The short bio organisers can lift straight into a programme. */}
+          <div className="mt-12 max-w-md border-t border-ivory/15 pt-8">
+            <p className="eyebrow eyebrow-on-black">{speakerBioContent.eyebrow}</p>
+            <p className="mt-4 text-sm text-ivory/60">{speakerBioContent.lead}</p>
+            <p className="mt-4 text-base leading-relaxed text-ivory/85">{speakerBioContent.bio}</p>
+            <div className="mt-6">
+              <CopyButton label={speakerBioContent.copyLabel} text={speakerBioContent.bio} />
+            </div>
+          </div>
         </div>
       </ScrollReveal>
       <ScrollReveal delay={0.1}>

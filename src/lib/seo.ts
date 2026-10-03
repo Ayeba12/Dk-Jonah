@@ -4,6 +4,7 @@ import type { FaqItem } from "@/content/faq";
 import { homeSEO } from "@/content/home";
 import { expertiseTopics, keywordsFor, siteKeywords } from "@/content/keywords";
 import { socialLinks } from "@/content/navigation";
+import { speakerBioContent } from "@/content/speaking";
 
 export const SITE_URL = "https://www.dkjonah.com";
 export const SITE_NAME = "DK Jonah";
@@ -40,8 +41,7 @@ export const personJsonLd = {
   name: "DK Jonah",
   url: `${SITE_URL}/about`,
   image: PORTRAIT_URL,
-  description:
-    "Nigerian writer, speaker and coach helping people set goals they can keep and build structure that fits their real life.",
+  description: speakerBioContent.bio,
   jobTitle: "Knowledge Architect, Speaker and Coach",
   email: CONTACT_EMAIL,
   nationality: { "@type": "Country", name: "Nigeria" },

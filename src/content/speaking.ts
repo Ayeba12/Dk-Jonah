@@ -191,6 +191,15 @@ export const inTheirWordsContent = {
   ],
 };
 
+// Section 8a · About the speaker. The short third-person bio, approved 3 October 2026, for programmes,
+// introductions and the Person record search engines read. Every sentence comes from About, Speaking and Home.
+export const speakerBioContent = {
+  eyebrow: "About the speaker",
+  lead: "A short bio for your programme or introduction.",
+  bio: "DK Jonah is a Nigerian writer, speaker and coach. She helps people set goals they can keep, make decisions that give them peace, and build a life that fits who they really are. She speaks where complex ideas need clear language: goals your real life can hold, living with long-term illness and neurodiversity, being heard inside health systems, and faith without performance. A Knowledge Architect and the author of two books, she has trained more than 300 people and mentored 150.",
+  copyLabel: "Copy bio",
+};
+
 export const inviteContent = {
   anchor: "enquiry",
   headline: "Start with the room you are trying to change",

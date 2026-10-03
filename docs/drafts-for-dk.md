@@ -1,5 +1,7 @@
 # Drafts for DK's review
 
+**Update, 3 October 2026, later the same day.** Nate reviewed and approved the four FAQ answers; they are published and live on /faq. The short bio was chosen and now sits on the Speaking page beside the enquiry form, with a copy button, and is the description in the Person record. The WordPress draft page "Speaker bio (draft for DK)" is no longer needed and can be deleted in WordPress. DK can still change any of this in WordPress (the answers) or by asking (the bio).
+
 Written 3 October 2026 from the search intent map. Nothing here is live. The four FAQ answers sit in WordPress as draft pages under the group "Chronic illness, neurodiversity, faith and work"; publishing one in WordPress puts it on the FAQ page within a minute. The speaker bio is a draft page in WordPress too, and goes into the Speaking page code once DK has settled the words.
 
 Each draft says which sentences are already locked elsewhere on the site and which are new. New sentences are DK's to keep, change or cut.
