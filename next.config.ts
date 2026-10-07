@@ -5,6 +5,13 @@ const nextConfig: NextConfig = {
   async redirects() {
     // The old /projects routes became /toolkit, with the tools renamed.
     return [
+      // The Vercel address serves a copy of the site. Send it to the real domain so there is one copy to index.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "dk-jonah.vercel.app" }],
+        destination: "https://www.dkjonah.com/:path*",
+        permanent: true,
+      },
       { source: "/projects", destination: "/toolkit", permanent: true },
       { source: "/projects/energy-check-in", destination: "/toolkit/pace-energy-check", permanent: true },
       { source: "/projects/soft-week-planner", destination: "/toolkit/pace-week-planner", permanent: true },
