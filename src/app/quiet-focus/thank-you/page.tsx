@@ -1,74 +1,54 @@
 import type { Metadata } from "next";
-import { ArrowButton } from "@/components/ui/ArrowButton";
+import Image from "next/image";
+import Link from "next/link";
 import { thankYouContent as content } from "@/content/quiet-focus";
 
 // The thank-you page is set to noindex, as the working document asks.
 export const metadata: Metadata = {
-  title: "You are in | Quiet Focus",
+  title: "You’re in | Quiet Focus",
   robots: { index: false, follow: false },
 };
 
+const PICTURE = "/assets/avenzor/images/quiet-focus-thank-you.webp";
+const LOGO = "/assets/avenzor/images/quiet-focus-logo.png";
+
+// One scene: the bench sketch fills the page, the words sit in the open paper on the left,
+// as in DK's layout. On small screens the sketch sits beneath the words instead of behind them.
 export default function QuietFocusThankYouPage() {
   return (
-    <>
-      <section className="on-black dotted pb-16 pt-32 md:pb-24 md:pt-40">
-        <div className="container-shell max-w-4xl">
-          <p className="eyebrow eyebrow-on-black">{content.eyebrow}</p>
-          <h1 className="mt-8 font-display text-5xl font-bold uppercase leading-[0.98] text-ivory sm:text-6xl lg:text-[5.5rem]">
+    <section className="relative isolate min-h-svh overflow-hidden bg-ivory">
+      {/* The sketch. On large screens it is the whole background; the open paper on its left holds the words. */}
+      <div className="absolute inset-0 hidden lg:block">
+        <Image alt="" className="object-cover object-right" fill priority sizes="100vw" src={PICTURE} unoptimized />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-ivory via-ivory/70 to-transparent lg:via-40%" />
+      </div>
+
+      <div className="container-shell relative flex min-h-svh flex-col justify-center pb-16 pt-32 md:pt-40 lg:pb-24">
+        <div className="max-w-xl">
+          <Image alt={content.logoAlt} className="h-auto w-56 md:w-72" height={191} priority src={LOGO} unoptimized width={900} />
+
+          <h1 className="mt-10 font-display text-5xl font-medium leading-[1.02] text-black sm:text-6xl lg:text-[4.5rem]">
             {content.headline}
           </h1>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-ivory/80">{content.body}</p>
-          <p className="mt-6 font-display text-2xl font-semibold text-champagne md:text-3xl">{content.nothingElse}</p>
-          <p className="mt-4 max-w-xl text-lg leading-relaxed text-ivory/80">{content.letterLine}</p>
-        </div>
-      </section>
 
-      <section className="paper section-padding">
-        <div className="container-shell grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-          <div>
-            <h2 className="font-display text-3xl font-bold uppercase leading-[1.02] sm:text-4xl lg:sticky lg:top-32 lg:text-[3rem]">
-              {content.whileHereLabel}
-            </h2>
-          </div>
-          <div>
-            <ul className="divide-y divide-black/15 border-y border-black/15">
-              {content.whileHere.map((item) => (
-                <li className="py-7" key={item.lead}>
-                  <p className="text-lg leading-relaxed text-black/75">
-                    <strong className="font-semibold text-black">{item.lead}</strong>
-                    {item.rest}
-                  </p>
-                  <div className="mt-4">
-                    <ArrowButton href={item.href} size="sm" variant="dark">
-                      {item.cta}
-                    </ArrowButton>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-6 text-sm text-black/60">{content.noRush}</p>
-          </div>
-        </div>
-      </section>
+          <p className="mt-8 max-w-lg text-lg leading-relaxed text-black/80 md:text-xl">{content.body}</p>
+          <p className="mt-6 max-w-lg text-lg leading-relaxed text-black/80 md:text-xl">{content.closing}</p>
 
-      <section className="section-padding bg-dove-tint">
-        <div className="container-shell grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-          <div>
-            <h2 className="font-display text-3xl font-bold uppercase leading-[1.02] sm:text-4xl lg:text-[3rem]">
-              {content.questionLabel}
-            </h2>
-          </div>
-          <div>
-            <p className="font-display text-2xl font-medium leading-snug md:text-3xl">{content.question}</p>
-            <div className="mt-6">
-              <ArrowButton href={content.questionCta.href} variant="dark">
-                {content.questionCta.label}
-              </ArrowButton>
-            </div>
-            <p className="mt-10 max-w-xl text-sm leading-relaxed text-black/60">{content.closing}</p>
-          </div>
+          <p className="mt-10 font-display text-xl font-medium text-black">{content.signature}</p>
+
+          <Link
+            className="mt-12 inline-block text-sm text-black/60 underline decoration-black/30 underline-offset-4 transition-colors hover:text-gold-shadow"
+            href={content.back.href}
+          >
+            {content.back.label}
+          </Link>
         </div>
-      </section>
-    </>
+
+        {/* Small screens: the sketch beneath the words, full width, so the picture is still part of the moment. */}
+        <div className="relative mt-14 aspect-[3/2] w-full overflow-hidden rounded-2xl lg:hidden">
+          <Image alt="" className="object-cover object-right" fill sizes="100vw" src={PICTURE} unoptimized />
+        </div>
+      </div>
+    </section>
   );
 }

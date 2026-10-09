@@ -2,7 +2,6 @@
 // Every "Join Quiet Focus" button on the site leads here. "What arrives" matches the Home page word for word.
 
 export const QUIET_FOCUS_EMAIL = "hello@dkjonah.com";
-export const TIKTOK_URL = "https://tiktok.com/@dkjonah";
 
 export const quietFocusSEO = {
   title: "Quiet Focus: short letters, one idea at a time",
@@ -56,37 +55,26 @@ export const signUpContent = {
   anchor: "sign-up",
   headline: "Come in",
   body: "Leave your name and email. The first letter will tell you what to expect.",
-  fields: { firstName: "First name", email: "Email" },
+  fields: {
+    firstName: "First name",
+    email: "Email",
+    countryCode: "Country code",
+    phone: "Phone (optional)",
+    phonePlaceholder: "7700 900123",
+    consent: "I agree to receive email updates and promotions.",
+  },
   button: "Come in",
   underButton: "Not a classroom. Not a stage. Leave whenever you like.",
   privacy: { lead: "Your email stays with me. Read the ", link: "Privacy Policy", href: "/legal/privacy-policy" },
 };
 
+// Thank-you page. Wording from DK, 9 October 2026. The page shows the Quiet Focus wordmark and the bench sketch.
 export const thankYouContent = {
-  eyebrow: "Quiet Focus",
-  headline: "You are in",
-  body: "There is an email on its way to confirm it. Once you have clicked that, you are on the list properly.",
-  nothingElse: "Nothing else will arrive today.",
-  letterLine: "When the letter comes, it will be short, one idea at a time. Nothing you have to keep up with.",
-  whileHereLabel: "While you are here",
-  whileHere: [
-    {
-      lead: "Try the PACE Energy Check.",
-      rest: " Four quick questions and a pace for today.",
-      cta: "Start here",
-      href: "/toolkit/pace-energy-check",
-    },
-    {
-      lead: "The Curious Creative.",
-      rest: " My live sessions on TikTok, where you can work alongside me.",
-      cta: "Find it on TikTok",
-      href: TIKTOK_URL,
-    },
-  ],
-  noRush: "No rush on either.",
-  questionLabel: "One question, if you have thirty seconds",
-  question: "What made you come in? One line is plenty.",
-  questionCta: { label: "Reply by email", href: `mailto:${QUIET_FOCUS_EMAIL}?subject=What made me come in` },
-  // The sending address is still to be confirmed by DK; hello@dkjonah.com stands in for now.
-  closing: `If the confirmation email does not arrive, check your spam or promotions folder, and add ${QUIET_FOCUS_EMAIL} to your contacts so the letters land where you will see them.`,
+  logoAlt: "Quiet Focus",
+  headline: "You’re in.",
+  body: "Check your inbox for a note from me. While you wait, here’s a question to sit with: whose voice is loudest in your decisions right now?",
+  closing: "That’s the kind of thing we do here.",
+  signature: "DK Jonah",
+  back: { label: "Back to the site", href: "/" },
 };
+
