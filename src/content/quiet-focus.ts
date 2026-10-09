@@ -59,6 +59,8 @@ export const signUpContent = {
     firstName: "First name",
     email: "Email",
     countryCode: "Country code",
+    searchCountry: "Search by country or code",
+    noCountryMatch: "No country matches that.",
     phone: "Phone (optional)",
     phonePlaceholder: "7700 900123",
     consent: "I agree to receive email updates and promotions.",

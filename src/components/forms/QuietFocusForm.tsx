@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { CountryCodeSelect } from "@/components/forms/CountryCodeSelect";
 import { ArrowButton } from "@/components/ui/ArrowButton";
-import { DEFAULT_DIAL_ISO, dialCodes, dialFor } from "@/content/dial-codes";
+import { DEFAULT_DIAL_ISO, dialFor } from "@/content/dial-codes";
 import { signUpContent } from "@/content/quiet-focus";
 
 const fieldClass =
@@ -110,26 +111,19 @@ export const QuietFocusForm = () => {
 
       {/* Phone: country code first, then the number. Optional. */}
       <div className="grid gap-7 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <label className="block">
-          <span className={labelClass}>{signUpContent.fields.countryCode}</span>
-          <span className="relative block">
-            <select
-              autoComplete="tel-country-code"
-              className={`${fieldClass} cursor-pointer appearance-none pr-8`}
-              onChange={(event) => setDialIso(event.target.value)}
-              value={dialIso}
-            >
-              {dialCodes.map((country) => (
-                <option key={country.iso} value={country.iso}>
-                  {country.name} ({country.dial})
-                </option>
-              ))}
-            </select>
-            <svg aria-hidden="true" className="pointer-events-none absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-gold-shadow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-            </svg>
+        <div>
+          <span className={labelClass} id="quiet-focus-country-label">
+            {signUpContent.fields.countryCode}
           </span>
-        </label>
+          <CountryCodeSelect
+            className={fieldClass}
+            labelledBy="quiet-focus-country-label"
+            noMatchLabel={signUpContent.fields.noCountryMatch}
+            onChange={setDialIso}
+            searchLabel={signUpContent.fields.searchCountry}
+            value={dialIso}
+          />
+        </div>
         <label className="block">
           <span className={labelClass}>{signUpContent.fields.phone}</span>
           <span className="flex items-baseline gap-2">
